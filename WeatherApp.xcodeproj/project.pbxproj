@@ -10,7 +10,6 @@
 		99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EA5293491A900242D64 /* AppDelegate.swift */; };
 		99B91EA8293491A900242D64 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EA7293491A900242D64 /* SceneDelegate.swift */; };
 		99B91EAA293491A900242D64 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EA9293491A900242D64 /* ViewController.swift */; };
-		99B91EAD293491A900242D64 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B91EAB293491A900242D64 /* Main.storyboard */; };
 		99B91EB0293491A900242D64 /* WeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EAE293491A900242D64 /* WeatherApp.xcdatamodeld */; };
 		99B91EB2293491AA00242D64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B91EB1293491AA00242D64 /* Assets.xcassets */; };
 		99B91EB5293491AA00242D64 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B91EB3293491AA00242D64 /* LaunchScreen.storyboard */; };
@@ -21,7 +20,6 @@
 		99B91EA5293491A900242D64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99B91EA7293491A900242D64 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		99B91EA9293491A900242D64 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		99B91EAC293491A900242D64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		99B91EAF293491A900242D64 /* WeatherApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherApp.xcdatamodel; sourceTree = "<group>"; };
 		99B91EB1293491AA00242D64 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99B91EB4293491AA00242D64 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 				99B91EA5293491A900242D64 /* AppDelegate.swift */,
 				99B91EA7293491A900242D64 /* SceneDelegate.swift */,
 				99B91EA9293491A900242D64 /* ViewController.swift */,
-				99B91EAB293491A900242D64 /* Main.storyboard */,
 				99B91EB1293491AA00242D64 /* Assets.xcassets */,
 				99B91EB3293491AA00242D64 /* LaunchScreen.storyboard */,
 				99B91EB6293491AA00242D64 /* Info.plist */,
@@ -130,7 +127,6 @@
 			files = (
 				99B91EB5293491AA00242D64 /* LaunchScreen.storyboard in Resources */,
 				99B91EB2293491AA00242D64 /* Assets.xcassets in Resources */,
-				99B91EAD293491A900242D64 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,14 +147,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		99B91EAB293491A900242D64 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				99B91EAC293491A900242D64 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		99B91EB3293491AA00242D64 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,11 +282,12 @@
 				DEVELOPMENT_TEAM = K424BZ7XRC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,6 +295,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "maximchik666-gmail.com.WeatherApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -322,11 +314,12 @@
 				DEVELOPMENT_TEAM = K424BZ7XRC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,6 +327,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "maximchik666-gmail.com.WeatherApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
