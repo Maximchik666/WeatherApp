@@ -15,6 +15,8 @@
 		99B91EB5293491AA00242D64 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B91EB3293491AA00242D64 /* LaunchScreen.storyboard */; };
 		99B91EBD2934E9F200242D64 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */; };
 		99B91EBF2934EA5A00242D64 /* InitialSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */; };
+		99B91EC229350C0F00242D64 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 99B91EC129350C0F00242D64 /* TinyConstraints */; };
+		99B91EC429351FEE00242D64 /* CustomUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EC329351FEE00242D64 /* CustomUIElements.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,7 @@
 		99B91EB6293491AA00242D64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSetupViewController.swift; sourceTree = "<group>"; };
+		99B91EC329351FEE00242D64 /* CustomUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElements.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99B91EC229350C0F00242D64 /* TinyConstraints in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +66,7 @@
 			children = (
 				99B91EA5293491A900242D64 /* AppDelegate.swift */,
 				99B91EA7293491A900242D64 /* SceneDelegate.swift */,
+				99B91EC329351FEE00242D64 /* CustomUIElements.swift */,
 				99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */,
 				99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */,
 				99B91EA9293491A900242D64 /* MainScreenViewController.swift */,
@@ -89,6 +94,9 @@
 			dependencies = (
 			);
 			name = WeatherApp;
+			packageProductDependencies = (
+				99B91EC129350C0F00242D64 /* TinyConstraints */,
+			);
 			productName = WeatherApp;
 			productReference = 99B91EA2293491A900242D64 /* WeatherApp.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +125,9 @@
 				Base,
 			);
 			mainGroup = 99B91E99293491A900242D64;
+			packageReferences = (
+				99B91EC029350C0F00242D64 /* XCRemoteSwiftPackageReference "TinyConstraints" */,
+			);
 			productRefGroup = 99B91EA3293491A900242D64 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -145,6 +156,7 @@
 			files = (
 				99B91EB0293491A900242D64 /* WeatherApp.xcdatamodeld in Sources */,
 				99B91EBD2934E9F200242D64 /* WelcomeViewController.swift in Sources */,
+				99B91EC429351FEE00242D64 /* CustomUIElements.swift in Sources */,
 				99B91EBF2934EA5A00242D64 /* InitialSetupViewController.swift in Sources */,
 				99B91EAA293491A900242D64 /* MainScreenViewController.swift in Sources */,
 				99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */,
@@ -366,6 +378,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		99B91EC029350C0F00242D64 /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roberthein/TinyConstraints";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		99B91EC129350C0F00242D64 /* TinyConstraints */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99B91EC029350C0F00242D64 /* XCRemoteSwiftPackageReference "TinyConstraints" */;
+			productName = TinyConstraints;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		99B91EAE293491A900242D64 /* WeatherApp.xcdatamodeld */ = {

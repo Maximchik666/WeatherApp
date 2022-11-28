@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import TinyConstraints
 
 class WelcomeViewController: UIViewController {
     
@@ -18,44 +19,18 @@ class WelcomeViewController: UIViewController {
         return image
     }()
     
-    private lazy var upperTextField: UILabel = {
-        
-        let textField = UILabel()
-        textField.contentMode = .scaleAspectFill
-        textField.font = .systemFont(ofSize: 20, weight: .semibold)
-        textField.text = "Разрешить приложению Weather использовать данные о местоположении вашего устройства."
-        textField.numberOfLines = 0
-        textField.textAlignment = .center
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textColor = .white
-        return textField
-    }()
+    private lazy var upperTextField = CustomTextLabel(
+        text: "Разрешить приложению Weather использовать данные о местоположении вашего устройства.",
+        textColor: .white, fontWeight: .semibold, fontSize: 20)
+
+    private lazy var middleTextField = CustomTextLabel(
+        text: "Чтобы получить более точные прогнозы погоды во время движения или путешествия.",
+        textColor: .white, fontWeight: .regular, fontSize: 18)
     
-    private lazy var middleTextField: UILabel = {
-        
-        let textField = UILabel()
-        textField.contentMode = .scaleAspectFill
-        textField.numberOfLines = 0
-        textField.text = "Чтобы получить более точные прогнозы погоды во время движения или путешествия."
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textAlignment = .center
-        textField.textColor = .white
-        textField.font = .systemFont(ofSize: 18, weight: .regular)
-        return textField
-    }()
-    
-    private lazy var bottomTextField: UILabel = {
-        
-        let textField = UILabel()
-        textField.contentMode = .scaleAspectFill
-        textField.numberOfLines = 0
-        textField.text = "Вы можете изменить свой выбор в любое время из меню приложения."
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textAlignment = .center
-        textField.textColor = .white
-        textField.font = .systemFont(ofSize: 18, weight: .regular)
-        return textField
-    }()
+    private lazy var bottomTextField: UILabel = CustomTextLabel(
+        text: "Вы можете изменить свой выбор в любое время из меню приложения.",
+        textColor: .white, fontWeight: .regular, fontSize: 18)
+       
     
     private lazy var useGeolocationButton: UIButton = {
         
@@ -96,36 +71,32 @@ class WelcomeViewController: UIViewController {
     
     func addingConstraints () {
         
-        NSLayoutConstraint.activate([
+        welcomeImage.top(to: view, offset: 100)
+        welcomeImage.centerX(to: view)
+        welcomeImage.height(240)
+        welcomeImage.width(310)
         
-            welcomeImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            welcomeImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            welcomeImage.heightAnchor.constraint(equalToConstant: 240),
-            welcomeImage.widthAnchor.constraint(equalToConstant: 310),
-            
-            upperTextField.topAnchor.constraint(equalTo: welcomeImage.bottomAnchor, constant: 50),
-            upperTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            upperTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            
-            middleTextField.topAnchor.constraint(equalTo: upperTextField.bottomAnchor, constant: 50),
-            middleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            middleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            
-            bottomTextField.topAnchor.constraint(equalTo: middleTextField.bottomAnchor, constant: 50),
-            bottomTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            bottomTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            
-            useGeolocationButton.topAnchor.constraint(equalTo: bottomTextField.bottomAnchor, constant: 50),
-            useGeolocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            useGeolocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            useGeolocationButton.heightAnchor.constraint(equalToConstant: 40),
-            
-            notUseGeolocationButton.topAnchor.constraint(equalTo: useGeolocationButton.bottomAnchor, constant: 10),
-            notUseGeolocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            notUseGeolocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            notUseGeolocationButton.heightAnchor.constraint(equalToConstant: 40)
-
-        ])
+        upperTextField.topToBottom(of: welcomeImage, offset: 50)
+        upperTextField.leading(to: view, offset: 30)
+        upperTextField.trailing(to: view, offset: -30)
+        
+        middleTextField.topToBottom(of: upperTextField, offset: 50)
+        middleTextField.leading(to: view, offset: 30)
+        middleTextField.trailing(to: view, offset: -30)
+        
+        bottomTextField.topToBottom(of: middleTextField, offset: 50)
+        bottomTextField.leading(to: view, offset: 30)
+        bottomTextField.trailing(to: view, offset: -30)
+        
+        useGeolocationButton.topToBottom(of: bottomTextField, offset: 50)
+        useGeolocationButton.leading(to: view, offset: 30)
+        useGeolocationButton.trailing(to: view, offset: -30)
+        useGeolocationButton.height(40)
+        
+        notUseGeolocationButton.topToBottom(of: useGeolocationButton, offset: 10)
+        notUseGeolocationButton.leading(to: view, offset: 30)
+        notUseGeolocationButton.trailing(to: view, offset: -30)
+        notUseGeolocationButton.height(40)
     }
     
 }
