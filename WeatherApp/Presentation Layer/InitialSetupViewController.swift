@@ -45,7 +45,7 @@ class InitialSetupViewController: UIViewController {
     }()
     
     private lazy var settingsLabel = CustomTextLabel(text: "Настройки", textColor: .black, fontWeight: .bold, fontSize: 20)
-    private lazy var temperatureLabel = CustomTextLabel(text: "Температа", textColor: .systemGray, fontWeight: .regular, fontSize: 18)
+    private lazy var temperatureLabel = CustomTextLabel(text: "Температура", textColor: .systemGray, fontWeight: .regular, fontSize: 18)
     private lazy var windSpeedLabel = CustomTextLabel(text: "Скорость Ветра", textColor: .systemGray, fontWeight: .regular, fontSize: 18)
     private lazy var timeFormatLabel = CustomTextLabel(text: "Cкорость ветра", textColor: .systemGray, fontWeight: .regular, fontSize: 18)
     private lazy var notificationLabel = CustomTextLabel(text: "Уведомления", textColor: .systemGray, fontWeight: .regular, fontSize: 18)

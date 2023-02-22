@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		992200B829393A61005F880C /* CurrentWeatherHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992200B729393A61005F880C /* CurrentWeatherHeader.swift */; };
+		9991FFEE29A682F600240345 /* TodayWeatherHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9991FFED29A682F600240345 /* TodayWeatherHeader.swift */; };
 		99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EA5293491A900242D64 /* AppDelegate.swift */; };
 		99B91EA8293491A900242D64 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EA7293491A900242D64 /* SceneDelegate.swift */; };
 		99B91EAA293491A900242D64 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EA9293491A900242D64 /* MainScreenViewController.swift */; };
@@ -17,9 +19,16 @@
 		99B91EBF2934EA5A00242D64 /* InitialSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */; };
 		99B91EC229350C0F00242D64 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 99B91EC129350C0F00242D64 /* TinyConstraints */; };
 		99B91EC429351FEE00242D64 /* CustomUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EC329351FEE00242D64 /* CustomUIElements.swift */; };
+		99E0CAAA29A64E45006ECE23 /* WeatherVievModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0CAA929A64E45006ECE23 /* WeatherVievModel.swift */; };
+		99E0CAB829A662FB006ECE23 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */; };
+		99E0CABB29A662FB006ECE23 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */; };
+		99E0CABC29A662FB006ECE23 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB229A662FB006ECE23 /* Rubik-Medium.ttf */; };
+		99E0CABF29A662FB006ECE23 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB529A662FB006ECE23 /* Rubik-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		992200B729393A61005F880C /* CurrentWeatherHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherHeader.swift; sourceTree = "<group>"; };
+		9991FFED29A682F600240345 /* TodayWeatherHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherHeader.swift; sourceTree = "<group>"; };
 		99B91EA2293491A900242D64 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B91EA5293491A900242D64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99B91EA7293491A900242D64 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,6 +40,11 @@
 		99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSetupViewController.swift; sourceTree = "<group>"; };
 		99B91EC329351FEE00242D64 /* CustomUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElements.swift; sourceTree = "<group>"; };
+		99E0CAA929A64E45006ECE23 /* WeatherVievModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherVievModel.swift; sourceTree = "<group>"; };
+		99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
+		99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		99E0CAB229A662FB006ECE23 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
+		99E0CAB529A662FB006ECE23 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		992200B6293939B7005F880C /* CellsForTableView */ = {
+			isa = PBXGroup;
+			children = (
+				992200B729393A61005F880C /* CurrentWeatherHeader.swift */,
+				9991FFED29A682F600240345 /* TodayWeatherHeader.swift */,
+			);
+			path = CellsForTableView;
+			sourceTree = "<group>";
+		};
 		99B91E99293491A900242D64 = {
 			isa = PBXGroup;
 			children = (
@@ -64,18 +87,64 @@
 		99B91EA4293491A900242D64 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				99B91EA5293491A900242D64 /* AppDelegate.swift */,
-				99B91EA7293491A900242D64 /* SceneDelegate.swift */,
-				99B91EC329351FEE00242D64 /* CustomUIElements.swift */,
-				99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */,
-				99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */,
-				99B91EA9293491A900242D64 /* MainScreenViewController.swift */,
+				99E0CAA529A64D65006ECE23 /* App Layer */,
+				99E0CAA829A64E16006ECE23 /* Models */,
+				99E0CAA729A64DD9006ECE23 /* Helping Files */,
+				99E0CAA629A64DA7006ECE23 /* Presentation Layer */,
 				99B91EB1293491AA00242D64 /* Assets.xcassets */,
 				99B91EB3293491AA00242D64 /* LaunchScreen.storyboard */,
 				99B91EB6293491AA00242D64 /* Info.plist */,
 				99B91EAE293491A900242D64 /* WeatherApp.xcdatamodeld */,
+				99E0CAAB29A662C6006ECE23 /* Fonts */,
 			);
 			path = WeatherApp;
+			sourceTree = "<group>";
+		};
+		99E0CAA529A64D65006ECE23 /* App Layer */ = {
+			isa = PBXGroup;
+			children = (
+				99B91EA5293491A900242D64 /* AppDelegate.swift */,
+				99B91EA7293491A900242D64 /* SceneDelegate.swift */,
+			);
+			path = "App Layer";
+			sourceTree = "<group>";
+		};
+		99E0CAA629A64DA7006ECE23 /* Presentation Layer */ = {
+			isa = PBXGroup;
+			children = (
+				99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */,
+				99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */,
+				99B91EA9293491A900242D64 /* MainScreenViewController.swift */,
+				992200B6293939B7005F880C /* CellsForTableView */,
+			);
+			path = "Presentation Layer";
+			sourceTree = "<group>";
+		};
+		99E0CAA729A64DD9006ECE23 /* Helping Files */ = {
+			isa = PBXGroup;
+			children = (
+				99B91EC329351FEE00242D64 /* CustomUIElements.swift */,
+			);
+			path = "Helping Files";
+			sourceTree = "<group>";
+		};
+		99E0CAA829A64E16006ECE23 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				99E0CAA929A64E45006ECE23 /* WeatherVievModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		99E0CAAB29A662C6006ECE23 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */,
+				99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */,
+				99E0CAB229A662FB006ECE23 /* Rubik-Medium.ttf */,
+				99E0CAB529A662FB006ECE23 /* Rubik-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +211,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99E0CABF29A662FB006ECE23 /* Rubik-Regular.ttf in Resources */,
 				99B91EB5293491AA00242D64 /* LaunchScreen.storyboard in Resources */,
+				99E0CAB829A662FB006ECE23 /* Rubik-Light.ttf in Resources */,
+				99E0CABB29A662FB006ECE23 /* Rubik-Bold.ttf in Resources */,
+				99E0CABC29A662FB006ECE23 /* Rubik-Medium.ttf in Resources */,
 				99B91EB2293491AA00242D64 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,10 +230,13 @@
 				99B91EB0293491A900242D64 /* WeatherApp.xcdatamodeld in Sources */,
 				99B91EBD2934E9F200242D64 /* WelcomeViewController.swift in Sources */,
 				99B91EC429351FEE00242D64 /* CustomUIElements.swift in Sources */,
+				992200B829393A61005F880C /* CurrentWeatherHeader.swift in Sources */,
 				99B91EBF2934EA5A00242D64 /* InitialSetupViewController.swift in Sources */,
 				99B91EAA293491A900242D64 /* MainScreenViewController.swift in Sources */,
 				99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */,
 				99B91EA8293491A900242D64 /* SceneDelegate.swift in Sources */,
+				99E0CAAA29A64E45006ECE23 /* WeatherVievModel.swift in Sources */,
+				9991FFEE29A682F600240345 /* TodayWeatherHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
