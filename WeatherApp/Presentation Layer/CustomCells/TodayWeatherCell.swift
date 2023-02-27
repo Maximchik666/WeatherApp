@@ -45,7 +45,7 @@ class TodayWeatherCell: UITableViewCell {
     
     
     private func setConstraints() {
-        
+                
         collectionView.edgesToSuperview()
         collectionView.height(100)
     }

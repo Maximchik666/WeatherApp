@@ -18,6 +18,7 @@ class MainScreenViewController: UIViewController {
         table.rowHeight = UITableView.automaticDimension
         table.register(CurrentWeatherHeader.self, forHeaderFooterViewReuseIdentifier: "Today Sector")
         table.register(TodayWeatherCell.self, forCellReuseIdentifier: "24 Hour Sector")
+        table.register(DailyForecastMainScreenTableViewCell.self, forCellReuseIdentifier: "Daily Forecast Cell")
         table.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         return table
     }()
@@ -63,7 +64,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 13
     }
     
     
@@ -73,7 +74,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             cell.delegate = self
             return cell
         } else {
-            let cell =  tableView.dequeueReusableCell(withIdentifier: "DefaultCell")!
+            let cell =  tableView.dequeueReusableCell(withIdentifier: "Daily Forecast Cell")!
             return cell
         }
     }
