@@ -17,6 +17,7 @@ class MainScreenViewController: UIViewController {
         table.dataSource = self
         table.rowHeight = UITableView.automaticDimension
         table.register(CurrentWeatherHeader.self, forHeaderFooterViewReuseIdentifier: "Today Sector")
+        table.register(TodayWeatherCell.self, forCellReuseIdentifier: "24 Hour Sector")
         table.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         return table
     }()
@@ -29,7 +30,7 @@ class MainScreenViewController: UIViewController {
         setConstraints()
     }
     
-    func navBarCustomization () {
+    private func navBarCustomization () {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
@@ -41,13 +42,16 @@ class MainScreenViewController: UIViewController {
         self.navigationItem.title = "City, Country"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
-        
     }
     
-    func setConstraints() {
-        
+    
+    func didTap24HourForecastButton () {
+        let vc = WelcomeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setConstraints() {
         tableView.edgesToSuperview()
-        
     }
 
 }
@@ -55,29 +59,28 @@ class MainScreenViewController: UIViewController {
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
-        } else {
-            return 6
-        }
+        return 6
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "DefaultCell")!
-        return cell
+        if indexPath.row == 0{
+            let cell = TodayWeatherCell()
+            cell.delegate = self
+            return cell
+        } else {
+            let cell =  tableView.dequeueReusableCell(withIdentifier: "DefaultCell")!
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            let view = CurrentWeatherHeader()
-            return view
-        }
-       return nil
+        let view = CurrentWeatherHeader()
+        return view
     }
 //    
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
