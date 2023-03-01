@@ -11,17 +11,7 @@ import TinyConstraints
 
 class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
-    private var defaultWeather = WeatherViewModel(highestTemp: 13,
-                                                  lowestTemp: 7,
-                                                  currentTemp: 10,
-                                                  weatherCondition: "Weather is Fine",
-                                                  date: Date.now,
-                                                  windSpeed: 3,
-                                                  dawnTime: "05:45",
-                                                  sunsetTime: "19:15",
-                                                  cloudiness: 40,
-                                                  rainPossibility: 77,
-                                                  humidity: 80)
+    private var defaultWeather = WeatherViewModelSingletone.shared
     
     private lazy var blueRectangle: UIView = {
         let view = UIView()
@@ -140,7 +130,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var rainPossibilitylabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.rainPossibility) + "%"
+        label.text = String(defaultWeather.humidity) + "%"
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -162,6 +152,8 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         
         setUpViews()
         setUpConstraints()
+        
+        print(defaultWeather.cloudiness)
     }
     
     required init?(coder: NSCoder) {

@@ -9,6 +9,7 @@ import Foundation
 
 struct WeatherViewModel {
     
+    var id: Int
     var highestTemp:Int
     var lowestTemp: Int
     var currentTemp: Int
@@ -18,8 +19,11 @@ struct WeatherViewModel {
     var dawnTime: String
     var sunsetTime: String
     var cloudiness: Int
-    var rainPossibility: Int
     var humidity: Int
     
 }
 
+struct WeatherViewModelSingletone {
+    
+    static var shared = WeatherViewModel(id: 0, highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: Date(), windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0)
+}
