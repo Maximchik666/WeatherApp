@@ -10,7 +10,6 @@ import CoreData
 
 class CoreDataManager {
         
-    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WeatherApp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in

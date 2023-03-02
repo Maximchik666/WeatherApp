@@ -25,7 +25,8 @@
 		99B91EBF2934EA5A00242D64 /* InitialSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */; };
 		99B91EC229350C0F00242D64 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 99B91EC129350C0F00242D64 /* TinyConstraints */; };
 		99B91EC429351FEE00242D64 /* CustomUIElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B91EC329351FEE00242D64 /* CustomUIElements.swift */; };
-		99E0CAAA29A64E45006ECE23 /* WeatherVievModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0CAA929A64E45006ECE23 /* WeatherVievModel.swift */; };
+		99C0D59829B0BCE500AFD91D /* HourlyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C0D59729B0BCE500AFD91D /* HourlyForecastViewModel.swift */; };
+		99E0CAAA29A64E45006ECE23 /* DailyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */; };
 		99E0CAB829A662FB006ECE23 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */; };
 		99E0CABB29A662FB006ECE23 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */; };
 		99E0CABC29A662FB006ECE23 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB229A662FB006ECE23 /* Rubik-Medium.ttf */; };
@@ -51,7 +52,8 @@
 		99B91EBC2934E9F200242D64 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSetupViewController.swift; sourceTree = "<group>"; };
 		99B91EC329351FEE00242D64 /* CustomUIElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIElements.swift; sourceTree = "<group>"; };
-		99E0CAA929A64E45006ECE23 /* WeatherVievModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherVievModel.swift; sourceTree = "<group>"; };
+		99C0D59729B0BCE500AFD91D /* HourlyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastViewModel.swift; sourceTree = "<group>"; };
+		99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastViewModel.swift; sourceTree = "<group>"; };
 		99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
 		99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		99E0CAB229A662FB006ECE23 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
@@ -155,7 +157,8 @@
 		99E0CAA829A64E16006ECE23 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				99E0CAA929A64E45006ECE23 /* WeatherVievModel.swift */,
+				99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */,
+				99C0D59729B0BCE500AFD91D /* HourlyForecastViewModel.swift */,
 				9991874D29AF99E600C5F1F1 /* CodableModels.swift */,
 			);
 			path = Models;
@@ -267,7 +270,8 @@
 				99B91EAA293491A900242D64 /* MainScreenViewController.swift in Sources */,
 				99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */,
 				99B91EA8293491A900242D64 /* SceneDelegate.swift in Sources */,
-				99E0CAAA29A64E45006ECE23 /* WeatherVievModel.swift in Sources */,
+				99E0CAAA29A64E45006ECE23 /* DailyForecastViewModel.swift in Sources */,
+				99C0D59829B0BCE500AFD91D /* HourlyForecastViewModel.swift in Sources */,
 				9991FFEE29A682F600240345 /* TodayWeatherCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
