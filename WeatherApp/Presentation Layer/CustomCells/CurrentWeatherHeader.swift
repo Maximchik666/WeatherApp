@@ -11,7 +11,8 @@ import TinyConstraints
 
 class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
-    private var defaultWeather = WeatherViewModelSingletone.shared
+    weak var delegate: MainScreenViewController!
+    private lazy var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: Date(), windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
     
     private lazy var blueRectangle: UIView = {
         let view = UIView()
@@ -45,7 +46,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var dawnTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = defaultWeather.dawnTime
+        label.text = weatherForMainScreenHeader.dawnTime
         label.font = UIFont(name: "Rubik-Medium", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +55,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var sunsetTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = defaultWeather.sunsetTime
+        label.text = weatherForMainScreenHeader.sunsetTime
         label.font = UIFont(name: "Rubik-Medium", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +64,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var biggestAndLowestTempLabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.lowestTemp) + "° / " + String(defaultWeather.highestTemp) + "°"
+        label.text = String(weatherForMainScreenHeader.lowestTemp) + "° / " + String(weatherForMainScreenHeader.highestTemp) + "°"
         label.font = UIFont(name: "Rubik-Regular", size: 17.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +74,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var currentTempLabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.currentTemp) + "°"
+        label.text = String(weatherForMainScreenHeader.currentTemp) + "°"
         label.font = UIFont(name: "Rubik-Regular", size: 40.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +83,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var currentWeatherConditionLabel: UILabel = {
         let label = UILabel()
-        label.text = defaultWeather.weatherCondition
+        label.text = weatherForMainScreenHeader.weatherCondition
         label.font = UIFont(name: "Rubik-Regular", size: 17.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +99,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var cloudinessLabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.cloudiness)
+        label.text = String(weatherForMainScreenHeader.cloudiness)
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +115,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var windSpeedLabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.windSpeed) + "m/s"
+        label.text = String(weatherForMainScreenHeader.windSpeed) + "m/s"
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -130,7 +131,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var rainPossibilitylabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.humidity) + "%"
+        label.text = String(weatherForMainScreenHeader.humidity) + "%"
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -139,7 +140,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var dateAndTimeTaxtLabel: UILabel = {
         let label = UILabel()
-        label.text = String(defaultWeather.date.formatted())
+        label.text = String(weatherForMainScreenHeader.date.formatted())
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = UIColor(named: "TextColorForDate")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -152,8 +153,9 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         
         setUpViews()
         setUpConstraints()
-        
-        print(defaultWeather.cloudiness)
+        DispatchQueue.main.async {
+            self.weatherForMainScreenHeader = self.delegate.weatherForMainScreenHeader
+        }
     }
     
     required init?(coder: NSCoder) {

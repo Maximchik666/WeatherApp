@@ -15,16 +15,10 @@ struct DailyForecastViewModel {
     var currentTemp: Int
     var weatherCondition: String
     var date: Date
-    var windSpeed: Int
+    var windSpeed: Double
     var dawnTime: String
     var sunsetTime: String
-    var cloudiness: Int
+    var cloudiness: Double
     var humidity: Int
     var hourlyForecast: [HourlyForecastViewModel]
-    
-}
-
-struct WeatherViewModelSingletone {
-    
-    static var shared = DailyForecastViewModel(id: UUID().uuidString, highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: Date(), windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
 }

@@ -9,6 +9,8 @@ import UIKit
 
 class MainScreenViewController: UIViewController {
     
+    lazy var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: Date(), windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
+    
     private lazy var tableView: UITableView = {
         
         let table = UITableView()
@@ -30,9 +32,15 @@ class MainScreenViewController: UIViewController {
         navBarCustomization()
         setConstraints()
         
-        DownloadManager().downloadWeather {
-            self.tableView.reloadData()
+        DownloadManager().downloadWeather { weather in
+            self.weatherForMainScreenHeader = weather
+
+            DispatchQueue.main.async {
+                print("!!!!!!!!! \(self.weatherForMainScreenHeader)")
+                self.tableView.reloadData()
+            }
         }
+        
     }
     
     private func navBarCustomization () {
@@ -85,6 +93,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = CurrentWeatherHeader()
+        view.delegate = self
         return view
     }
 //    

@@ -76,7 +76,7 @@ struct Forecast: Codable {
 // MARK: - DailyForecast
 struct DailyForecast: Codable {
     let dayShort: Fact
-    let nightDhort: Fact
+    let nightShort: Fact
 }
 
 // MARK: - HourForecast
@@ -137,6 +137,20 @@ extension Forecast {
 extension DailyForecast {
     enum CodingKeys: String, CodingKey {
         case dayShort = "day_short"
-        case nightDhort = "night_short"
+        case nightShort = "night_short"
+    }
+}
+
+extension HourFact {
+    enum CodingKeys: String, CodingKey {
+        case hour
+        case temp
+        case feelsLike = "feels_like"
+        case condition
+        case windSpeed = "wind_speed"
+        case humidity
+        case precType = "prec_type"
+        case precStrength = "prec_strength"
+        case cloudness
     }
 }

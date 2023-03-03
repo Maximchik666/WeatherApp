@@ -32,8 +32,6 @@ class CustomSwitch: UISwitch {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        
-        
     }
     
     required init?(coder: NSCoder) {
