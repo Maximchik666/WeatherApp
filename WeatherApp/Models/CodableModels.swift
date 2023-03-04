@@ -1,7 +1,8 @@
 import Foundation
 
-// MARK: - Welcome
+// MARK: - WeatherForecast
 struct WeatherForecast: Codable {
+    let now: Int
     let info: Info
     let currentWeather: Fact
     let forecasts: [Forecast]
@@ -97,6 +98,7 @@ struct HourFact: Codable {
 // MARK: - Extensions With CodingKeys
 extension WeatherForecast {
     enum CodingKeys: String, CodingKey {
+        case now
         case info
         case currentWeather = "fact"
         case forecasts

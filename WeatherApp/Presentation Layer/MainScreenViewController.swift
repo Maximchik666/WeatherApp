@@ -31,16 +31,6 @@ class MainScreenViewController: UIViewController {
         view.addSubview(tableView)
         navBarCustomization()
         setConstraints()
-        
-        DownloadManager().downloadWeather { weather in
-            self.weatherForMainScreenHeader = weather
-
-            DispatchQueue.main.async {
-                print("!!!!!!!!! \(self.weatherForMainScreenHeader)")
-                self.tableView.reloadData()
-            }
-        }
-        
     }
     
     private func navBarCustomization () {
