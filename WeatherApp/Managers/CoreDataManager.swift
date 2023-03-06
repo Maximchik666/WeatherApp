@@ -42,7 +42,7 @@ class CoreDataManager {
         saveContext()
     }
     
-    func addForecasts(dailyForecast: WeatherForecast) {
+    func addForecasts(dailyForecast: WeatherForecast, completion: @escaping ()->()) {
         persistentContainer.performBackgroundTask { contextBackground in
             for i in 0...6 {
                 let forecast = DailyForecastDataModel(context: contextBackground)
@@ -74,6 +74,7 @@ class CoreDataManager {
                 }
             }
             try? contextBackground.save()
+            completion()
         }
     }
     

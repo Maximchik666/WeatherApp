@@ -11,6 +11,8 @@ import TinyConstraints
 
 class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
+    var dataForDailyWeatherCell = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray3

@@ -6,10 +6,21 @@
 //
 
 import UIKit
+import CoreData
 
-class MainScreenViewController: UIViewController {
+class MainScreenViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
-    lazy var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: Date(), windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
+    let fetchResultController: NSFetchedResultsController = {
+        let fetchRequest = DailyForecastDataModel.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: CoreDataManager.shared.persistentContainer.viewContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return frc
+    }()
+    
+    var data: [DailyForecastDataModel] = []
     
     private lazy var tableView: UITableView = {
         
@@ -24,14 +35,30 @@ class MainScreenViewController: UIViewController {
         table.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         return table
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(tableView)
-        navBarCustomization()
-        setConstraints()
+        
+        DownloadManager().downloadWeather {
+            print("Download is Complete")
+            
+            self.fetchResultController.delegate = self
+            try? self.fetchResultController.performFetch()
+            print("Fetch is Complete")
+            self.data = self.fetchResultController.fetchedObjects!
+            
+            DispatchQueue.main.async {
+                
+                print("View Setup Started")
+                self.view.backgroundColor = .white
+                self.view.addSubview(self.tableView)
+                self.navBarCustomization()
+                self.setConstraints()
+                print("View Setup Finished")
+            }
+        }
     }
+    
     
     private func navBarCustomization () {
         let appearance = UINavigationBarAppearance()
@@ -56,7 +83,11 @@ class MainScreenViewController: UIViewController {
     private func setConstraints() {
         tableView.edgesToSuperview()
     }
-
+    
+    
+    //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    //        tableView.reloadData()
+    //    }
 }
 
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
@@ -69,11 +100,28 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
         return 8
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = CurrentWeatherHeader()
+        view.delegate = self
+        //            view.weatherForMainScreenHeader.date = weather.date ?? "error"
+        //            view.weatherForMainScreenHeader.currentTemp = Int(weather.currentTemp)
+        //            view.weatherForMainScreenHeader.weatherCondition = weather.weatherCondition ?? "error"
+        //            view.weatherForMainScreenHeader.windSpeed = weather.windSpeed
+        //            view.weatherForMainScreenHeader.humidity = Int(weather.humidity)
+        //            view.weatherForMainScreenHeader.cloudiness = weather.cloudiness
+        //            view.weatherForMainScreenHeader.sunsetTime = weather.sunsetTime ?? "error"
+        //            view.weatherForMainScreenHeader.dawnTime = weather.dawnTime ?? "error"
+        //            view.weatherForMainScreenHeader.lowestTemp = Int(weather.lowestTemp)
+        //            view.weatherForMainScreenHeader.highestTemp = Int(weather.highestTemp)
+        return view
+    }
     
+  
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             let cell = TodayWeatherCell()
             cell.delegate = self
+            
             return cell
         } else {
             let cell =  tableView.dequeueReusableCell(withIdentifier: "Daily Forecast Cell")!
@@ -81,14 +129,9 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = CurrentWeatherHeader()
-        view.delegate = self
-        return view
-    }
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    //
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        <#code#>
+    //    }
     
 }

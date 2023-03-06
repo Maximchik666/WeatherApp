@@ -14,7 +14,7 @@ struct DailyForecastViewModel {
     var lowestTemp: Int
     var currentTemp: Int
     var weatherCondition: String
-    var date: Date
+    var date: String
     var windSpeed: Double
     var dawnTime: String
     var sunsetTime: String

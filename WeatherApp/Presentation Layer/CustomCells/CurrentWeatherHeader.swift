@@ -8,11 +8,14 @@
 import Foundation
 import UIKit
 import TinyConstraints
+import CoreData
 
 class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     weak var delegate: MainScreenViewController!
-    private lazy var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: Date(), windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
+    
+    var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
+    
     
     private lazy var blueRectangle: UIView = {
         let view = UIView()
@@ -83,7 +86,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var currentWeatherConditionLabel: UILabel = {
         let label = UILabel()
-        label.text = weatherForMainScreenHeader.weatherCondition
+        label.text = self.weatherForMainScreenHeader.weatherCondition
         label.font = UIFont(name: "Rubik-Regular", size: 17.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -140,7 +143,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var dateAndTimeTaxtLabel: UILabel = {
         let label = UILabel()
-        label.text = String(weatherForMainScreenHeader.date.formatted())
+        label.text = weatherForMainScreenHeader.date
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = UIColor(named: "TextColorForDate")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -150,17 +153,18 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
+
+        setTheData()
         setUpViews()
         setUpConstraints()
-        DispatchQueue.main.async {
-            self.weatherForMainScreenHeader = self.delegate.weatherForMainScreenHeader
-        }
+        print(weatherForMainScreenHeader)
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     
     private func setUpViews() {
         addSubview(blueRectangle)
@@ -181,6 +185,22 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         addSubview(dateAndTimeTaxtLabel)
     }
     
+    func setTheData() {
+        
+        weatherForMainScreenHeader.date = delegate.data[0].date ?? "666666666"
+        weatherForMainScreenHeader.currentTemp = Int(delegate.data[0].currentTemp)
+        weatherForMainScreenHeader.weatherCondition = delegate.data[0].weatherCondition ?? "6666"
+        weatherForMainScreenHeader.windSpeed = delegate.data[0].windSpeed
+        weatherForMainScreenHeader.humidity = Int(delegate.data[0].humidity)
+        weatherForMainScreenHeader.cloudiness = delegate.data[0].cloudiness
+        weatherForMainScreenHeader.sunsetTime = delegate.data[0].sunsetTime ?? "6666666666666666"
+        weatherForMainScreenHeader.dawnTime = delegate.data[0].dawnTime ?? "6666666666"
+        weatherForMainScreenHeader.lowestTemp = Int(delegate.data[0].lowestTemp)
+        weatherForMainScreenHeader.highestTemp = Int(delegate.data[0].highestTemp)
+        
+        print(self.weatherForMainScreenHeader)
+    }
+    
     private func setUpConstraints() {
         
         blueRectangle.edgesToSuperview(insets: TinyEdgeInsets(
@@ -188,7 +208,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
             left: 10,
             bottom: 10,
             right: 10),
-            usingSafeArea: true)
+                                       usingSafeArea: true)
         blueRectangle.height(200)
         
         ellipse.top(to: blueRectangle, offset: 10)
@@ -217,7 +237,6 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         biggestAndLowestTempLabel.top(to: ellipse, offset: 10)
         biggestAndLowestTempLabel.centerX(to: blueRectangle)
         
-        
         currentTempLabel.topToBottom(of: biggestAndLowestTempLabel, offset: 0)
         currentTempLabel.centerX(to: blueRectangle)
         
@@ -225,12 +244,12 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         currentWeatherConditionLabel.centerX(to: blueRectangle)
         
         windSpeedIcon.topToBottom(of: currentWeatherConditionLabel, offset: 20)
-        windSpeedIcon.centerX(to: blueRectangle, offset: -25)
+        windSpeedIcon.centerX(to: blueRectangle, offset: -30)
         windSpeedIcon.height(16)
         windSpeedIcon.width(25)
         
         windSpeedLabel.centerY(to: windSpeedIcon)
-        windSpeedLabel.trailing(to: windSpeedIcon, offset: 40)
+        windSpeedLabel.leadingToTrailing(of: windSpeedIcon, offset: 10)
         
         cloudinessIcon.centerY(to: windSpeedIcon)
         cloudinessIcon.leading(to: blueRectangle, offset: 70)
@@ -238,7 +257,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         cloudinessIcon.width(21)
         
         cloudinessLabel.centerY(to: cloudinessIcon)
-        cloudinessLabel.trailing(to: cloudinessIcon, offset: 25)
+        cloudinessLabel.leadingToTrailing(of: cloudinessIcon, offset: 10)
         
         rainPossibilityIcon.centerY(to: windSpeedIcon)
         rainPossibilityIcon.trailing(to: blueRectangle, offset: -100)
@@ -251,5 +270,4 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         dateAndTimeTaxtLabel.centerX(to: blueRectangle)
         dateAndTimeTaxtLabel.topToBottom(of: windSpeedLabel, offset: 20)
     }
-    
 }
