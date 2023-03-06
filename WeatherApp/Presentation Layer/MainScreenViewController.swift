@@ -101,19 +101,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = CurrentWeatherHeader()
-        view.delegate = self
-        //            view.weatherForMainScreenHeader.date = weather.date ?? "error"
-        //            view.weatherForMainScreenHeader.currentTemp = Int(weather.currentTemp)
-        //            view.weatherForMainScreenHeader.weatherCondition = weather.weatherCondition ?? "error"
-        //            view.weatherForMainScreenHeader.windSpeed = weather.windSpeed
-        //            view.weatherForMainScreenHeader.humidity = Int(weather.humidity)
-        //            view.weatherForMainScreenHeader.cloudiness = weather.cloudiness
-        //            view.weatherForMainScreenHeader.sunsetTime = weather.sunsetTime ?? "error"
-        //            view.weatherForMainScreenHeader.dawnTime = weather.dawnTime ?? "error"
-        //            view.weatherForMainScreenHeader.lowestTemp = Int(weather.lowestTemp)
-        //            view.weatherForMainScreenHeader.highestTemp = Int(weather.highestTemp)
-        return view
+        CurrentWeatherHeader(reuseIdentifier: "header", delegate: self)
     }
     
   

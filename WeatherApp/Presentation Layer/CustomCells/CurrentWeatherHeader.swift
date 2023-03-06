@@ -150,21 +150,18 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         return label
     }()
     
-    
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    init (reuseIdentifier: String?, delegate: MainScreenViewController) {
+           self.delegate = delegate
+           super.init(reuseIdentifier: reuseIdentifier)
 
-        setTheData()
-        setUpViews()
-        setUpConstraints()
-        print(weatherForMainScreenHeader)
-        
-    }
+           setUpData()
+           setUpViews()
+           setUpConstraints()
+       }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func setUpViews() {
         addSubview(blueRectangle)
@@ -185,7 +182,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         addSubview(dateAndTimeTaxtLabel)
     }
     
-    func setTheData() {
+    func setUpData() {
         
         weatherForMainScreenHeader.date = delegate.data[0].date ?? "666666666"
         weatherForMainScreenHeader.currentTemp = Int(delegate.data[0].currentTemp)
