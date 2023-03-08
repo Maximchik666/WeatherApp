@@ -12,10 +12,7 @@ import CoreData
 
 class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
-    weak var delegate: MainScreenViewController!
-    
     var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, hourlyForecast: [])
-    
     
     private lazy var blueRectangle: UIView = {
         let view = UIView()
@@ -150,11 +147,20 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         return label
     }()
     
-    init (reuseIdentifier: String?, delegate: MainScreenViewController) {
-           self.delegate = delegate
-           super.init(reuseIdentifier: reuseIdentifier)
+    init (reuseIdentifier: String?, date: String, currentTemp: Int, weatherCondition: String, windSpeed: Double, humidity: Int, cloudiness: Double, sunsetTime: String, dawnTime: String, lowestTemp: Int, highestTemp: Int) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        
+        weatherForMainScreenHeader.date = date
+        weatherForMainScreenHeader.currentTemp = currentTemp
+        weatherForMainScreenHeader.weatherCondition = weatherCondition
+        weatherForMainScreenHeader.windSpeed = windSpeed
+        weatherForMainScreenHeader.humidity = humidity
+        weatherForMainScreenHeader.cloudiness = cloudiness
+        weatherForMainScreenHeader.sunsetTime = sunsetTime
+        weatherForMainScreenHeader.dawnTime = dawnTime
+        weatherForMainScreenHeader.lowestTemp = lowestTemp
+        weatherForMainScreenHeader.highestTemp = highestTemp
 
-           setUpData()
            setUpViews()
            setUpConstraints()
        }
@@ -180,22 +186,6 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         addSubview(windSpeedLabel)
         addSubview(rainPossibilitylabel)
         addSubview(dateAndTimeTaxtLabel)
-    }
-    
-    func setUpData() {
-        
-        weatherForMainScreenHeader.date = delegate.data[0].date ?? "666666666"
-        weatherForMainScreenHeader.currentTemp = Int(delegate.data[0].currentTemp)
-        weatherForMainScreenHeader.weatherCondition = delegate.data[0].weatherCondition ?? "6666"
-        weatherForMainScreenHeader.windSpeed = delegate.data[0].windSpeed
-        weatherForMainScreenHeader.humidity = Int(delegate.data[0].humidity)
-        weatherForMainScreenHeader.cloudiness = delegate.data[0].cloudiness
-        weatherForMainScreenHeader.sunsetTime = delegate.data[0].sunsetTime ?? "6666666666666666"
-        weatherForMainScreenHeader.dawnTime = delegate.data[0].dawnTime ?? "6666666666"
-        weatherForMainScreenHeader.lowestTemp = Int(delegate.data[0].lowestTemp)
-        weatherForMainScreenHeader.highestTemp = Int(delegate.data[0].highestTemp)
-        
-        print(self.weatherForMainScreenHeader)
     }
     
     private func setUpConstraints() {

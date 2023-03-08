@@ -46,7 +46,7 @@ class CoreDataManager {
         persistentContainer.performBackgroundTask { contextBackground in
             for i in 0...6 {
                 let forecast = DailyForecastDataModel(context: contextBackground)
-                forecast.id = Int64(dailyForecast.now)
+                forecast.id = Int64(i)
                 forecast.windSpeed  = dailyForecast.forecasts[i].dailyForecast.dayShort.windSpeed
                 forecast.highestTemp = Int64(dailyForecast.forecasts[i].dailyForecast.dayShort.temp)
                 forecast.lowestTemp = Int64(dailyForecast.forecasts[i].dailyForecast.nightShort.temp)
@@ -69,6 +69,7 @@ class CoreDataManager {
                         hourForecast.feelsLike = Int64(dailyForecast.forecasts[i].hourlyForecast[h].feelsLike)
                         hourForecast.precStrength = dailyForecast.forecasts[i].hourlyForecast[h].precStrength
                         hourForecast.precType = Int64(dailyForecast.forecasts[i].hourlyForecast[h].precType)
+                        hourForecast.id = Int64(h)
                         forecast.addToHourlyForecast(hourForecast)
                     }
                 }
@@ -81,7 +82,9 @@ class CoreDataManager {
     func clearDataBase() {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
         for forecast in (try? persistentContainer.viewContext.fetch(fetchRequest)) ?? [] {
-            deleteForecast(forecast: forecast)        }
+            deleteForecast(forecast: forecast)
+            
+        }
     }
     
 }

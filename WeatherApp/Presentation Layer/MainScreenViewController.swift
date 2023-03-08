@@ -20,7 +20,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         return frc
     }()
     
-    var data: [DailyForecastDataModel] = []
+    var weatherData: [DailyForecastDataModel] = []
     
     private lazy var tableView: UITableView = {
         
@@ -31,7 +31,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         table.rowHeight = UITableView.automaticDimension
         table.register(CurrentWeatherHeader.self, forHeaderFooterViewReuseIdentifier: "Today Sector")
         table.register(TodayWeatherCell.self, forCellReuseIdentifier: "24 Hour Sector")
-        table.register(DailyForecastMainScreenTableViewCell.self, forCellReuseIdentifier: "Daily Forecast Cell")
+        table.register(DailyForecastMainScreenTableViewCell.self , forCellReuseIdentifier: "Daily Forecast Cell")
         table.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         return table
     }()
@@ -41,53 +41,48 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         
         DownloadManager().downloadWeather {
             print("Download is Complete")
-            
+
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
             print("Fetch is Complete")
-            self.data = self.fetchResultController.fetchedObjects!
-            
-            DispatchQueue.main.async {
-                
-                print("View Setup Started")
-                self.view.backgroundColor = .white
-                self.view.addSubview(self.tableView)
-                self.navBarCustomization()
-                self.setConstraints()
-                print("View Setup Finished")
-            }
+            self.weatherData = self.fetchResultController.fetchedObjects!
+
+        DispatchQueue.main.async {
+
+            print("View Setup Started")
+            self.view.backgroundColor = .white
+            self.view.addSubview(self.tableView)
+            self.navBarCustomization()
+            self.setConstraints()
+            print("View Setup Finished")
         }
     }
-    
-    
-    private func navBarCustomization () {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        self.navigationItem.title = "City, Country"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
-    }
-    
-    
-    func didTap24HourForecastButton () {
-        let vc = WelcomeViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    private func setConstraints() {
-        tableView.edgesToSuperview()
-    }
-    
-    
-    //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    //        tableView.reloadData()
-    //    }
+}
+
+
+private func navBarCustomization () {
+    let appearance = UINavigationBarAppearance()
+    appearance.backgroundColor = .white
+    appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+    navigationController?.navigationBar.tintColor = .black
+    navigationController?.navigationBar.standardAppearance = appearance
+    navigationController?.navigationBar.compactAppearance = appearance
+    navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    self.navigationItem.title = "City, Country"
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
+}
+
+
+func didTap24HourForecastButton () {
+    let vc = WelcomeViewController()
+    self.navigationController?.pushViewController(vc, animated: true)
+}
+
+private func setConstraints() {
+    tableView.edgesToSuperview()
+}
 }
 
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
@@ -101,10 +96,20 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        CurrentWeatherHeader(reuseIdentifier: "header", delegate: self)
+        CurrentWeatherHeader(reuseIdentifier: "Header",
+                             date: weatherData[0].date ?? "666666666",
+                             currentTemp: Int(weatherData[0].currentTemp),
+                             weatherCondition: weatherData[0].weatherCondition ?? "6666",
+                             windSpeed: weatherData[0].windSpeed,
+                             humidity: Int(weatherData[0].humidity),
+                             cloudiness: weatherData[0].cloudiness,
+                             sunsetTime: weatherData[0].sunsetTime ?? "6666666666666666",
+                             dawnTime: weatherData[0].dawnTime ?? "6666666666",
+                             lowestTemp: Int(weatherData[0].lowestTemp),
+                             highestTemp: Int(weatherData[0].highestTemp))
     }
     
-  
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             let cell = TodayWeatherCell()
@@ -112,7 +117,14 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         } else {
-            let cell =  tableView.dequeueReusableCell(withIdentifier: "Daily Forecast Cell")!
+            let cell =  DailyForecastMainScreenTableViewCell(
+                style: UITableViewCell.CellStyle(rawValue: 0)!,
+                reuseIdentifier: "Daily Forecast Cell",
+                date: weatherData[indexPath.row - 1].date ?? "666",
+                humidity: Int(weatherData[indexPath.row - 1].humidity),
+                weatherCondition: weatherData[indexPath.row - 1].weatherCondition ?? "666",
+                lowestTemp: Int(weatherData[indexPath.row - 1].lowestTemp),
+                highestTemp: Int(weatherData[indexPath.row - 1].highestTemp))
             return cell
         }
     }

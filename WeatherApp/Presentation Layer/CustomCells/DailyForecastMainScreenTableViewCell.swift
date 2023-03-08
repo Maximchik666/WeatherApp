@@ -16,22 +16,22 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray3
-        label.text = "17/04"
+        label.text = self.dataForDailyWeatherCell.date
         label.font = UIFont(name: "Rubik-Medium", size: 10.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var rainPossibilityIcon: UIImageView = {
+    private lazy var humidityIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "RainPossibilityIcon")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-    private lazy var rainPossibilitylabel: UILabel = {
+    private lazy var humidityLabel: UILabel = {
         let label = UILabel()
-        label.text = "57%"
+        label.text = "\(dataForDailyWeatherCell.humidity) %"
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     private lazy var currentWeatherConditionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Weather Is fine"
+        label.text = dataForDailyWeatherCell.weatherCondition
         label.font = UIFont(name: "Rubik-Regular", size: 17.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     private lazy var temperatureLabel: UILabel = {
         let label = UILabel()
-        label.text = "17/21"
+        label.text = String(dataForDailyWeatherCell.lowestTemp) + "° / " + String(dataForDailyWeatherCell.highestTemp) + "°"
         label.font = UIFont(name: "Rubik-Regular", size: 17.0)
         label.textColor = .systemGray3
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,9 +66,15 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     }()
     
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
+        dataForDailyWeatherCell.date = date
+        dataForDailyWeatherCell.humidity = humidity
+        dataForDailyWeatherCell.weatherCondition = weatherCondition
+        dataForDailyWeatherCell.lowestTemp = lowestTemp
+        dataForDailyWeatherCell.highestTemp = highestTemp
+        
         addingSubviews()
         addingConstraints()
     }
@@ -80,8 +86,8 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     private func addingSubviews(){
         addSubview(dateLabel)
-        addSubview(rainPossibilitylabel)
-        addSubview(rainPossibilityIcon)
+        addSubview(humidityLabel)
+        addSubview(humidityIcon)
         addSubview(currentWeatherConditionLabel)
         addSubview(temperatureLabel)
         addSubview(seeMoreDetailLabel)
@@ -94,16 +100,16 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
         dateLabel.leading(to: contentView, offset: 30)
         dateLabel.top(to: contentView, offset: 20)
         
-        rainPossibilityIcon.topToBottom(of: dateLabel, offset: 20)
-        rainPossibilityIcon.leading(to: contentView, offset: 30)
-        rainPossibilityIcon.height(20)
-        rainPossibilityIcon.width(30)
+        humidityIcon.topToBottom(of: dateLabel, offset: 20)
+        humidityIcon.leading(to: contentView, offset: 30)
+        humidityIcon.height(20)
+        humidityIcon.width(30)
         
-        rainPossibilitylabel.leadingToTrailing(of: rainPossibilityIcon, offset: 10)
-        rainPossibilitylabel.topToBottom(of: dateLabel, offset: 10)
+        humidityLabel.leadingToTrailing(of: humidityIcon, offset: 10)
+        humidityLabel.topToBottom(of: dateLabel, offset: 10)
 
         currentWeatherConditionLabel.centerY(to: contentView)
-        currentWeatherConditionLabel.leadingToTrailing(of: rainPossibilitylabel, offset: 20)
+        currentWeatherConditionLabel.leadingToTrailing(of: humidityLabel, offset: 20)
 
         temperatureLabel.centerY(to: contentView)
         temperatureLabel.leadingToTrailing(of:  currentWeatherConditionLabel, offset: 40)

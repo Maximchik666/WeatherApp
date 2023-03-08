@@ -10,7 +10,7 @@ import UIKit
 import TinyConstraints
 
 class WeatherCollectionViewCell: UICollectionViewCell {
-
+    
     private lazy var whiteRoundedRectangle: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -27,18 +27,18 @@ class WeatherCollectionViewCell: UICollectionViewCell {
         return image
     }()
 
-    private lazy var timeLabel: UILabel = {
+    lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "12:00"
+       // label.text = "12:00"
         label.font = UIFont(name: "Rubik-Medium", size: 10.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private lazy var temperatureLabel: UILabel = {
+    lazy var temperatureLabel: UILabel = {
         let label = UILabel()
-        label.text = "23°"
+       // label.text = "23°"
         label.font = UIFont(name: "Rubik-Medium", size: 10.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +47,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         addSubview(whiteRoundedRectangle)
         addSubview(wheatherIcon)
         addSubview(timeLabel)
@@ -59,7 +59,6 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     private func setConstraints() {
 
