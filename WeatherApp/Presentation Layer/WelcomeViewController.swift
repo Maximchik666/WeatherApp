@@ -22,7 +22,7 @@ class WelcomeViewController: UIViewController {
     private lazy var upperTextField = CustomTextLabel(
         text: "Разрешить приложению Weather использовать данные о местоположении вашего устройства.",
         textColor: .white, fontWeight: .semibold, fontSize: 20)
-
+    
     private lazy var middleTextField = CustomTextLabel(
         text: "Чтобы получить более точные прогнозы погоды во время движения или путешествия.",
         textColor: .white, fontWeight: .regular, fontSize: 18)
@@ -30,7 +30,7 @@ class WelcomeViewController: UIViewController {
     private lazy var bottomTextField: UILabel = CustomTextLabel(
         text: "Вы можете изменить свой выбор в любое время из меню приложения.",
         textColor: .white, fontWeight: .regular, fontSize: 18)
-       
+    
     
     private lazy var useGeolocationButton: UIButton = {
         
@@ -41,7 +41,7 @@ class WelcomeViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
-        button.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapAutoGeoButton), for: .touchUpInside)
         return button
     }()
     
@@ -54,15 +54,13 @@ class WelcomeViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
-        button.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapSelfGeoButton), for: .touchUpInside)
         return button
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        LocationManager().geocoder(querry: "москва")
         
         view.backgroundColor = UIColor(named: "DeepBlue")
         view.addSubview(welcomeImage)
@@ -75,7 +73,27 @@ class WelcomeViewController: UIViewController {
         
     }
     
-    
+    func alert(title: String, message: String, okActionTitle: String) {
+        
+        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: okActionTitle, style: .default) { _ in
+            
+            LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord in
+                let vc = MainScreenViewController()
+                vc.initialCoordinates = coord
+                print(alertView.textFields![0].text!)
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .default)
+        
+        alertView.addTextField()
+        alertView.addAction(okAction)
+        alertView.addAction(cancelAction)
+        
+        present(alertView,animated: true)
+    }
     
     func addingConstraints () {
         
@@ -107,9 +125,21 @@ class WelcomeViewController: UIViewController {
         notUseGeolocationButton.height(40)
     }
     
-    @objc func didTabButton() {
+    @objc func didTapAutoGeoButton() {
         let vc = MainScreenViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        vc.initialCoordinates = {
+            if let unwrappedCoord = LocationManager().findUserLocation() {
+                return unwrappedCoord
+            } else {
+                return (0,0)
+            }
+        }()
+        
+        navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    @objc func didTapSelfGeoButton() {
+        alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором теюе хочется узнать", okActionTitle: "Ок")
     }
     
 }

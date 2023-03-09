@@ -17,14 +17,12 @@ class LocationManager {
     
     func findUserLocation() -> (Double, Double)?{
         
-        print("77777777777777777777\(locationManager.authorizationStatus)")
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         
         if let location = locationManager.location {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            print("Latitude: \(latitude), Longitude: \(longitude)")
             return (latitude, longitude)
         } else {
             print("Unable to get current location.")
@@ -32,24 +30,25 @@ class LocationManager {
         }
     }
     
-    func geocoder (querry: String) -> (Double, Double)? {
+    func geocoder (querry: String, completion: @escaping ((Double, Double)?) -> ()) {
         let geocoder = CLGeocoder()
-        var coord: (Double, Double) = (0,0)
-        // Задайте текстовое название места, для которого нужно определить координаты
+        var coord: (Double, Double)? = nil
         
         geocoder.geocodeAddressString(querry) { (placemarks, error) in
             if let error = error {
                 print("Error: \(error)")
             }
             
-            if let placemarks2 = placemarks, let location = placemarks2.first?.location {
+            print("Placemarks: \(placemarks?[0].name ?? "WROOOOOOOONG"), Error: \(error.debugDescription)")
+            
+            if let placemarks = placemarks, let location = placemarks.first?.location {
                 let latitude = location.coordinate.latitude as Double
                 let longitude = location.coordinate.longitude as Double
                 print("Latitude: \(latitude), Longitude: \(longitude)")
                 coord = (latitude, longitude)
             }
+            completion(coord)
         }
-        return coord
     }
 }
 

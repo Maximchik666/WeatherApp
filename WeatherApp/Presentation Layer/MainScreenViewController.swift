@@ -20,18 +20,10 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         return frc
     }()
     
+    
     var weatherData: [DailyForecastDataModel] = []
     
-    var weatherData2 =  [DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])]
-    
-    var initialCoordinates: (Double, Double) {
-       
-        if let unwrappedCoord = LocationManager().findUserLocation() {
-            return unwrappedCoord
-        } else {
-            return (0,0)
-        }
-    }
+    var initialCoordinates: (Double, Double)!
     
     private lazy var tableView: UITableView = {
         
@@ -46,49 +38,49 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         table.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         return table
     }()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         DownloadManager().downloadWeather(coordinates: initialCoordinates) {
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
             self.weatherData = self.fetchResultController.fetchedObjects!
-         
-        DispatchQueue.main.async {
-            self.view.backgroundColor = .white
-            self.view.addSubview(self.tableView)
-            self.navBarCustomization()
-            self.setConstraints()
+            
+            DispatchQueue.main.async {
+                self.view.backgroundColor = .white
+                self.view.addSubview(self.tableView)
+                self.navBarCustomization()
+                self.setConstraints()
+            }
         }
     }
-}
-
-
-private func navBarCustomization () {
-    let appearance = UINavigationBarAppearance()
-    appearance.backgroundColor = .white
-    appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-    navigationController?.navigationBar.tintColor = .black
-    navigationController?.navigationBar.standardAppearance = appearance
-    navigationController?.navigationBar.compactAppearance = appearance
-    navigationController?.navigationBar.scrollEdgeAppearance = appearance
-    self.navigationItem.title = "\(weatherData[0].geolocation ?? "Error")"
-    navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
-    navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
-}
-
-
-func didTap24HourForecastButton () {
-    let vc = WelcomeViewController()
-    self.navigationController?.pushViewController(vc, animated: true)
-}
-
-private func setConstraints() {
-    tableView.edgesToSuperview()
-}
+    
+    private func navBarCustomization () {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        self.navigationItem.title = "\(weatherData[0].geolocation ?? "Error")"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
+    }
+    
+    
+    func didTap24HourForecastButton () {
+        let vc = WelcomeViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func setConstraints() {
+        tableView.edgesToSuperview()
+    }
 }
 
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
