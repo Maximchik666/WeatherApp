@@ -21,6 +21,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     }()
     
     var weatherData: [DailyForecastDataModel] = []
+    var initialCoordinates = LocationManager().findUserLocation()
     
     private lazy var tableView: UITableView = {
         
@@ -55,6 +56,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
             self.navBarCustomization()
             self.setConstraints()
             print("View Setup Finished")
+            print(" 88888888888888  \(self.initialCoordinates)")
         }
     }
 }

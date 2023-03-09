@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		992200B829393A61005F880C /* CurrentWeatherHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992200B729393A61005F880C /* CurrentWeatherHeader.swift */; };
+		99512D6329BA057000771106 /* Location Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99512D6229BA057000771106 /* Location Manager.swift */; };
 		9991874129ACAEE800C5F1F1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9991874029ACAEE800C5F1F1 /* CoreDataManager.swift */; };
 		9991874329ACAEF400C5F1F1 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9991874229ACAEF400C5F1F1 /* DownloadManager.swift */; };
 		9991874529AD109300C5F1F1 /* DailyForecastMainScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9991874429AD109300C5F1F1 /* DailyForecastMainScreenTableViewCell.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		992200B729393A61005F880C /* CurrentWeatherHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherHeader.swift; sourceTree = "<group>"; };
+		99512D6229BA057000771106 /* Location Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location Manager.swift"; sourceTree = "<group>"; };
 		9991874029ACAEE800C5F1F1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9991874229ACAEF400C5F1F1 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		9991874429AD109300C5F1F1 /* DailyForecastMainScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastMainScreenTableViewCell.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				9991874029ACAEE800C5F1F1 /* CoreDataManager.swift */,
 				9991874229ACAEF400C5F1F1 /* DownloadManager.swift */,
+				99512D6229BA057000771106 /* Location Manager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */,
 				99B91EA8293491A900242D64 /* SceneDelegate.swift in Sources */,
 				99E0CAAA29A64E45006ECE23 /* DailyForecastViewModel.swift in Sources */,
+				99512D6329BA057000771106 /* Location Manager.swift in Sources */,
 				99C0D59829B0BCE500AFD91D /* HourlyForecastViewModel.swift in Sources */,
 				9991FFEE29A682F600240345 /* TodayWeatherCell.swift in Sources */,
 			);
@@ -415,6 +419,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Нужны геоданые";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Нужны геоданые";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Нужны геоданые";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -447,6 +454,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Нужны геоданые";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Нужны геоданые";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Нужны геоданые";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

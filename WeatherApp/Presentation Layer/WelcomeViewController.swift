@@ -53,6 +53,7 @@ class WelcomeViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        button.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
         return button
     }()
     
@@ -97,6 +98,11 @@ class WelcomeViewController: UIViewController {
         notUseGeolocationButton.leading(to: view, offset: 30)
         notUseGeolocationButton.trailing(to: view, offset: -30)
         notUseGeolocationButton.height(40)
+    }
+    
+    @objc func didTabButton() {
+        let vc = MainScreenViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

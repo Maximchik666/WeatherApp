@@ -30,7 +30,7 @@ class TodayWeatherCell: UITableViewCell {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         return layout
     }()
-
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.layout)
         collectionView.register(WeatherCollectionViewCell.self, forCellWithReuseIdentifier: "WheatherCell")
@@ -41,7 +41,7 @@ class TodayWeatherCell: UITableViewCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -63,7 +63,7 @@ class TodayWeatherCell: UITableViewCell {
         for i in delegate.weatherData[0].hourlyForecast!.allObjects {
             unsorted1.append(i as! HourlyForecastDataModel)
         }
-
+        
         var sorted1 = unsorted1.sorted{$0.id < $1.id }
         sorted1.removeAll{$0.id < currentHour}
         
@@ -79,7 +79,7 @@ class TodayWeatherCell: UITableViewCell {
     
     private func setConstraints() {
         
-       collectionView.edgesToSuperview()
+        collectionView.edgesToSuperview()
         collectionView.height(100)
     }
     
