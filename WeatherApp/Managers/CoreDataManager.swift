@@ -57,6 +57,7 @@ class CoreDataManager {
                 forecast.weatherCondition = dailyForecast.forecasts[i].dailyForecast.dayShort.condition
                 forecast.cloudiness = dailyForecast.forecasts[i].dailyForecast.dayShort.cloudness
                 forecast.date = dailyForecast.forecasts[i].date
+                forecast.geolocation = dailyForecast.info.locationInfo.name
                 if i <= 1 { // Так как АПИ отдает почасовой прогноз только на 2 дня 
                     for h in 0...23 {
                         let hourForecast = HourlyForecastDataModel(context: contextBackground)

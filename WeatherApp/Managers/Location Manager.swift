@@ -31,7 +31,28 @@ class LocationManager {
             return nil
         }
     }
+    
+    func geocoder (querry: String) -> (Double, Double)? {
+        let geocoder = CLGeocoder()
+        var coord: (Double, Double) = (0,0)
+        // Задайте текстовое название места, для которого нужно определить координаты
+        
+        geocoder.geocodeAddressString(querry) { (placemarks, error) in
+            if let error = error {
+                print("Error: \(error)")
+            }
+            
+            if let placemarks2 = placemarks, let location = placemarks2.first?.location {
+                let latitude = location.coordinate.latitude as Double
+                let longitude = location.coordinate.longitude as Double
+                print("Latitude: \(latitude), Longitude: \(longitude)")
+                coord = (latitude, longitude)
+            }
+        }
+        return coord
+    }
 }
+
 
 
 

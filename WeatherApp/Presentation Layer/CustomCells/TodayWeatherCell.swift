@@ -13,7 +13,7 @@ class TodayWeatherCell: UITableViewCell {
     
     weak var delegate: MainScreenViewController!
     
-    lazy var houtlyForecastData = sortHourData()
+    lazy var hourlyForecastData = sortHourData()
     
     private var currentHour: Int {
         let date = Date()
@@ -91,14 +91,14 @@ class TodayWeatherCell: UITableViewCell {
 extension TodayWeatherCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        houtlyForecastData.count
+        hourlyForecastData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WheatherCell", for: indexPath) as! WeatherCollectionViewCell
-        cell.timeLabel.text = houtlyForecastData[indexPath.row].hour
-        cell.temperatureLabel.text = "\(houtlyForecastData[indexPath.row].temp)"
+        cell.timeLabel.text = hourlyForecastData[indexPath.row].hour
+        cell.temperatureLabel.text = "\(hourlyForecastData[indexPath.row].temp)"
         return cell
     }
 }

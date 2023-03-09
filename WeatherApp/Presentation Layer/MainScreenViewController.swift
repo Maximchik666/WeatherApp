@@ -21,7 +21,17 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     }()
     
     var weatherData: [DailyForecastDataModel] = []
-    var initialCoordinates = LocationManager().findUserLocation()
+    
+    var weatherData2 =  [DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])]
+    
+    var initialCoordinates: (Double, Double) {
+       
+        if let unwrappedCoord = LocationManager().findUserLocation() {
+            return unwrappedCoord
+        } else {
+            return (0,0)
+        }
+    }
     
     private lazy var tableView: UITableView = {
         
@@ -39,24 +49,18 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DownloadManager().downloadWeather {
-            print("Download is Complete")
 
+        
+        DownloadManager().downloadWeather(coordinates: initialCoordinates) {
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
-            print("Fetch is Complete")
             self.weatherData = self.fetchResultController.fetchedObjects!
-
+         
         DispatchQueue.main.async {
-
-            print("View Setup Started")
             self.view.backgroundColor = .white
             self.view.addSubview(self.tableView)
             self.navBarCustomization()
             self.setConstraints()
-            print("View Setup Finished")
-            print(" 88888888888888  \(self.initialCoordinates)")
         }
     }
 }
@@ -71,7 +75,7 @@ private func navBarCustomization () {
     navigationController?.navigationBar.standardAppearance = appearance
     navigationController?.navigationBar.compactAppearance = appearance
     navigationController?.navigationBar.scrollEdgeAppearance = appearance
-    self.navigationItem.title = "City, Country"
+    self.navigationItem.title = "\(weatherData[0].geolocation ?? "Error")"
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
 }

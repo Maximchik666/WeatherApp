@@ -61,6 +61,9 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        LocationManager().geocoder(querry: "москва")
+        
         view.backgroundColor = UIColor(named: "DeepBlue")
         view.addSubview(welcomeImage)
         view.addSubview(upperTextField)
@@ -69,7 +72,10 @@ class WelcomeViewController: UIViewController {
         view.addSubview(useGeolocationButton)
         view.addSubview(notUseGeolocationButton)
         addingConstraints()
+        
     }
+    
+    
     
     func addingConstraints () {
         

@@ -20,5 +20,6 @@ struct DailyForecastViewModel {
     var sunsetTime: String
     var cloudiness: Double
     var humidity: Int
+    var geolocation: String
     var hourlyForecast: [HourlyForecastViewModel]
 }
