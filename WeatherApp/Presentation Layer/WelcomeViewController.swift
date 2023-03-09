@@ -41,6 +41,7 @@ class WelcomeViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        button.addTarget(self, action: #selector(didTabButton), for: .touchUpInside)
         return button
     }()
     
