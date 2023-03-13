@@ -141,7 +141,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     private lazy var dateAndTimeTaxtLabel: UILabel = {
         let label = UILabel()
         label.text = weatherForMainScreenHeader.date
-        label.font = UIFont(name: "Rubik-Regular", size: 15.0)
+        label.font = UIFont(name: "Rubik-Regular", size: 18.0)
         label.textColor = UIColor(named: "TextColorForDate")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -160,10 +160,10 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         weatherForMainScreenHeader.dawnTime = dawnTime
         weatherForMainScreenHeader.lowestTemp = lowestTemp
         weatherForMainScreenHeader.highestTemp = highestTemp
-
-           setUpViews()
-           setUpConstraints()
-       }
+        
+        setUpViews()
+        setUpConstraints()
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -191,11 +191,11 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
     private func setUpConstraints() {
         
         blueRectangle.edgesToSuperview(insets: TinyEdgeInsets(
-            top: 10,
+            top: 0,
             left: 10,
-            bottom: 10,
+            bottom: 0,
             right: 10),
-                                       usingSafeArea: true)
+            usingSafeArea: true)
         blueRectangle.height(200)
         
         ellipse.top(to: blueRectangle, offset: 10)
@@ -255,6 +255,6 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         rainPossibilitylabel.trailing(to: rainPossibilityIcon, offset: 35)
         
         dateAndTimeTaxtLabel.centerX(to: blueRectangle)
-        dateAndTimeTaxtLabel.topToBottom(of: windSpeedLabel, offset: 20)
+        dateAndTimeTaxtLabel.topToBottom(of: windSpeedLabel, offset: 15)
     }
 }

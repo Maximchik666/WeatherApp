@@ -10,14 +10,14 @@ import UIKit
 
 class CustomTextLabel: UILabel {
     
-    init(text: String, textColor: UIColor, fontWeight: UIFont.Weight, fontSize: CGFloat ) {
+    init(text: String, textColor: UIColor, font: String, fontSize: CGFloat ) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         self.contentMode = .scaleAspectFill
         self.text = text
         self.textAlignment = .center
         self.textColor = textColor
-        self.font = .systemFont(ofSize: fontSize, weight: fontWeight)
+        self.font = UIFont(name: font, size: fontSize)
         self.numberOfLines = 0
     }
     

@@ -21,15 +21,15 @@ class WelcomeViewController: UIViewController {
     
     private lazy var upperTextField = CustomTextLabel(
         text: "Разрешить приложению Weather использовать данные о местоположении вашего устройства.",
-        textColor: .white, fontWeight: .semibold, fontSize: 20)
+        textColor: .white, font: "Rubik-Medium", fontSize: 20)
     
     private lazy var middleTextField = CustomTextLabel(
         text: "Чтобы получить более точные прогнозы погоды во время движения или путешествия.",
-        textColor: .white, fontWeight: .regular, fontSize: 18)
+        textColor: .white, font: "Rubik-Regular", fontSize: 20)
     
     private lazy var bottomTextField: UILabel = CustomTextLabel(
         text: "Вы можете изменить свой выбор в любое время из меню приложения.",
-        textColor: .white, fontWeight: .regular, fontSize: 18)
+        textColor: .white, font: "Rubik-Regular", fontSize: 20)
     
     
     private lazy var useGeolocationButton: UIButton = {
@@ -40,7 +40,7 @@ class WelcomeViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "Rubik-Medium", size: 13)
         button.addTarget(self, action: #selector(didTapAutoGeoButton), for: .touchUpInside)
         return button
     }()
@@ -53,7 +53,7 @@ class WelcomeViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        button.titleLabel?.font = UIFont(name: "Rubik-Medium", size: 13)
         button.addTarget(self, action: #selector(didTapSelfGeoButton), for: .touchUpInside)
         return button
     }()
@@ -106,15 +106,15 @@ class WelcomeViewController: UIViewController {
         upperTextField.leading(to: view, offset: 30)
         upperTextField.trailing(to: view, offset: -30)
         
-        middleTextField.topToBottom(of: upperTextField, offset: 50)
+        middleTextField.topToBottom(of: upperTextField, offset: 20)
         middleTextField.leading(to: view, offset: 30)
         middleTextField.trailing(to: view, offset: -30)
         
-        bottomTextField.topToBottom(of: middleTextField, offset: 50)
+        bottomTextField.topToBottom(of: middleTextField, offset: 20)
         bottomTextField.leading(to: view, offset: 30)
         bottomTextField.trailing(to: view, offset: -30)
         
-        useGeolocationButton.topToBottom(of: bottomTextField, offset: 50)
+        useGeolocationButton.topToBottom(of: bottomTextField, offset: 30)
         useGeolocationButton.leading(to: view, offset: 30)
         useGeolocationButton.trailing(to: view, offset: -30)
         useGeolocationButton.height(40)
@@ -131,7 +131,7 @@ class WelcomeViewController: UIViewController {
             if let unwrappedCoord = LocationManager().findUserLocation() {
                 return unwrappedCoord
             } else {
-                return (0,0)
+                return (0,0, "Атлантида")
             }
         }()
         

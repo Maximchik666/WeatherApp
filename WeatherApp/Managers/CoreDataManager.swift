@@ -56,7 +56,7 @@ class CoreDataManager {
                 forecast.humidity = Int64(dailyForecast.forecasts[i].dailyForecast.dayShort.humidity)
                 forecast.weatherCondition = dailyForecast.forecasts[i].dailyForecast.dayShort.condition
                 forecast.cloudiness = dailyForecast.forecasts[i].dailyForecast.dayShort.cloudness
-                forecast.date = dailyForecast.forecasts[i].date
+                forecast.date = self.dateFormatter(unformattedDate: dailyForecast.forecasts[i].date)
                 forecast.geolocation = dailyForecast.info.locationInfo.name
                 if i <= 1 { // Так как АПИ отдает почасовой прогноз только на 2 дня 
                     for h in 0...23 {
@@ -86,6 +86,40 @@ class CoreDataManager {
             deleteForecast(forecast: forecast)
             
         }
+    }
+    
+    func dateFormatter (unformattedDate: String) -> String {
+        let dateFormatter = DateFormatter()
+
+        // Устанавливаем формат даты и локаль
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ru_RU_POSIX")
+
+        // Преобразуем строку в дату
+        guard let date = dateFormatter.date(from: unformattedDate) else {
+            fatalError("Неверный формат даты")
+        }
+
+        // Обновляем формат даты
+        dateFormatter.dateFormat = "dd MMMM"
+
+        // Преобразуем дату в строку с новым форматом
+        let newDateString = dateFormatter.string(from: date)
+
+        return newDateString
+    }
+    
+    func cityFormatter (unformattedCity: String) -> String {
+    
+        let timeZone = TimeZone(identifier: unformattedCity)
+
+        // Получаем сокращенное название часового пояса
+        let abbreviation = timeZone?.abbreviation()
+
+        // Получаем название города из сокращенного названия
+        let city = TimeZone.abbreviationDictionary[abbreviation ?? ""] ?? ""
+
+        return city
     }
     
 }

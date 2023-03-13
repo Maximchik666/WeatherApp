@@ -13,29 +13,30 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     var dataForDailyWeatherCell = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
     
+    var position: Int!
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray3
+        label.textColor = .systemGray
         label.text = self.dataForDailyWeatherCell.date
-        label.font = UIFont(name: "Rubik-Medium", size: 10.0)
+        label.font = UIFont(name: "Rubik-Medium", size: 14.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var humidityIcon: UIImageView = {
+    private lazy var lightBlueRectangle : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "BackGround")
+        view.layer.cornerRadius = 10
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var currentWeatherIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "RainPossibilityIcon")
+        image.image = UIImage(named: "CurrentWeather.Rain")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
-    }()
-    
-    private lazy var humidityLabel: UILabel = {
-        let label = UILabel()
-        label.text = "\(dataForDailyWeatherCell.humidity) %"
-        label.font = UIFont(name: "Rubik-Regular", size: 15.0)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }()
     
     private lazy var currentWeatherConditionLabel: UILabel = {
@@ -66,7 +67,7 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     }()
     
     
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int, position: Int) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
         dataForDailyWeatherCell.date = date
@@ -74,9 +75,14 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
         dataForDailyWeatherCell.weatherCondition = weatherCondition
         dataForDailyWeatherCell.lowestTemp = lowestTemp
         dataForDailyWeatherCell.highestTemp = highestTemp
+        self.position = position
         
         addingSubviews()
         addingConstraints()
+        
+        if position > 1 {
+            seeMoreDetailLabel.text = ""
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -85,36 +91,40 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     
     private func addingSubviews(){
+        
+        addSubview(lightBlueRectangle)
         addSubview(dateLabel)
-        addSubview(humidityLabel)
-        addSubview(humidityIcon)
-        addSubview(currentWeatherConditionLabel)
+        addSubview(currentWeatherIcon)
         addSubview(temperatureLabel)
         addSubview(seeMoreDetailLabel)
+        addSubview(currentWeatherConditionLabel)
     }
     
     private func addingConstraints() {
         
-        contentView.height(80)
-         
-        dateLabel.leading(to: contentView, offset: 30)
-        dateLabel.top(to: contentView, offset: 20)
         
-        humidityIcon.topToBottom(of: dateLabel, offset: 20)
-        humidityIcon.leading(to: contentView, offset: 30)
-        humidityIcon.height(20)
-        humidityIcon.width(30)
+        lightBlueRectangle.edgesToSuperview(insets: TinyEdgeInsets(
+            top: 5,
+            left: 10,
+            bottom: 5,
+            right: 10),
+            usingSafeArea: true)
         
-        humidityLabel.leadingToTrailing(of: humidityIcon, offset: 10)
-        humidityLabel.topToBottom(of: dateLabel, offset: 10)
+        dateLabel.leading(to: lightBlueRectangle, offset: 10)
+        dateLabel.top(to: lightBlueRectangle, offset: 5)
+        
+        currentWeatherIcon.topToBottom(of: dateLabel, offset: 0)
+        currentWeatherIcon.leftToSuperview(offset: 30)
+        currentWeatherIcon.height(36)
+        currentWeatherIcon.width(36)
+        
+        seeMoreDetailLabel.centerY(to: lightBlueRectangle)
+        seeMoreDetailLabel.rightToSuperview(offset: -20)
 
-        currentWeatherConditionLabel.centerY(to: contentView)
-        currentWeatherConditionLabel.leadingToTrailing(of: humidityLabel, offset: 20)
-
-        temperatureLabel.centerY(to: contentView)
-        temperatureLabel.leadingToTrailing(of:  currentWeatherConditionLabel, offset: 40)
+        temperatureLabel.centerY(to: lightBlueRectangle)
+        temperatureLabel.rightToLeft(of: seeMoreDetailLabel, offset: -10)
         
-        seeMoreDetailLabel.centerY(to: contentView)
-        seeMoreDetailLabel.leadingToTrailing(of: temperatureLabel, offset: 30)
+        currentWeatherConditionLabel.centerY(to: lightBlueRectangle)
+        currentWeatherConditionLabel.centerX(to: lightBlueRectangle)
     }
 }

@@ -23,12 +23,12 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     
     var weatherData: [DailyForecastDataModel] = []
     
-    var initialCoordinates: (Double, Double)!
+    var initialCoordinates: (Double, Double, String)!
     
     private lazy var tableView: UITableView = {
         
         let table = UITableView()
-        table.translatesAutoresizingMaskIntoConstraints = false
+        //     table.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
         table.dataSource = self
         table.rowHeight = UITableView.automaticDimension
@@ -36,14 +36,17 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         table.register(TodayWeatherCell.self, forCellReuseIdentifier: "24 Hour Sector")
         table.register(DailyForecastMainScreenTableViewCell.self , forCellReuseIdentifier: "Daily Forecast Cell")
         table.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        table.register(TwentyFourHourButtonCell.self, forCellReuseIdentifier: "24 Hour Info Cell")
+        table.register(SevenDaysForecast.self, forCellReuseIdentifier: "7 Days info Cell")
+        table.separatorStyle = .none
         return table
     }()
-  
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DownloadManager().downloadWeather(coordinates: initialCoordinates) {
+        DownloadManager().downloadWeather(coordinates: initialCoordinates) { city in
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
             self.weatherData = self.fetchResultController.fetchedObjects!
@@ -51,29 +54,23 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
             DispatchQueue.main.async {
                 self.view.backgroundColor = .white
                 self.view.addSubview(self.tableView)
-                self.navBarCustomization()
+                self.navBarCustomization(cityName: city)
                 self.setConstraints()
             }
         }
     }
     
-    private func navBarCustomization () {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        self.navigationItem.title = "\(weatherData[0].geolocation ?? "Error")"
-        
+    private func navBarCustomization (cityName: String) {
+
+        self.navigationItem.title = cityName
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: #selector(getNewLocation))
+        rightBarButtonItem.tintColor = .black
         rightBarButtonItem.imageInsets = UIEdgeInsets(top: 2, left: 2, bottom: -2, right: -2)
         navigationItem.rightBarButtonItem = rightBarButtonItem
-    
+        
         let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
         leftBarButtonItem.imageInsets = UIEdgeInsets(top: 5, left: 5, bottom: -5, right: -5)
+        leftBarButtonItem.tintColor = .black
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
@@ -94,16 +91,15 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
             CoreDataManager.shared.clearDataBase()
             LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord in
                 
-                self.initialCoordinates = coord ?? (0,0)
+                self.initialCoordinates = coord ?? (0,0, "Атлантида")
                 
-                DownloadManager().downloadWeather(coordinates: coord ?? (0,0)) {
-             
+                DownloadManager().downloadWeather(coordinates: coord ?? (0,0, "Атлантида")) { city in
+                    
                     try? self.fetchResultController.performFetch()
                     self.weatherData = self.fetchResultController.fetchedObjects!
-
+                    
                     DispatchQueue.main.async {
-                        self.navigationItem.title = "\(self.weatherData[0].geolocation ?? "Error")"
-                       // self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                        self.navigationItem.title = city
                         self.tableView.reloadData()
                     }
                 }
@@ -132,7 +128,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 10
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -151,22 +147,55 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0{
+        if indexPath.row == 0 {
+            let cell = TwentyFourHourButtonCell()
+            cell.delegate = self
+            return cell
+        }
+        
+        if indexPath.row == 1 {
             let cell = TodayWeatherCell()
             cell.delegate = self
-            
+            return cell
+        }
+        
+        if indexPath.row == 2 {
+            let cell = SevenDaysForecast()
+            cell.delegate = self
             return cell
         } else {
             let cell =  DailyForecastMainScreenTableViewCell(
                 style: UITableViewCell.CellStyle(rawValue: 0)!,
                 reuseIdentifier: "Daily Forecast Cell",
-                date: weatherData[indexPath.row - 1].date ?? "666",
-                humidity: Int(weatherData[indexPath.row - 1].humidity),
-                weatherCondition: weatherData[indexPath.row - 1].weatherCondition ?? "666",
-                lowestTemp: Int(weatherData[indexPath.row - 1].lowestTemp),
-                highestTemp: Int(weatherData[indexPath.row - 1].highestTemp))
+                date: weatherData[indexPath.row - 3].date ?? "666",
+                humidity: Int(weatherData[indexPath.row - 3].humidity),
+                weatherCondition: weatherData[indexPath.row - 3].weatherCondition ?? "666",
+                lowestTemp: Int(weatherData[indexPath.row - 3].lowestTemp),
+                highestTemp: Int(weatherData[indexPath.row - 3].highestTemp),
+                position: indexPath.row - 3)
+            
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 40
+        }
+        
+        if indexPath.row == 1 {
+            return 80
+        }
+        
+        if indexPath.row == 2 {
+            return 40
+        } else {
+            return 70
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
     }
     
     //

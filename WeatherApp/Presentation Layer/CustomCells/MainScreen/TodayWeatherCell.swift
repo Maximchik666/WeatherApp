@@ -80,11 +80,6 @@ class TodayWeatherCell: UITableViewCell {
     private func setConstraints() {
         
         collectionView.edgesToSuperview()
-        collectionView.height(100)
-    }
-    
-    @objc private func didTapButton () {
-        delegate.didTap24HourForecastButton()
     }
 }
 

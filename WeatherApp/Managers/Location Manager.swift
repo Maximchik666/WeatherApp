@@ -15,7 +15,7 @@ class LocationManager {
         return locationManager
     }()
     
-    func findUserLocation() -> (Double, Double)?{
+    func findUserLocation() -> (Double, Double, String)?{
         
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
@@ -23,16 +23,17 @@ class LocationManager {
         if let location = locationManager.location {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            return (latitude, longitude)
+            let name = locationManager.location?.description
+            return (latitude, longitude, name) as? (Double, Double, String)
         } else {
             print("Unable to get current location.")
             return nil
         }
     }
     
-    func geocoder (querry: String, completion: @escaping ((Double, Double)?) -> ()) {
+    func geocoder (querry: String, completion: @escaping ((Double, Double, String)?) -> ()) {
         let geocoder = CLGeocoder()
-        var coord: (Double, Double)? = nil
+        var coord: (Double, Double, String)? = nil
         
         geocoder.geocodeAddressString(querry) { (placemarks, error) in
             if let error = error {
@@ -45,7 +46,7 @@ class LocationManager {
                 let latitude = location.coordinate.latitude as Double
                 let longitude = location.coordinate.longitude as Double
                 print("Latitude: \(latitude), Longitude: \(longitude)")
-                coord = (latitude, longitude)
+                coord = (latitude, longitude, placemarks[0].name!)
             }
             completion(coord)
         }
