@@ -43,7 +43,6 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         DownloadManager().downloadWeather(coordinates: initialCoordinates) {
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
@@ -68,8 +67,14 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         self.navigationItem.title = "\(weatherData[0].geolocation ?? "Error")"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
+        
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: #selector(getNewLocation))
+        rightBarButtonItem.imageInsets = UIEdgeInsets(top: 2, left: 2, bottom: -2, right: -2)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+    
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
+        leftBarButtonItem.imageInsets = UIEdgeInsets(top: 5, left: 5, bottom: -5, right: -5)
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     
@@ -81,6 +86,43 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     private func setConstraints() {
         tableView.edgesToSuperview()
     }
+    
+    func createAlertForNewLocation(title: String, message: String, okActionTitle: String) {
+        
+        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: okActionTitle, style: .default) { _ in
+            CoreDataManager.shared.clearDataBase()
+            LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord in
+                
+                self.initialCoordinates = coord ?? (0,0)
+                
+                DownloadManager().downloadWeather(coordinates: coord ?? (0,0)) {
+             
+                    try? self.fetchResultController.performFetch()
+                    self.weatherData = self.fetchResultController.fetchedObjects!
+
+                    DispatchQueue.main.async {
+                        self.navigationItem.title = "\(self.weatherData[0].geolocation ?? "Error")"
+                       // self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .default)
+        
+        alertView.addTextField()
+        alertView.addAction(okAction)
+        alertView.addAction(cancelAction)
+        
+        present(alertView,animated: true)
+    }
+    
+    @objc func getNewLocation() {
+        createAlertForNewLocation(title: "Внимание!", message: "Введите название новой локации" , okActionTitle: "Принято")
+    }
+    
 }
 
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
