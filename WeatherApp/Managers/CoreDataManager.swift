@@ -14,6 +14,8 @@ class CoreDataManager {
     
     private init () {}
     
+    
+    // Создаем контейнер
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WeatherApp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -24,7 +26,7 @@ class CoreDataManager {
         return container
     }()
     
-    
+    // Сохранение контекста
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -37,11 +39,13 @@ class CoreDataManager {
         }
     }
     
+    // Удаление конкретного прогноза из КорДаты
     func deleteForecast (forecast: DailyForecastDataModel) {
         persistentContainer.viewContext.delete(forecast)
         saveContext()
     }
     
+    // Создание Прогноза из распарсеных из Джейсона Данных и сохранение их в Кор дате.
     func addForecasts(dailyForecast: WeatherForecast, completion: @escaping ()->()) {
         persistentContainer.performBackgroundTask { contextBackground in
             for i in 0...6 {
@@ -80,6 +84,7 @@ class CoreDataManager {
         }
     }
     
+    // Очистка всей базы данных КорДаты
     func clearDataBase() {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
         for forecast in (try? persistentContainer.viewContext.fetch(fetchRequest)) ?? [] {
@@ -88,6 +93,7 @@ class CoreDataManager {
         }
     }
     
+    // Форматирование даты из вида предоставляемого АПИ в нужный
     func dateFormatter (unformattedDate: String) -> String {
         let dateFormatter = DateFormatter()
 
@@ -109,17 +115,5 @@ class CoreDataManager {
         return newDateString
     }
     
-    func cityFormatter (unformattedCity: String) -> String {
-    
-        let timeZone = TimeZone(identifier: unformattedCity)
-
-        // Получаем сокращенное название часового пояса
-        let abbreviation = timeZone?.abbreviation()
-
-        // Получаем название города из сокращенного названия
-        let city = TimeZone.abbreviationDictionary[abbreviation ?? ""] ?? ""
-
-        return city
-    }
-    
+   
 }

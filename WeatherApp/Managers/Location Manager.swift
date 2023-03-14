@@ -15,16 +15,17 @@ class LocationManager {
         return locationManager
     }()
     
-    func findUserLocation() -> (Double, Double, String)?{
+    func findUserLocation() -> (Double, Double, String)? {
         
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         
+        var locationName = "Initial Place"
+        
         if let location = locationManager.location {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            let name = locationManager.location?.description
-            return (latitude, longitude, name) as? (Double, Double, String)
+            return (latitude, longitude, locationName)
         } else {
             print("Unable to get current location.")
             return nil
@@ -49,6 +50,17 @@ class LocationManager {
                 coord = (latitude, longitude, placemarks[0].name!)
             }
             completion(coord)
+        }
+    }
+    
+    func coordinatesToPlace (lat: Double, lon: Double, completionHandler: @escaping (String)->()) {
+        
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: lat, longitude: lon)
+        
+        geocoder.reverseGeocodeLocation(location) { place, error in
+            let point = place?[0].name ?? "ERROR"
+            completionHandler (point)
         }
     }
 }

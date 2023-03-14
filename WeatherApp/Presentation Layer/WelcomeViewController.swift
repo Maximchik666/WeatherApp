@@ -97,7 +97,7 @@ class WelcomeViewController: UIViewController {
     
     func addingConstraints () {
         
-        welcomeImage.top(to: view, offset: 100)
+        welcomeImage.top(to: view, offset: 60)
         welcomeImage.centerX(to: view)
         welcomeImage.height(240)
         welcomeImage.width(310)
@@ -114,7 +114,7 @@ class WelcomeViewController: UIViewController {
         bottomTextField.leading(to: view, offset: 30)
         bottomTextField.trailing(to: view, offset: -30)
         
-        useGeolocationButton.topToBottom(of: bottomTextField, offset: 30)
+        useGeolocationButton.topToBottom(of: bottomTextField, offset: 50)
         useGeolocationButton.leading(to: view, offset: 30)
         useGeolocationButton.trailing(to: view, offset: -30)
         useGeolocationButton.height(40)
@@ -126,17 +126,19 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func didTapAutoGeoButton() {
-        let vc = MainScreenViewController()
-        vc.initialCoordinates = {
-            if let unwrappedCoord = LocationManager().findUserLocation() {
-                return unwrappedCoord
-            } else {
-                return (0,0, "Атлантида")
-            }
-        }()
         
-        navigationController?.pushViewController(vc, animated: false)
+        let locationManager = LocationManager()
+        
+        let coord = locationManager.findUserLocation() ?? (0,0, "Атлантида")
+        let vc = MainScreenViewController()
+        
+        locationManager.coordinatesToPlace(lat: coord.0, lon: coord.1) { name in
+            
+            vc.initialCoordinates = (coord.0, coord.1, name)
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
     }
+    
     
     @objc func didTapSelfGeoButton() {
         alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором теюе хочется узнать", okActionTitle: "Ок")
