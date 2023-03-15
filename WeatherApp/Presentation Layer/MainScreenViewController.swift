@@ -172,7 +172,8 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
                 weatherCondition: weatherData[indexPath.row - 3].weatherCondition ?? "666",
                 lowestTemp: Int(weatherData[indexPath.row - 3].lowestTemp),
                 highestTemp: Int(weatherData[indexPath.row - 3].highestTemp),
-                position: indexPath.row - 3)
+                position: indexPath.row - 3,
+                image: weatherData[indexPath.row - 3].image ?? "666")
             
             return cell
         }

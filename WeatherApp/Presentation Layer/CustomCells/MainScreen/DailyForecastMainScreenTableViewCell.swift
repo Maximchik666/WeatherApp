@@ -11,7 +11,7 @@ import TinyConstraints
 
 class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
-    var dataForDailyWeatherCell = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
+    var dataForDailyWeatherCell = DailyForecastViewModel(image: "", id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
     
     var position: Int!
     
@@ -34,7 +34,7 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     private lazy var currentWeatherIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "CurrentWeather.Rain")
+        image.image = UIImage(named: self.dataForDailyWeatherCell.image)
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -67,7 +67,7 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
     }()
     
     
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int, position: Int) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int, position: Int, image: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
         dataForDailyWeatherCell.date = date
@@ -75,6 +75,7 @@ class DailyForecastMainScreenTableViewCell: UITableViewCell {
         dataForDailyWeatherCell.weatherCondition = weatherCondition
         dataForDailyWeatherCell.lowestTemp = lowestTemp
         dataForDailyWeatherCell.highestTemp = highestTemp
+        dataForDailyWeatherCell.image = image
         self.position = position
         
         addingSubviews()

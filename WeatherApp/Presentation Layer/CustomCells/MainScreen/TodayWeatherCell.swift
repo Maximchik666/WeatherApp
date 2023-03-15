@@ -92,8 +92,10 @@ extension TodayWeatherCell: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WheatherCell", for: indexPath) as! WeatherCollectionViewCell
-        cell.timeLabel.text = hourlyForecastData[indexPath.row].hour
-        cell.temperatureLabel.text = "\(hourlyForecastData[indexPath.row].temp)"
+        cell.timeLabel.text = "\(hourlyForecastData[indexPath.row].hour ?? "error"):00"
+        cell.temperatureLabel.text = "\(hourlyForecastData[indexPath.row].temp)°"
+        cell.wheatherIcon.image = UIImage(named: hourlyForecastData[indexPath.row].image ?? "WindSpeedIcon")
+
         return cell
     }
 }

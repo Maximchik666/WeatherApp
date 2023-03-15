@@ -16,20 +16,19 @@ class WeatherCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
         view.layer.borderColor = UIColor.systemGray3.cgColor
-        view.layer.borderWidth = 0.5
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor(named: "Orange")?.cgColor
         return view
     }()
 
-    private lazy var wheatherIcon: UIImageView = {
+    lazy var wheatherIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "RainPossibilityIcon")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
 
     lazy var timeLabel: UILabel = {
         let label = UILabel()
-       // label.text = "12:00"
         label.font = UIFont(name: "Rubik-Medium", size: 10.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +37,8 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 
     lazy var temperatureLabel: UILabel = {
         let label = UILabel()
-       // label.text = "23°"
-        label.font = UIFont(name: "Rubik-Medium", size: 10.0)
+    
+        label.font = UIFont(name: "Rubik-Medium", size: 12.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -62,19 +61,19 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 
     private func setConstraints() {
 
-        whiteRoundedRectangle.top(to: contentView)
+   
         whiteRoundedRectangle.width(40)
         whiteRoundedRectangle.height(80)
 
-        timeLabel.top(to: whiteRoundedRectangle, offset: 20)
+        timeLabel.top(to: whiteRoundedRectangle, offset: 15)
         timeLabel.centerX(to: whiteRoundedRectangle)
 
-        wheatherIcon.centerY(to: whiteRoundedRectangle)
-        wheatherIcon.height(16)
-        wheatherIcon.width(20)
+        wheatherIcon.centerY(to: whiteRoundedRectangle, offset: 3)
+        wheatherIcon.height(25)
+        wheatherIcon.width(25)
         wheatherIcon.centerX(to: whiteRoundedRectangle)
 
-        temperatureLabel.topToBottom(of: wheatherIcon, offset: 5)
-        temperatureLabel.centerX(to: whiteRoundedRectangle)
+        temperatureLabel.bottom(to: whiteRoundedRectangle, offset: -8сфд)
+        temperatureLabel.centerX(to: whiteRoundedRectangle, offset: 2)
     }
 }

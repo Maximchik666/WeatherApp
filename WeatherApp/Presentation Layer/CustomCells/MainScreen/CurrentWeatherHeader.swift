@@ -12,7 +12,7 @@ import CoreData
 
 class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
-    var weatherForMainScreenHeader = DailyForecastViewModel(id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
+    var weatherForMainScreenHeader = DailyForecastViewModel(image: "", id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
     
     private lazy var blueRectangle: UIView = {
         let view = UIView()

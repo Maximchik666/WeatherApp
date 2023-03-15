@@ -18,4 +18,5 @@ struct HourlyForecastViewModel {
     let precType: Int
     let precStrength: Double
     let cloudness: Double
+    let image: String
 }
