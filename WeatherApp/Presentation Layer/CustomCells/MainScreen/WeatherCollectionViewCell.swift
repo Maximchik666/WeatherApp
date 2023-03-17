@@ -73,7 +73,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
         wheatherIcon.width(25)
         wheatherIcon.centerX(to: whiteRoundedRectangle)
 
-        temperatureLabel.bottom(to: whiteRoundedRectangle, offset: -8сфд)
+        temperatureLabel.bottom(to: whiteRoundedRectangle, offset: -8)
         temperatureLabel.centerX(to: whiteRoundedRectangle, offset: 2)
     }
 }

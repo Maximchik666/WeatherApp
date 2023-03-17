@@ -31,7 +31,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
         //     table.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
         table.dataSource = self
-        table.rowHeight = UITableView.automaticDimension
+        //table.rowHeight = UITableView.automaticDimension
         table.register(CurrentWeatherHeader.self, forHeaderFooterViewReuseIdentifier: "Today Sector")
         table.register(TodayWeatherCell.self, forCellReuseIdentifier: "24 Hour Sector")
         table.register(DailyForecastMainScreenTableViewCell.self , forCellReuseIdentifier: "Daily Forecast Cell")
@@ -76,7 +76,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     
     
     func didTap24HourForecastButton () {
-        let vc = WelcomeViewController()
+        let vc = DailyWeatherViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
