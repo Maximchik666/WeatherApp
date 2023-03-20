@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class MainScreenViewController: UIViewController, NSFetchedResultsControllerDelegate {
+final class MainScreenViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     let fetchResultController: NSFetchedResultsController = {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
@@ -22,16 +22,14 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     
     
     var weatherData: [DailyForecastDataModel] = []
-    
+    var geolocationName: String = ""
     var initialCoordinates: (Double, Double, String)!
     
     private lazy var tableView: UITableView = {
         
         let table = UITableView()
-        //     table.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
         table.dataSource = self
-        //table.rowHeight = UITableView.automaticDimension
         table.register(CurrentWeatherHeader.self, forHeaderFooterViewReuseIdentifier: "Today Sector")
         table.register(TodayWeatherCell.self, forCellReuseIdentifier: "24 Hour Sector")
         table.register(DailyForecastMainScreenTableViewCell.self , forCellReuseIdentifier: "Daily Forecast Cell")
@@ -50,6 +48,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
             self.weatherData = self.fetchResultController.fetchedObjects!
+            self.geolocationName = city
             
             DispatchQueue.main.async {
                 self.view.backgroundColor = .white
@@ -77,6 +76,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
     
     func didTap24HourForecastButton () {
         let vc = DailyWeatherViewController()
+        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -97,6 +97,7 @@ class MainScreenViewController: UIViewController, NSFetchedResultsControllerDele
                     
                     try? self.fetchResultController.performFetch()
                     self.weatherData = self.fetchResultController.fetchedObjects!
+                    self.geolocationName = city
                     
                     DispatchQueue.main.async {
                         self.navigationItem.title = city
@@ -142,7 +143,8 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
                              sunsetTime: weatherData[0].sunsetTime ?? "6666666666666666",
                              dawnTime: weatherData[0].dawnTime ?? "6666666666",
                              lowestTemp: Int(weatherData[0].lowestTemp),
-                             highestTemp: Int(weatherData[0].highestTemp))
+                             highestTemp: Int(weatherData[0].highestTemp),
+                             feelsLike: Int(weatherData[0].feelsLike))
     }
     
     

@@ -11,7 +11,7 @@ import TinyConstraints
 
 class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
-    var dataForDailyWeatherCell = DailyForecastViewModel(image: "", id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
+    var dataForDailyWeatherCell = DailyForecastViewModel(image: "", feelsLike: 0, id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
     
     var position: Int!
     

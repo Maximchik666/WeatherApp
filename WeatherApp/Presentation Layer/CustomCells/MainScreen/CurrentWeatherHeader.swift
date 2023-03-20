@@ -12,7 +12,7 @@ import CoreData
 
 class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
-    var weatherForMainScreenHeader = DailyForecastViewModel(image: "", id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
+    var weatherForMainScreenHeader = DailyForecastViewModel(image: "", feelsLike: 0, id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
     
     private lazy var blueRectangle: UIView = {
         let view = UIView()
@@ -147,7 +147,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         return label
     }()
     
-    init (reuseIdentifier: String?, date: String, currentTemp: Int, weatherCondition: String, windSpeed: Double, humidity: Int, cloudiness: Double, sunsetTime: String, dawnTime: String, lowestTemp: Int, highestTemp: Int) {
+    init (reuseIdentifier: String?, date: String, currentTemp: Int, weatherCondition: String, windSpeed: Double, humidity: Int, cloudiness: Double, sunsetTime: String, dawnTime: String, lowestTemp: Int, highestTemp: Int, feelsLike: Int) {
         super.init(reuseIdentifier: reuseIdentifier)
         
         weatherForMainScreenHeader.date = date
@@ -160,6 +160,7 @@ class CurrentWeatherHeader: UITableViewHeaderFooterView {
         weatherForMainScreenHeader.dawnTime = dawnTime
         weatherForMainScreenHeader.lowestTemp = lowestTemp
         weatherForMainScreenHeader.highestTemp = highestTemp
+        weatherForMainScreenHeader.feelsLike = feelsLike
         
         setUpViews()
         setUpConstraints()

@@ -11,6 +11,8 @@ import TinyConstraints
 
 class DailyWeatherViewController: UIViewController {
     
+    weak var delegate: MainScreenViewController!
+    
     private lazy var tableView: UITableView = {
        let view = UITableView()
         view.delegate = self
@@ -39,8 +41,16 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = GeolocationNameTableViewCell()
-            cell.geolocationLabel.text = "Mozambique"
+            cell.geolocationLabel.text = delegate.geolocationName
             return cell
+        }
+        
+        if indexPath.row == 1 {
+            return DaySelectorTableViewCell()
+        }
+        
+        if indexPath.row == 2{
+            return DailyWeatherTableViewCell()
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Default Cell", for: indexPath)
             cell.textLabel?.text = "Zaglushechka"
@@ -49,7 +59,14 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        20
+        if indexPath.row == 0 || indexPath.row == 1 {
+            return 60
+        }
+        
+        if indexPath.row == 2 {
+            return 300
+        } else {
+            return 60
+        }
     }
-    
 }

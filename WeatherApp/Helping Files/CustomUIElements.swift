@@ -24,7 +24,21 @@ class CustomTextLabel: UILabel {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+class CustomImageView: UIImageView {
     
+    init(imageName: String, width: CGFloat, height: CGFloat) {
+        super .init(image: UIImage(named: imageName))
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.width(width)
+        self.height(height)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 class CustomSwitch: UISwitch {
@@ -40,4 +54,15 @@ class CustomSwitch: UISwitch {
     
 }
 
-
+class BlueLine: UIView {
+ 
+    init(){
+        super .init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        self.layer.backgroundColor = UIColor(named: "DeepBlue")?.cgColor
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

@@ -10,6 +10,7 @@ import Foundation
 struct DailyForecastViewModel {
     
     var image: String
+    var feelsLike: Int
     var id: String
     var highestTemp:Int
     var lowestTemp: Int

@@ -71,7 +71,7 @@ class WelcomeViewController: UIViewController {
         view.addSubview(notUseGeolocationButton)
         addingConstraints()
         
-        CoreDataManager.shared.clearDataBase()
+       // CoreDataManager.shared.clearDataBase()
         
     }
     

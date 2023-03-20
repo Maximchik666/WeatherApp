@@ -13,7 +13,7 @@ class GeolocationNameTableViewCell: UITableViewCell {
     
     lazy var geolocationLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Rubik-Medium", size: 13)
+        label.font = UIFont(name: "Rubik-Medium", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +22,7 @@ class GeolocationNameTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(geolocationLabel)
-        geolocationLabel.centerY(to: contentView)
+        geolocationLabel.topToSuperview(offset: 10)
         geolocationLabel.leading(to: contentView, offset: 10)
         
     }

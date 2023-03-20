@@ -51,6 +51,7 @@ class CoreDataManager {
             for i in 0...6 {
                 let forecast = DailyForecastDataModel(context: contextBackground)
                 forecast.id = Int64(i)
+                forecast.feelsLike = Int64(dailyForecast.forecasts[i].dailyForecast.dayShort.feelsLike)
                 forecast.windSpeed  = dailyForecast.forecasts[i].dailyForecast.dayShort.windSpeed
                 forecast.highestTemp = Int64(dailyForecast.forecasts[i].dailyForecast.dayShort.temp)
                 forecast.lowestTemp = Int64(dailyForecast.forecasts[i].dailyForecast.nightShort.temp)
@@ -89,7 +90,7 @@ class CoreDataManager {
                     case "cloudy": return "CurrentWeather.Clouds"
                     case "overcast": return "CurrentWeather.Overcast"
                     case "drizzle": return "CurrentWeather.LightRain"
-                    case "light-rain": return "CurrentWeather.LightRain дождь"
+                    case "light-rain": return "CurrentWeather.LightRain"
                     case "rain": return "CurrentWeather.Rain"
                     case "moderate-rain": return "CurrentWeather.Rain"
                     case "heavy-rain": return "CurrentWeather.Rain"
@@ -129,7 +130,7 @@ class CoreDataManager {
                             case "cloudy": return "CurrentWeather.Clouds"
                             case "overcast": return "CurrentWeather.Overcast"
                             case "drizzle": return "CurrentWeather.LightRain"
-                            case "light-rain": return "CurrentWeather.LightRain дождь"
+                            case "light-rain": return "CurrentWeather.LightRain"
                             case "rain": return "CurrentWeather.Rain"
                             case "moderate-rain": return "CurrentWeather.Rain"
                             case "heavy-rain": return "CurrentWeather.Rain"
