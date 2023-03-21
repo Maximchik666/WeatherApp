@@ -26,5 +26,8 @@ enum BundleImages: String {
     case sun = "CurrentWeather.Sun"
     case lightning = "CurrentWeather.Thunder"
     case termometer = "Termometer"
-    case windSpeed = "WindSpeedIcon"
+    case windSpeedWhite = "WindSpeedIcon"
+    case windSpeedBlue = "WindSpeedIconBlue"
+    case sunset = "Sunset"
 }
+

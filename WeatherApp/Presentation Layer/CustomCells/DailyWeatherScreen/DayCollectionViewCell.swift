@@ -14,7 +14,7 @@ final class DayCollectionViewCell: UICollectionViewCell {
     
     lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Rubik-Medium", size: 14.0)
+        label.font = UIFont(name: RubikFonts.regular.rawValue, size: 14.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -26,8 +26,6 @@ final class DayCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    
     
     override init(frame: CGRect) {
         super .init(frame: frame)
