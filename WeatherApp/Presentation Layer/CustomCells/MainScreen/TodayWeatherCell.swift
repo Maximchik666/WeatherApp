@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class TodayWeatherCell: UITableViewCell {
+final class TodayWeatherCell: UITableViewCell {
     
     weak var delegate: MainScreenViewController!
     

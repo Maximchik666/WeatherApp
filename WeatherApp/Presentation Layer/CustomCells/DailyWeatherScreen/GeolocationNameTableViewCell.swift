@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class GeolocationNameTableViewCell: UITableViewCell {
+final class GeolocationNameTableViewCell: UITableViewCell {
     
     lazy var geolocationLabel: UILabel = {
         let label = UILabel()

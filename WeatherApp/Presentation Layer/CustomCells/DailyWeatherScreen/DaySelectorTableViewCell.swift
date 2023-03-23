@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class DaySelectorTableViewCell: UITableViewCell {
+final class DaySelectorTableViewCell: UITableViewCell {
     
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()

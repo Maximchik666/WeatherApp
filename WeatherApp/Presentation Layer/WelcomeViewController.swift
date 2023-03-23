@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
     
     private lazy var welcomeImage: UIImageView = {
         

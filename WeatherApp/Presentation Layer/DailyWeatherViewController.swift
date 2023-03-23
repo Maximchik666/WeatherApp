@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class DailyWeatherViewController: UIViewController {
+final class DailyWeatherViewController: UIViewController {
     
     weak var delegate: MainScreenViewController!
     

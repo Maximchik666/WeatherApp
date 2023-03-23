@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class InitialSetupViewController: UIViewController {
+final class InitialSetupViewController: UIViewController {
     
     private lazy var upperCloud: UIImageView = {
         

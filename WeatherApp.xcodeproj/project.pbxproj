@@ -35,6 +35,7 @@
 		99CC816629C87E700076C319 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816529C87E700076C319 /* DayCollectionViewCell.swift */; };
 		99CC816829C8876E0076C319 /* DailyWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816729C8876E0076C319 /* DailyWeatherTableViewCell.swift */; };
 		99CC816A29C8C8EF0076C319 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816929C8C8EF0076C319 /* Enums.swift */; };
+		99CC816C29CC64300076C319 /* SunriseAndSunsetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816B29CC64300076C319 /* SunriseAndSunsetTableViewCell.swift */; };
 		99E0CAAA29A64E45006ECE23 /* DailyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */; };
 		99E0CAB829A662FB006ECE23 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */; };
 		99E0CABB29A662FB006ECE23 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */; };
@@ -71,6 +72,7 @@
 		99CC816529C87E700076C319 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		99CC816729C8876E0076C319 /* DailyWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherTableViewCell.swift; sourceTree = "<group>"; };
 		99CC816929C8C8EF0076C319 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		99CC816B29CC64300076C319 /* SunriseAndSunsetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunriseAndSunsetTableViewCell.swift; sourceTree = "<group>"; };
 		99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastViewModel.swift; sourceTree = "<group>"; };
 		99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
 		99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				99CC816329C87AEB0076C319 /* DaySelectorTableViewCell.swift */,
 				99CC816529C87E700076C319 /* DayCollectionViewCell.swift */,
 				99CC816729C8876E0076C319 /* DailyWeatherTableViewCell.swift */,
+				99CC816B29CC64300076C319 /* SunriseAndSunsetTableViewCell.swift */,
 			);
 			path = DailyWeatherScreen;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			files = (
 				99B91EB0293491A900242D64 /* WeatherApp.xcdatamodeld in Sources */,
 				9991874E29AF99E600C5F1F1 /* CodableForecastModels.swift in Sources */,
+				99CC816C29CC64300076C319 /* SunriseAndSunsetTableViewCell.swift in Sources */,
 				99CC816A29C8C8EF0076C319 /* Enums.swift in Sources */,
 				99CC815F29C4B2D60076C319 /* DailyWeatherViewController.swift in Sources */,
 				99B91EBD2934E9F200242D64 /* WelcomeViewController.swift in Sources */,

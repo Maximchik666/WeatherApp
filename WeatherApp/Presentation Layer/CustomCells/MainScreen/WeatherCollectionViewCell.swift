@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class WeatherCollectionViewCell: UICollectionViewCell {
+final class WeatherCollectionViewCell: UICollectionViewCell {
     
     private lazy var whiteRoundedRectangle: UIView = {
         let view = UIView()

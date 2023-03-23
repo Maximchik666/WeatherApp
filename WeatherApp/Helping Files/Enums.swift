@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum RubikFonts: String {
     
@@ -31,3 +32,20 @@ enum BundleImages: String {
     case sunset = "Sunset"
 }
 
+enum BundleColours {
+    case deepBlue
+    case orange
+    case grayText
+    case backGround
+    case yellow
+    
+    var color: UIColor {
+        switch self {
+        case .deepBlue: return UIColor(named: "DeepBlue")!
+        case .orange: return UIColor(named: "Orange")!
+        case .grayText: return UIColor(named: "GrayText")!
+        case .backGround: return UIColor(named: "BackGround")!
+        case .yellow: return UIColor(named: "TextColorForDate")!
+        }
+    }
+}

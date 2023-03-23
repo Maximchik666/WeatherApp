@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-class TwentyFourHourButtonCell: UITableViewCell {
+final class TwentyFourHourButtonCell: UITableViewCell {
     
     weak var delegate: MainScreenViewController!
     

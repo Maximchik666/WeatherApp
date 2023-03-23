@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import TinyConstraints
 
 final class MainScreenViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
@@ -51,7 +52,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
             self.geolocationName = city
             
             DispatchQueue.main.async {
-                self.view.backgroundColor = .white
+                self.view.backgroundColor = UIColor(named: "DeepBlue")
                 self.view.addSubview(self.tableView)
                 self.navBarCustomization(cityName: city)
                 self.setConstraints()
