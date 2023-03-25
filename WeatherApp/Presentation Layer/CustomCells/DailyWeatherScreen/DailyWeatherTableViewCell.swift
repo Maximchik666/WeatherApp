@@ -21,27 +21,37 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var tempLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 30)
     private lazy var weatherConditionLabel = CustomTextLabel(text: "Weather is fine", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
     private lazy var feelsLikeLabel = CustomTextLabel(text: "По Ощущениям", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
-    private lazy var feelsLikeDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
     private lazy var windSpeedLabel = CustomTextLabel(text: "Скорость Ветра", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
-    private lazy var windSpeedDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
     private lazy var humidityLabel = CustomTextLabel(text: "Влажость", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
-    private lazy var humidityDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
     private lazy var cloudnessLabel = CustomTextLabel(text: "Облачность", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
-    private lazy var cloudnessDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
+    private lazy var sunriseLabel = CustomTextLabel(text: "Рассвет", textColor:.black, font: RubikFonts.regular.rawValue, fontSize: 15)
+    private lazy var sunsetLabel = CustomTextLabel(text: "Закат", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 15)
+    
+    lazy var sunriseDataLabel = CustomTextLabel(text: "15.00", textColor:.black, font: RubikFonts.regular.rawValue, fontSize: 15)
+    lazy var sunsetDataLabel = CustomTextLabel(text: "15.00", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 15)
+    lazy var cloudnessDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
+    lazy var humidityDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
+    lazy var windSpeedDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
+    lazy var feelsLikeDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
+    lazy var tempLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 30)
     
     private lazy var conditionImage = CustomImageView(imageName:self.image, width: 60, height: 60)
     private lazy var feelsLikeTempImage = CustomImageView(imageName: BundleImages.termometer.rawValue, width: 30, height: 30)
     private lazy var windImage = CustomImageView(imageName: BundleImages.windSpeedBlue.rawValue, width: 30, height: 20)
     private lazy var humidityImage = CustomImageView(imageName:BundleImages.humidity.rawValue, width: 30, height: 30)
     private lazy var cloudnessImage = CustomImageView(imageName: BundleImages.clouds.rawValue, width: 30, height: 30)
+    private lazy var sunriseImage = CustomImageView(imageName: BundleImages.sun.rawValue, width: 30, height: 30)
+    private lazy var sunsetImage = CustomImageView(imageName: BundleImages.sunset.rawValue, width: 30, height: 30)
+    private lazy var girlImage = CustomImageView(imageName: "Girl_Image", width: 150 , height: 150 )
     
     private lazy var firstBlueLine = BlueLine()
     private lazy var secondBlueLine = BlueLine()
     private lazy var thirdBlueLine = BlueLine()
     private lazy var fourthBlueLine = BlueLine()
+    private lazy var fifthBlueLine = BlueLine()
+    private lazy var sixthBlueLine = BlueLine()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -76,12 +86,20 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         contentView.addSubview(windSpeedDataLabel)
         contentView.addSubview(humidityDataLabel)
         contentView.addSubview(cloudnessDataLabel)
+        contentView.addSubview(fifthBlueLine)
+        contentView.addSubview(sunriseImage)
+        contentView.addSubview(sunriseLabel)
+        contentView.addSubview(sunriseDataLabel)
+        contentView.addSubview(sixthBlueLine)
+        contentView.addSubview(sunsetImage)
+        contentView.addSubview(sunsetLabel)
+        contentView.addSubview(sunsetDataLabel)
+        contentView.addSubview(girlImage)
     }
     
     private func setUpConstraints() {
         
-        blueRectangle.edgesToSuperview(insets: TinyEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
-        blueRectangle.height(300)
+        blueRectangle.edgesToSuperview(insets: TinyEdgeInsets(top: 0, left: 10, bottom: 100, right: 10))
         
         conditionImage.top(to: blueRectangle)
         conditionImage.centerX(to: blueRectangle, offset: -20)
@@ -93,7 +111,7 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         weatherConditionLabel.topToBottom(of: conditionImage, offset: 5)
         weatherConditionLabel.centerX(to: blueRectangle)
         
-        feelsLikeTempImage.topToBottom(of: weatherConditionLabel, offset: 15)
+        feelsLikeTempImage.topToBottom(of: weatherConditionLabel, offset: 30)
         feelsLikeTempImage.left(to: blueRectangle, offset: 10)
         
         feelsLikeLabel.leftToRight(of: feelsLikeTempImage, offset: 10)
@@ -148,5 +166,36 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         fourthBlueLine.right(to: blueRectangle)
         fourthBlueLine.height(1)
         fourthBlueLine.topToBottom(of: cloudnessImage, offset: 10)
+    
+        sunriseImage.topToBottom(of: fourthBlueLine, offset: 10)
+        sunriseImage.left(to: blueRectangle, offset: 10)
+        
+        sunriseLabel.leftToRight(of: sunriseImage, offset: 10)
+        sunriseLabel.centerY(to: sunriseImage)
+        
+        sunriseDataLabel.centerY(to: sunriseLabel)
+        sunriseDataLabel.right(to: blueRectangle, offset: -10)
+        
+        fifthBlueLine.left(to: blueRectangle)
+        fifthBlueLine.right(to: blueRectangle)
+        fifthBlueLine.height(1)
+        fifthBlueLine.topToBottom(of: sunriseImage, offset: 10)
+        
+        sunsetImage.topToBottom(of: fifthBlueLine, offset: 10)
+        sunsetImage.left(to: blueRectangle, offset: 10)
+        
+        sunsetLabel.leftToRight(of: sunsetImage, offset: 10)
+        sunsetLabel.centerY(to: sunsetImage)
+        
+        sunsetDataLabel.centerY(to: sunsetLabel)
+        sunsetDataLabel.right(to: blueRectangle, offset: -10)
+        
+        sixthBlueLine.left(to: blueRectangle)
+        sixthBlueLine.right(to: blueRectangle)
+        sixthBlueLine.height(1)
+        sixthBlueLine.topToBottom(of: sunsetImage, offset: 10)
+        
+        girlImage.topToBottom(of: blueRectangle, offset: 20)
+        girlImage.centerX(to: contentView)
     }
 }

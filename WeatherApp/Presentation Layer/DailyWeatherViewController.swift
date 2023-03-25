@@ -26,19 +26,36 @@ final class DailyWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        backButtonCustomization()
+        
         view.addSubview(tableView)
         tableView.edgesToSuperview()
         
+    }
+    
+    func backButtonCustomization() {
+        let backButton = UIButton()
+        backButton.setTitle(" ← Прогноз на 24 часа", for: .normal)
+        backButton.titleLabel?.font = UIFont(name: RubikFonts.light.rawValue, size: 15)
+        backButton.setTitleColor(.gray, for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        let backBarButton = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backBarButton
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
 extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
         if indexPath.row == 0 {
             let cell = GeolocationNameTableViewCell()
             cell.geolocationLabel.text = delegate.geolocationName
@@ -47,14 +64,8 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
         
         if indexPath.row == 1 {
             return DaySelectorTableViewCell()
-        }
-        
-        if indexPath.row == 2{
+        } else { 
             return DailyWeatherTableViewCell()
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Default Cell", for: indexPath)
-            cell.textLabel?.text = "Zaglushechka"
-            return cell
         }
     }
     
@@ -64,9 +75,9 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         if indexPath.row == 2 {
-            return 300
+            return 520
         } else {
-            return 60
+            return 100
         }
     }
 }
