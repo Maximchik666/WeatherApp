@@ -12,13 +12,16 @@ import TinyConstraints
 
 final class DayCollectionViewCell: UICollectionViewCell {
     
-    lazy var dayLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: RubikFonts.regular.rawValue, size: 14.0)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-  
+    
+    override var isSelected: Bool {
+           didSet {
+               pickRectangle.backgroundColor = isSelected ? BundleColours.deepBlue.color : BundleColours.backGround.color
+               dayLabel.textColor = isSelected ? .white : .black
+           }
+       }
+    
+    lazy var dayLabel = CustomTextLabel(text: "", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 14)
+    
     lazy var pickRectangle : UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "BackGround")
@@ -31,6 +34,7 @@ final class DayCollectionViewCell: UICollectionViewCell {
         super .init(frame: frame)
         
         setupView()
+        
     }
     
     private func setupView() {

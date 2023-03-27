@@ -11,9 +11,11 @@ import TinyConstraints
 
 final class DailyWeatherViewController: UIViewController {
     
+    var weatherData: [DailyForecastDataModel]!
+    var selectedCell: Int = 0
     weak var delegate: MainScreenViewController!
     
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
        let view = UITableView()
         view.delegate = self
         view.dataSource = self
@@ -62,9 +64,21 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         if indexPath.row == 1 {
-            return DaySelectorTableViewCell()
-        } else { 
-            return DailyWeatherTableViewCell()
+            let cell = DaySelectorTableViewCell()
+            cell.delegate = self
+            return cell
+        } else {
+            let cell = DailyWeatherTableViewCell()
+            cell.weatherConditionLabel.text = weatherData[self.selectedCell].weatherCondition
+            cell.tempLabel.text = String(weatherData[self.selectedCell].highestTemp) + "°"
+            cell.cloudnessDataLabel.text = String(Int(weatherData[self.selectedCell].cloudiness*100)) + "%"
+            cell.humidityDataLabel.text = String(weatherData[self.selectedCell].humidity) + "%"
+            cell.conditionImage.image =  UIImage(named: weatherData[self.selectedCell].image ?? BundleImages.sun.rawValue)
+            cell.sunriseDataLabel.text = weatherData[self.selectedCell].dawnTime
+            cell.sunsetDataLabel.text = weatherData[self.selectedCell].sunsetTime
+            cell.feelsLikeDataLabel.text = String(weatherData[self.selectedCell].feelsLike) + "°"
+            cell.windSpeedDataLabel.text = String(weatherData[self.selectedCell].windSpeed) + " м/с"
+            return cell
         }
     }
     

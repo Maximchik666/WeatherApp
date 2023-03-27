@@ -11,6 +11,8 @@ import TinyConstraints
 
 final class DaySelectorTableViewCell: UITableViewCell {
     
+    weak var delegate: DailyWeatherViewController!
+    
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal // Добавляем горизонтальное направление прокрутки
@@ -52,8 +54,19 @@ extension DaySelectorTableViewCell: UICollectionViewDelegateFlowLayout, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayCell", for: indexPath) as! DayCollectionViewCell
-        cell.dayLabel.text = "13 Марта"
+        cell.dayLabel.text = self.delegate.weatherData[indexPath.item].date
+        if indexPath.item == 0 {
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        }
+        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        delegate.selectedCell = indexPath.item
+        delegate.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
+    }
+    
     
 }

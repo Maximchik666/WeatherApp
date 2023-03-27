@@ -77,6 +77,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     
     func didTap7DayForecastButton () {
         let vc = DailyWeatherViewController()
+        vc.weatherData = weatherData
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -146,7 +147,7 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
                              weatherCondition: weatherData[0].weatherCondition ?? "6666",
                              windSpeed: weatherData[0].windSpeed,
                              humidity: Int(weatherData[0].humidity),
-                             cloudiness: weatherData[0].cloudiness,
+                             cloudiness: weatherData[0].cloudiness * 100,
                              sunsetTime: weatherData[0].sunsetTime ?? "6666666666666666",
                              dawnTime: weatherData[0].dawnTime ?? "6666666666",
                              lowestTemp: Int(weatherData[0].lowestTemp),

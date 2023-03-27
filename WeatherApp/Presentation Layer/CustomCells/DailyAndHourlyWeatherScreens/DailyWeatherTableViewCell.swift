@@ -21,7 +21,6 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         return view
     }()
     
-    private lazy var weatherConditionLabel = CustomTextLabel(text: "Weather is fine", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
     private lazy var feelsLikeLabel = CustomTextLabel(text: "По Ощущениям", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
     private lazy var windSpeedLabel = CustomTextLabel(text: "Скорость Ветра", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
     private lazy var humidityLabel = CustomTextLabel(text: "Влажость", textColor: .black, font: RubikFonts.light.rawValue, fontSize: 15)
@@ -29,18 +28,20 @@ final class DailyWeatherTableViewCell: UITableViewCell {
     private lazy var sunriseLabel = CustomTextLabel(text: "Рассвет", textColor:.black, font: RubikFonts.regular.rawValue, fontSize: 15)
     private lazy var sunsetLabel = CustomTextLabel(text: "Закат", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 15)
     
-    lazy var sunriseDataLabel = CustomTextLabel(text: "15.00", textColor:.black, font: RubikFonts.regular.rawValue, fontSize: 15)
-    lazy var sunsetDataLabel = CustomTextLabel(text: "15.00", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 15)
-    lazy var cloudnessDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
-    lazy var humidityDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
-    lazy var windSpeedDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
-    lazy var feelsLikeDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 20)
+    lazy var sunriseDataLabel = CustomTextLabel(text: "15.00", textColor:.black, font: RubikFonts.medium.rawValue, fontSize: 15)
+    lazy var sunsetDataLabel = CustomTextLabel(text: "15.00", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
+    lazy var cloudnessDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
+    lazy var humidityDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
+    lazy var windSpeedDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
+    lazy var feelsLikeDataLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
     lazy var tempLabel = CustomTextLabel(text: "15", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 30)
+    lazy var conditionImage = CustomImageView(imageName:self.image, width: 45, height: 45)
+    lazy var weatherConditionLabel = CustomTextLabel(text: "Weather is fine", textColor: .black, font: RubikFonts.medium.rawValue, fontSize: 15)
     
-    private lazy var conditionImage = CustomImageView(imageName:self.image, width: 60, height: 60)
+    
     private lazy var feelsLikeTempImage = CustomImageView(imageName: BundleImages.termometer.rawValue, width: 30, height: 30)
     private lazy var windImage = CustomImageView(imageName: BundleImages.windSpeedBlue.rawValue, width: 30, height: 20)
-    private lazy var humidityImage = CustomImageView(imageName:BundleImages.humidity.rawValue, width: 30, height: 30)
+    private lazy var humidityImage = CustomImageView(imageName:BundleImages.humidityBlue.rawValue, width: 30, height: 30)
     private lazy var cloudnessImage = CustomImageView(imageName: BundleImages.clouds.rawValue, width: 30, height: 30)
     private lazy var sunriseImage = CustomImageView(imageName: BundleImages.sun.rawValue, width: 30, height: 30)
     private lazy var sunsetImage = CustomImageView(imageName: BundleImages.sunset.rawValue, width: 30, height: 30)
@@ -52,7 +53,7 @@ final class DailyWeatherTableViewCell: UITableViewCell {
     private lazy var fourthBlueLine = BlueLine()
     private lazy var fifthBlueLine = BlueLine()
     private lazy var sixthBlueLine = BlueLine()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -105,7 +106,7 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         conditionImage.centerX(to: blueRectangle, offset: -20)
         
         tempLabel.top(to: blueRectangle, offset: 10)
-        tempLabel.leftToRight(of: conditionImage, offset: -5)
+        tempLabel.leftToRight(of: conditionImage, offset: 5)
         tempLabel.centerY(to: conditionImage)
         
         weatherConditionLabel.topToBottom(of: conditionImage, offset: 5)
@@ -166,7 +167,7 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         fourthBlueLine.right(to: blueRectangle)
         fourthBlueLine.height(1)
         fourthBlueLine.topToBottom(of: cloudnessImage, offset: 10)
-    
+        
         sunriseImage.topToBottom(of: fourthBlueLine, offset: 10)
         sunriseImage.left(to: blueRectangle, offset: 10)
         

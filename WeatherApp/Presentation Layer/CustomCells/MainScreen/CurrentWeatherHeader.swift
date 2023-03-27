@@ -99,7 +99,7 @@ final class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var cloudinessLabel: UILabel = {
         let label = UILabel()
-        label.text = String(weatherForMainScreenHeader.cloudiness)
+        label.text = String(Int(weatherForMainScreenHeader.cloudiness)) + "%"
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +115,7 @@ final class CurrentWeatherHeader: UITableViewHeaderFooterView {
     
     private lazy var windSpeedLabel: UILabel = {
         let label = UILabel()
-        label.text = String(weatherForMainScreenHeader.windSpeed) + "m/s"
+        label.text = String(weatherForMainScreenHeader.windSpeed) + " м/с"
         label.font = UIFont(name: "Rubik-Regular", size: 15.0)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -240,7 +240,7 @@ final class CurrentWeatherHeader: UITableViewHeaderFooterView {
         windSpeedLabel.leadingToTrailing(of: windSpeedIcon, offset: 10)
         
         cloudinessIcon.centerY(to: windSpeedIcon)
-        cloudinessIcon.leading(to: blueRectangle, offset: 70)
+        cloudinessIcon.leading(to: blueRectangle, offset: 60)
         cloudinessIcon.height(18)
         cloudinessIcon.width(21)
         
