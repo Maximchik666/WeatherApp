@@ -56,7 +56,7 @@ final class SevenDaysForecast: UITableViewCell {
     }
     
     @objc private func didTapButton () {
-        delegate.didTap24HourForecastButton()
+        delegate.didTap7DayForecastButton()
     }
     
 }

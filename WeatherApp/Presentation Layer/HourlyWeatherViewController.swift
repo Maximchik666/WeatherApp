@@ -1,24 +1,25 @@
 //
-//  DailyWeatherViewController.swift
+//  HourlyWeatherViewController.swift
 //  WeatherApp
 //
-//  Created by Maksim Kruglov on 17.03.2023.
+//  Created by Maksim Kruglov on 27.03.2023.
 //
 
 import Foundation
 import UIKit
 import TinyConstraints
 
-final class DailyWeatherViewController: UIViewController {
+final class HourlyWeatherViewController: UIViewController {
     
     weak var delegate: MainScreenViewController!
+    lazy var hourlyForecastData = getTimeSortedHourForecasts(from: delegate.weatherData, forHowMuchHours: 24)
     
     private lazy var tableView: UITableView = {
-       let view = UITableView()
+        let view = UITableView()
         view.delegate = self
         view.dataSource = self
         view.separatorStyle = .none
-        view.register(UITableViewCell.self, forCellReuseIdentifier: "Default Cell")
+        view.register(HourlyForecastTableViewCell.self, forCellReuseIdentifier: "Hour Cell")
         return view
     }()
     
@@ -30,6 +31,7 @@ final class DailyWeatherViewController: UIViewController {
         
         view.addSubview(tableView)
         tableView.edgesToSuperview()
+        
     }
     
     func backButtonCustomization() {
@@ -47,36 +49,37 @@ final class DailyWeatherViewController: UIViewController {
     }
 }
 
-extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource {
-   
+extension HourlyWeatherViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        hourlyForecastData.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+        
         if indexPath.row == 0 {
             let cell = GeolocationNameTableViewCell()
             cell.geolocationLabel.text = delegate.geolocationName
             return cell
-        }
-        
-        if indexPath.row == 1 {
-            return DaySelectorTableViewCell()
-        } else { 
-            return DailyWeatherTableViewCell()
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Hour Cell") as! HourlyForecastTableViewCell
+            cell.cloudnessDataLabel.text = String(Int(hourlyForecastData[indexPath.row - 1].cloudness * 100)) + "%"
+            cell.humidityDataLabel.text = String(hourlyForecastData[indexPath.row - 1].humidity) + "%"
+            cell.windDataLabel.text = String(hourlyForecastData[indexPath.row - 1].windSpeed) + "м/с"
+            cell.conditionLabel.text = "Состояние: " + (hourlyForecastData[indexPath.row - 1].condition ?? "Error")
+            cell.conditionImage.image = UIImage(named: hourlyForecastData[indexPath.row - 1].image ?? BundleImages.sun.rawValue)
+            cell.tempLabel.text = String(hourlyForecastData[indexPath.row - 1].temp) + "°"
+            cell.hourLabel.text = hourlyForecastData[indexPath.row - 1].hour! + ":00"
+            cell.dateLabel.text = hourlyForecastData[indexPath.row - 1].date
+            return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 || indexPath.row == 1 {
+        if indexPath.row == 0 {
             return 60
-        }
-        
-        if indexPath.row == 2 {
-            return 520
         } else {
-            return 100
+            return 165
         }
     }
 }

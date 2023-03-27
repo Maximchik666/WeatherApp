@@ -20,6 +20,7 @@
     <entity name="HourlyForecastDataModel" representedClassName="HourlyForecastDataModel" syncable="YES" codeGenerationType="class">
         <attribute name="cloudness" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="condition" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="feelsLike" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="hour" optional="YES" attributeType="String"/>
         <attribute name="humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

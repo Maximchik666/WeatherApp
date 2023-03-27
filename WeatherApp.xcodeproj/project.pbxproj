@@ -35,6 +35,9 @@
 		99CC816629C87E700076C319 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816529C87E700076C319 /* DayCollectionViewCell.swift */; };
 		99CC816829C8876E0076C319 /* DailyWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816729C8876E0076C319 /* DailyWeatherTableViewCell.swift */; };
 		99CC816A29C8C8EF0076C319 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816929C8C8EF0076C319 /* Enums.swift */; };
+		99CC816E29D1A33A0076C319 /* HourlyWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816D29D1A33A0076C319 /* HourlyWeatherViewController.swift */; };
+		99CC817029D1A66C0076C319 /* HourlyForecastsSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC816F29D1A66C0076C319 /* HourlyForecastsSorting.swift */; };
+		99CC817229D1AE4C0076C319 /* HourlyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CC817129D1AE4C0076C319 /* HourlyForecastTableViewCell.swift */; };
 		99E0CAAA29A64E45006ECE23 /* DailyForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */; };
 		99E0CAB829A662FB006ECE23 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */; };
 		99E0CABB29A662FB006ECE23 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */; };
@@ -71,6 +74,9 @@
 		99CC816529C87E700076C319 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		99CC816729C8876E0076C319 /* DailyWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherTableViewCell.swift; sourceTree = "<group>"; };
 		99CC816929C8C8EF0076C319 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		99CC816D29D1A33A0076C319 /* HourlyWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherViewController.swift; sourceTree = "<group>"; };
+		99CC816F29D1A66C0076C319 /* HourlyForecastsSorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastsSorting.swift; sourceTree = "<group>"; };
+		99CC817129D1AE4C0076C319 /* HourlyForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastTableViewCell.swift; sourceTree = "<group>"; };
 		99E0CAA929A64E45006ECE23 /* DailyForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastViewModel.swift; sourceTree = "<group>"; };
 		99E0CAAE29A662FA006ECE23 /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
 		99E0CAB129A662FB006ECE23 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
@@ -94,7 +100,7 @@
 		992200B6293939B7005F880C /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				99CC816029C4B3930076C319 /* DailyWeatherScreen */,
+				99CC816029C4B3930076C319 /* DailyAndHourlyWeatherScreens */,
 				993FB0FC29BF4D0B0064570B /* MainScreen */,
 			);
 			path = CustomCells;
@@ -156,15 +162,16 @@
 			path = WeatherApp;
 			sourceTree = "<group>";
 		};
-		99CC816029C4B3930076C319 /* DailyWeatherScreen */ = {
+		99CC816029C4B3930076C319 /* DailyAndHourlyWeatherScreens */ = {
 			isa = PBXGroup;
 			children = (
 				99CC816129C4B5390076C319 /* GeolocationNameTableViewCell.swift */,
 				99CC816329C87AEB0076C319 /* DaySelectorTableViewCell.swift */,
 				99CC816529C87E700076C319 /* DayCollectionViewCell.swift */,
 				99CC816729C8876E0076C319 /* DailyWeatherTableViewCell.swift */,
+				99CC817129D1AE4C0076C319 /* HourlyForecastTableViewCell.swift */,
 			);
-			path = DailyWeatherScreen;
+			path = DailyAndHourlyWeatherScreens;
 			sourceTree = "<group>";
 		};
 		99E0CAA529A64D65006ECE23 /* App Layer */ = {
@@ -183,6 +190,7 @@
 				99B91EBE2934EA5A00242D64 /* InitialSetupViewController.swift */,
 				99B91EA9293491A900242D64 /* MainScreenViewController.swift */,
 				99CC815E29C4B2D60076C319 /* DailyWeatherViewController.swift */,
+				99CC816D29D1A33A0076C319 /* HourlyWeatherViewController.swift */,
 				992200B6293939B7005F880C /* CustomCells */,
 			);
 			path = "Presentation Layer";
@@ -193,6 +201,7 @@
 			children = (
 				99B91EC329351FEE00242D64 /* CustomUIElements.swift */,
 				99CC816929C8C8EF0076C319 /* Enums.swift */,
+				99CC816F29D1A66C0076C319 /* HourlyForecastsSorting.swift */,
 			);
 			path = "Helping Files";
 			sourceTree = "<group>";
@@ -312,16 +321,19 @@
 				99CC816829C8876E0076C319 /* DailyWeatherTableViewCell.swift in Sources */,
 				993FB0FE29BF4D480064570B /* 24HourButtonCell.swift in Sources */,
 				99CC816429C87AEB0076C319 /* DaySelectorTableViewCell.swift in Sources */,
+				99CC817029D1A66C0076C319 /* HourlyForecastsSorting.swift in Sources */,
 				99B91EBF2934EA5A00242D64 /* InitialSetupViewController.swift in Sources */,
 				9991FFF029A69A5A00240345 /* WeatherCollectionViewCell.swift in Sources */,
 				9991874129ACAEE800C5F1F1 /* CoreDataManager.swift in Sources */,
 				99B91EAA293491A900242D64 /* MainScreenViewController.swift in Sources */,
 				99CC816629C87E700076C319 /* DayCollectionViewCell.swift in Sources */,
 				99B91EA6293491A900242D64 /* AppDelegate.swift in Sources */,
+				99CC817229D1AE4C0076C319 /* HourlyForecastTableViewCell.swift in Sources */,
 				99B91EA8293491A900242D64 /* SceneDelegate.swift in Sources */,
 				99E0CAAA29A64E45006ECE23 /* DailyForecastViewModel.swift in Sources */,
 				99512D6329BA057000771106 /* Location Manager.swift in Sources */,
 				99C0D59829B0BCE500AFD91D /* HourlyForecastViewModel.swift in Sources */,
+				99CC816E29D1A33A0076C319 /* HourlyWeatherViewController.swift in Sources */,
 				993FB10029BF61470064570B /* 7DaysForecast.swift in Sources */,
 				99CC816229C4B5390076C319 /* GeolocationNameTableViewCell.swift in Sources */,
 				9991FFEE29A682F600240345 /* TodayWeatherCell.swift in Sources */,

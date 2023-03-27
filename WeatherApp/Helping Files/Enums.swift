@@ -19,6 +19,7 @@ enum RubikFonts: String {
 enum BundleImages: String {
     
     case humidity = "RainPossibilityIcon"
+    case humidityBlue = "RainPossibilityIconBlue"
     case clouds = "CurrentWeather.Clouds"
     case lightClouds = "CurrentWeather.LightClouds"
     case lightRain = "CurrentWeather.LightRain"

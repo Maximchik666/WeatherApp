@@ -13,8 +13,6 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     var dataForDailyWeatherCell = DailyForecastViewModel(image: "", feelsLike: 0, id: "", highestTemp: 0, lowestTemp: 0, currentTemp: 0, weatherCondition: "", date: "", windSpeed: 0, dawnTime: "", sunsetTime: "", cloudiness: 0, humidity: 0, geolocation: "", hourlyForecast: [])
     
-    var position: Int!
-    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
@@ -59,7 +57,7 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     private lazy var seeMoreDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = ">"
+        label.text = ""
         label.font = UIFont(name: "Rubik-Regular", size: 27.0)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +65,7 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
     }()
     
     
-    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int, position: Int, image: String) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int, image: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
         dataForDailyWeatherCell.date = date
@@ -76,14 +74,9 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
         dataForDailyWeatherCell.lowestTemp = lowestTemp
         dataForDailyWeatherCell.highestTemp = highestTemp
         dataForDailyWeatherCell.image = image
-        self.position = position
         
         addingSubviews()
         addingConstraints()
-        
-        if position > 1 {
-            seeMoreDetailLabel.text = ""
-        }
     }
     
     required init?(coder: NSCoder) {
