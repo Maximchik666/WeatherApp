@@ -8,11 +8,26 @@
 import Foundation
 import UIKit
 import TinyConstraints
+import CoreData
 
-final class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
+    
+    let fetchResultController: NSFetchedResultsController = {
+        let fetchRequest = DailyForecastDataModel.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: CoreDataManager.shared.persistentContainer.viewContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return frc
+    }()
+    
+    var weatherData: [DailyForecastDataModel] = []
+    var geolocationName: String = ""
+    
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private lazy var welcomeImage: UIImageView = {
-        
         let image = UIImageView()
         image.image = UIImage(named: "WelcomeScreenImage")
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +48,6 @@ final class WelcomeViewController: UIViewController {
     
     
     private lazy var useGeolocationButton: UIButton = {
-        
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(named: "Orange")!
@@ -46,7 +60,6 @@ final class WelcomeViewController: UIViewController {
     }()
     
     private lazy var notUseGeolocationButton: UIButton = {
-        
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(named: "DeepBlue")!
@@ -61,31 +74,55 @@ final class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        view.backgroundColor = UIColor(named: "DeepBlue")
-        view.addSubview(welcomeImage)
-        view.addSubview(upperTextField)
-        view.addSubview(middleTextField)
-        view.addSubview(bottomTextField)
-        view.addSubview(useGeolocationButton)
-        view.addSubview(notUseGeolocationButton)
-        addingConstraints()
         
-       // CoreDataManager.shared.clearDataBase()
+        LocationManager().getPermissions()
+        setUpView()
+        addingConstraints()
+        activityIndicator.color = BundleColours.orange.color
         
     }
     
     func alert(title: String, message: String, okActionTitle: String) {
         
+        
         let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let errorAlertView = UIAlertController(title: "Упс...", message: "Такого места я не знаю. Давай попробуем другое!", preferredStyle:.alert)
+        
         let okAction = UIAlertAction(title: okActionTitle, style: .default) { _ in
             
-            LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord in
-                let vc = MainScreenViewController()
-                vc.initialCoordinates = coord
-                print(alertView.textFields![0].text!)
-                self.navigationController?.pushViewController(vc, animated: false)
+            LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord, error  in
+                
+                if let error = error {
+                    print(error.localizedDescription)
+                    self.present(errorAlertView, animated: true)
+                    return
+                }
+                
+                if let coord = coord {
+                    
+                    self.activityIndicator.startAnimating()
+                    let vc = MainScreenViewController()
+                    
+                    DownloadManager().downloadWeather(coordinates: coord) { city in
+                       
+                        self.fetchResultController.delegate = self
+                        try? self.fetchResultController.performFetch()
+                        self.weatherData = self.fetchResultController.fetchedObjects!
+                        self.geolocationName = city
+                        
+                        DispatchQueue.main.async {
+                            vc.weatherData = self.weatherData
+                            self.activityIndicator.stopAnimating()
+                            vc.geolocationName = self.geolocationName
+                            self.navigationController?.pushViewController(vc, animated: false)
+                        }
+                    }
+                }
             }
+        }
+        
+        let tryAgainAction = UIAlertAction(title: "Давай попробуем!", style: .default) {_ in
+            self.present(alertView,animated: true)
         }
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .default)
@@ -93,8 +130,21 @@ final class WelcomeViewController: UIViewController {
         alertView.addTextField()
         alertView.addAction(okAction)
         alertView.addAction(cancelAction)
+        errorAlertView.addAction(tryAgainAction)
         
         present(alertView,animated: true)
+    }
+    
+    
+    func setUpView() {
+        view.backgroundColor = UIColor(named: "DeepBlue")
+        view.addSubview(welcomeImage)
+        view.addSubview(upperTextField)
+        view.addSubview(middleTextField)
+        view.addSubview(bottomTextField)
+        view.addSubview(useGeolocationButton)
+        view.addSubview(notUseGeolocationButton)
+        view.addSubview(activityIndicator)
     }
     
     func addingConstraints () {
@@ -125,25 +175,41 @@ final class WelcomeViewController: UIViewController {
         notUseGeolocationButton.leading(to: view, offset: 30)
         notUseGeolocationButton.trailing(to: view, offset: -30)
         notUseGeolocationButton.height(40)
+        
+        activityIndicator.topToSuperview(offset: 45)
+        activityIndicator.leftToSuperview(offset: 30)
+        activityIndicator.width(60)
+        activityIndicator.height(60)
     }
     
     @objc func didTapAutoGeoButton() {
         
+        self.activityIndicator.startAnimating()
         let locationManager = LocationManager()
         
         let coord = locationManager.findUserLocation() ?? (0,0, "Атлантида")
         let vc = MainScreenViewController()
         
-        locationManager.coordinatesToPlace(lat: coord.0, lon: coord.1) { name in
+        
+        DownloadManager().downloadWeather(coordinates: coord) { city in
+           
+            self.fetchResultController.delegate = self
+            try? self.fetchResultController.performFetch()
+            self.weatherData = self.fetchResultController.fetchedObjects!
+            self.geolocationName = city
             
-            vc.initialCoordinates = (coord.0, coord.1, name)
-            self.navigationController?.pushViewController(vc, animated: false)
+            DispatchQueue.main.async {
+                vc.weatherData = self.weatherData
+                self.activityIndicator.stopAnimating()
+                vc.geolocationName = self.geolocationName
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
         }
     }
     
     
     @objc func didTapSelfGeoButton() {
-        alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором теюе хочется узнать", okActionTitle: "Ок")
+        alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором тебе хочется узнать", okActionTitle: "Ок")
     }
     
 }

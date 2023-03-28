@@ -102,7 +102,7 @@ final class DailyWeatherTableViewCell: UITableViewCell {
         
         blueRectangle.edgesToSuperview(insets: TinyEdgeInsets(top: 0, left: 10, bottom: 100, right: 10))
         
-        conditionImage.top(to: blueRectangle)
+        conditionImage.top(to: blueRectangle, offset: 10)
         conditionImage.centerX(to: blueRectangle, offset: -20)
         
         tempLabel.top(to: blueRectangle, offset: 10)

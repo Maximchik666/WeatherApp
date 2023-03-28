@@ -14,7 +14,6 @@ class CoreDataManager {
     
     private init () {}
     
-    
     // Создаем контейнер
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WeatherApp")
@@ -45,7 +44,7 @@ class CoreDataManager {
         saveContext()
     }
     
-    // Создание Прогноза из распарсеных из Джейсона Данных и сохранение их в Кор дате.
+    // Создание Прогноза из распарсеных из Джейсона Данных и сохранение их в КорДате.
     func addForecasts(dailyForecast: WeatherForecast, completion: @escaping ()->()) {
         persistentContainer.performBackgroundTask { contextBackground in
             for i in 0...6 {
@@ -108,7 +107,7 @@ class CoreDataManager {
                     }
                 }()
                 forecast.cloudiness = dailyForecast.forecasts[i].dailyForecast.dayShort.cloudness
-                forecast.date = self.dateFormatter(unformattedDate: dailyForecast.forecasts[i].date)
+                forecast.date = dateFormatter(unformattedDate: dailyForecast.forecasts[i].date)
                 forecast.geolocation = dailyForecast.info.locationInfo.name
                 if i <= 1 { // Так как АПИ отдает почасовой прогноз только на 2 дня
                     for h in 0...23 {
@@ -180,8 +179,19 @@ class CoreDataManager {
         }
     }
     
+    func addInitialCoordinates(longitude: Double, lattitude: Double, locationName: String, completion: @escaping ()->()) {
+        persistentContainer.performBackgroundTask { contextBackground in
+            let coord = InitialCoordinates(context: contextBackground)
+            coord.longitude = longitude
+            coord.lattitude = lattitude
+            coord.locationName = locationName
+            try? contextBackground.save()
+            completion()
+        }
+    }
+    
     // Очистка всей базы данных КорДаты
-    func clearDataBase() {
+    func clearForecastDataBase() {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
         for forecast in (try? persistentContainer.viewContext.fetch(fetchRequest)) ?? [] {
             deleteForecast(forecast: forecast)
@@ -189,27 +199,11 @@ class CoreDataManager {
         }
     }
     
-    // Форматирование даты из вида предоставляемого АПИ в нужный
-    func dateFormatter (unformattedDate: String) -> String {
-        let dateFormatter = DateFormatter()
-        
-        // Устанавливаем формат даты и локаль
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "ru_RU_POSIX")
-        
-        // Преобразуем строку в дату
-        guard let date = dateFormatter.date(from: unformattedDate) else {
-            fatalError("Неверный формат даты")
+    func clearInitialCoordinatesDataBase(){
+        let fetchRequest = InitialCoordinates.fetchRequest()
+        for coord in (try? persistentContainer.viewContext.fetch(fetchRequest)) ?? []{
+            persistentContainer.viewContext.delete(coord)
+            saveContext()
         }
-        
-        // Обновляем формат даты
-        dateFormatter.dateFormat = "dd MMMM"
-        
-        // Преобразуем дату в строку с новым форматом
-        let newDateString = dateFormatter.string(from: date)
-        
-        return newDateString
     }
-    
-    
 }

@@ -24,7 +24,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     
     var weatherData: [DailyForecastDataModel] = []
     var geolocationName: String = ""
-    var initialCoordinates: (Double, Double, String)!
+ //   var initialCoordinates: (Double, Double, String)!
     
     private lazy var tableView: UITableView = {
         
@@ -45,19 +45,10 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DownloadManager().downloadWeather(coordinates: initialCoordinates) { city in
-            self.fetchResultController.delegate = self
-            try? self.fetchResultController.performFetch()
-            self.weatherData = self.fetchResultController.fetchedObjects!
-            self.geolocationName = city
-            
-            DispatchQueue.main.async {
-                self.view.backgroundColor = UIColor(named: "DeepBlue")
-                self.view.addSubview(self.tableView)
-                self.navBarCustomization(cityName: city)
-                self.setConstraints()
-            }
-        }
+        self.view.backgroundColor = UIColor(named: "DeepBlue")
+        self.view.addSubview(self.tableView)
+        self.navBarCustomization(cityName: geolocationName)
+        self.setConstraints()
     }
     
     private func navBarCustomization (cityName: String) {
@@ -95,11 +86,18 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     func createAlertForNewLocation(title: String, message: String, okActionTitle: String) {
         
         let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let errorAlertView = UIAlertController(title: "Упс...", message: "Такого места я не знаю. Давай попробуем другое!", preferredStyle:.alert)
         let okAction = UIAlertAction(title: okActionTitle, style: .default) { _ in
-            CoreDataManager.shared.clearDataBase()
-            LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord in
+            
+            LocationManager().geocoder(querry: alertView.textFields![0].text!) { coord, error  in
                 
-                self.initialCoordinates = coord ?? (0,0, "Атлантида")
+                if let error = error{
+                    print(error.localizedDescription)
+                    self.present(errorAlertView, animated: true)
+                    return
+                }
+                
+                CoreDataManager.shared.clearForecastDataBase()
                 
                 DownloadManager().downloadWeather(coordinates: coord ?? (0,0, "Атлантида")) { city in
                     
@@ -116,10 +114,14 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         }
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .default)
+        let tryAgainAction = UIAlertAction(title: "Давай попробуем!", style: .default) {_ in
+            self.present(alertView,animated: true)
+        }
         
         alertView.addTextField()
         alertView.addAction(okAction)
         alertView.addAction(cancelAction)
+        errorAlertView.addAction(tryAgainAction)
         
         present(alertView,animated: true)
     }
