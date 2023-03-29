@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 
-final class InitialSetupViewController: UIViewController {
+final class SetupViewController: UIViewController {
     
     private lazy var upperCloud: UIImageView = {
         
@@ -46,14 +46,14 @@ final class InitialSetupViewController: UIViewController {
     
     private lazy var settingsLabel = CustomTextLabel(text: "Настройки", textColor: .black, font: "Rubik-Regular", fontSize: 20)
     private lazy var temperatureLabel = CustomTextLabel(text: "Температура", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
-    private lazy var windSpeedLabel = CustomTextLabel(text: "Скорость Ветра", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
     private lazy var timeFormatLabel = CustomTextLabel(text: "Cкорость ветра", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
     private lazy var notificationLabel = CustomTextLabel(text: "Уведомления", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
     
-    private lazy var temperatureSwitch = CustomSwitch()
-    private lazy var windSpeedSwitch = CustomSwitch()
+    private lazy var temperatureSwitch = CVSwithcer()
     private lazy var timeFormatSwitch = CustomSwitch()
     private lazy var notificationSwitch = CustomSwitch()
+    
+
     
     private lazy var setUpButton: UIButton = {
         
@@ -76,19 +76,19 @@ final class InitialSetupViewController: UIViewController {
         view.addSubview(whiteSquare)
         view.addSubview(settingsLabel)
         view.addSubview(temperatureLabel)
-        view.addSubview(windSpeedLabel)
         view.addSubview(timeFormatLabel)
         view.addSubview(notificationLabel)
         view.addSubview(setUpButton)
         view.addSubview(temperatureSwitch)
-        view.addSubview(windSpeedSwitch)
         view.addSubview(timeFormatSwitch)
         view.addSubview(notificationSwitch)
         addingConatraints()
+        
     }
     
     func addingConatraints () {
         
+        //Clouds
         upperCloud.top(to: view, offset: 50)
         upperCloud.leading(to: view)
         upperCloud.width(300)
@@ -104,51 +104,45 @@ final class InitialSetupViewController: UIViewController {
         bottomCloud.height(100)
         bottomCloud.width(300)
         
-        whiteSquare.topToBottom(of: middleCloud, offset: 10)
-        whiteSquare.leading(to: view, offset: 30)
-        whiteSquare.trailing(to: view, offset: -30)
-        whiteSquare.bottomToTop(of: bottomCloud, offset: -80)
-        
+        // Settings
+        whiteSquare.centerX(to: view)
+        whiteSquare.centerY(to: view)
+        whiteSquare.height(350)
+        whiteSquare.left(to: view, offset: 20)
+        whiteSquare.right(to: view, offset: -20)
+   
         settingsLabel.top(to: whiteSquare, offset: 27)
         settingsLabel.leading(to: whiteSquare, offset: 20)
         settingsLabel.height(30)
         
-        temperatureLabel.top(to: settingsLabel, offset: 60)
+        temperatureLabel.topToBottom(of: settingsLabel, offset: 40)
         temperatureLabel.leading(to:whiteSquare, offset: 20)
         temperatureLabel.height(30)
+        
+        temperatureSwitch.centerY(to: temperatureLabel)
+        temperatureSwitch.right(to:whiteSquare, offset: -20)
+        temperatureSwitch.height(30)
+        temperatureSwitch.width(60)
 
-        windSpeedLabel.top(to: temperatureLabel, offset: 60)
-        windSpeedLabel.leading(to:whiteSquare, offset: 20)
-        windSpeedLabel.height(30)
-
-        timeFormatLabel.top(to: windSpeedLabel, offset: 60)
+        timeFormatLabel.topToBottom(of: temperatureLabel, offset: 20)
         timeFormatLabel.leading(to:whiteSquare, offset: 20)
         timeFormatLabel.height(30)
+        
+        timeFormatSwitch.centerY(to: timeFormatLabel)
+        timeFormatSwitch.right(to:whiteSquare, offset: -20)
+        timeFormatSwitch.height(30)
 
-        notificationLabel.top(to: timeFormatLabel, offset: 60)
+        notificationLabel.topToBottom(of: timeFormatLabel, offset: 20)
         notificationLabel.leading(to:whiteSquare, offset: 20)
         notificationLabel.height(30)
         
-        setUpButton.bottom(to: whiteSquare, offset: -27)
+        notificationSwitch.centerY(to: notificationLabel)
+        notificationSwitch.right(to:whiteSquare, offset: -20)
+        notificationSwitch.height(30)
+        
+        setUpButton.topToBottom(of: notificationSwitch, offset: 40)
         setUpButton.leading(to: whiteSquare, offset: 30)
         setUpButton.trailing(to: whiteSquare, offset: -30)
         setUpButton.height(40)
-        
-        temperatureSwitch.top(to: settingsLabel, offset: 60)
-        temperatureSwitch.trailing(to:whiteSquare, offset: -20)
-        temperatureSwitch.height(30)
-
-        windSpeedSwitch.top(to: temperatureLabel, offset: 60)
-        windSpeedSwitch.trailing(to:whiteSquare, offset: -20)
-        windSpeedSwitch.height(30)
-
-        timeFormatSwitch.top(to: windSpeedLabel, offset: 60)
-        timeFormatSwitch.trailing(to:whiteSquare, offset: -20)
-        timeFormatSwitch.height(30)
-
-        notificationSwitch.top(to: timeFormatLabel, offset: 60)
-        notificationSwitch.trailing(to:whiteSquare, offset: -20)
-        notificationSwitch.height(30)
     }
-    
 }

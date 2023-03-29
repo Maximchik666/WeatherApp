@@ -46,6 +46,7 @@ class CustomSwitch: UISwitch {
     init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        isOn = true
     }
     
     required init?(coder: NSCoder) {
@@ -62,6 +63,25 @@ class BlueLine: UIView {
         self.layer.backgroundColor = UIColor(named: "DeepBlue")?.cgColor
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class CVSwithcer : UIButton {
+
+    @objc func didTap(){
+        self.isSelected.toggle()
+    }
+
+    init(){
+        super.init(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+        self.translatesAutoresizingMaskIntoConstraints = false
+        setTitle("sfs", for: .selected)
+        backgroundColor = .cyan
+        addTarget(self, action: #selector(didTap), for: .touchUpInside)
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

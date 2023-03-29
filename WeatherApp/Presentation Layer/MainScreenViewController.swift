@@ -11,6 +11,7 @@ import TinyConstraints
 
 final class MainScreenViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
+    
     let fetchResultController: NSFetchedResultsController = {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
@@ -24,7 +25,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     
     var weatherData: [DailyForecastDataModel] = []
     var geolocationName: String = ""
- //   var initialCoordinates: (Double, Double, String)!
+    //   var initialCoordinates: (Double, Double, String)!
     
     private lazy var tableView: UITableView = {
         
@@ -42,6 +43,9 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     }()
     
     
+    let menuContainer = UIView()
+    var menuLeadingConstraint = NSLayoutConstraint()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,17 +53,18 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         self.view.addSubview(self.tableView)
         self.navBarCustomization(cityName: geolocationName)
         self.setConstraints()
+        
     }
     
     private func navBarCustomization (cityName: String) {
-
+        
         self.navigationItem.title = cityName
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "LocationPoint"), style: .plain, target: self, action: #selector(getNewLocation))
         rightBarButtonItem.tintColor = .black
         rightBarButtonItem.imageInsets = UIEdgeInsets(top: 2, left: 2, bottom: -2, right: -2)
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: nil)
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "SettingsIcon"), style: .plain, target: self, action: #selector(showSettings))
         leftBarButtonItem.imageInsets = UIEdgeInsets(top: 5, left: 5, bottom: -5, right: -5)
         leftBarButtonItem.tintColor = .black
         navigationItem.leftBarButtonItem = leftBarButtonItem
@@ -130,6 +135,12 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         createAlertForNewLocation(title: "Внимание!", message: "Введите название новой локации" , okActionTitle: "Принято")
     }
     
+    @objc func showSettings() {
+        let vc = SetupViewController()
+        navigationController?.present(vc, animated: true)
+        
+
+    }
 }
 
 extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
@@ -210,3 +221,4 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
         return 200
     }
 }
+
