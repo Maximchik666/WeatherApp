@@ -11,6 +11,15 @@ import TinyConstraints
 
 final class MainScreenViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
+    var temperatureState = false
+    var notificatonState = false
+    
+    var tempMultiplicationCoef: Double {
+        return temperatureState ? 1.8 : 1
+    }
+    var tempAdditionCoef: Double {
+        return temperatureState ? 32 : 0
+    }
     
     let fetchResultController: NSFetchedResultsController = {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
@@ -22,12 +31,10 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         return frc
     }()
     
-    
     var weatherData: [DailyForecastDataModel] = []
     var geolocationName: String = ""
-    //   var initialCoordinates: (Double, Double, String)!
     
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         
         let table = UITableView()
         table.delegate = self
@@ -42,7 +49,6 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         return table
     }()
     
-    
     let menuContainer = UIView()
     var menuLeadingConstraint = NSLayoutConstraint()
     
@@ -53,7 +59,6 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         self.view.addSubview(self.tableView)
         self.navBarCustomization(cityName: geolocationName)
         self.setConstraints()
-        
     }
     
     private func navBarCustomization (cityName: String) {
@@ -103,7 +108,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
                 }
                 
                 CoreDataManager.shared.clearForecastDataBase()
-                
+                CoreDataManager.shared.clearInitialStatesDataBase()
                 DownloadManager().downloadWeather(coordinates: coord ?? (0,0, "Атлантида")) { city in
                     
                     try? self.fetchResultController.performFetch()
@@ -120,15 +125,14 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .default)
         let tryAgainAction = UIAlertAction(title: "Давай попробуем!", style: .default) {_ in
-            self.present(alertView,animated: true)
+            self.present(alertView, animated: true)
         }
         
         alertView.addTextField()
         alertView.addAction(okAction)
         alertView.addAction(cancelAction)
         errorAlertView.addAction(tryAgainAction)
-        
-        present(alertView,animated: true)
+        present(alertView, animated: true)
     }
     
     @objc func getNewLocation() {
@@ -137,9 +141,10 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     
     @objc func showSettings() {
         let vc = SetupViewController()
+        vc.delegate = self
+        vc.temperatureSwitch.isSelected = temperatureState
+        vc.notificationSwitch.isSelected = notificatonState
         navigationController?.present(vc, animated: true)
-        
-
     }
 }
 
@@ -156,17 +161,18 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         CurrentWeatherHeader(reuseIdentifier: "Header",
                              date: weatherData[0].date ?? "666666666",
-                             currentTemp: Int(weatherData[0].currentTemp),
+                             currentTemp: Int((Double(weatherData[0].currentTemp) * tempMultiplicationCoef) + tempAdditionCoef),
                              weatherCondition: weatherData[0].weatherCondition ?? "6666",
                              windSpeed: weatherData[0].windSpeed,
                              humidity: Int(weatherData[0].humidity),
                              cloudiness: weatherData[0].cloudiness * 100,
                              sunsetTime: weatherData[0].sunsetTime ?? "6666666666666666",
                              dawnTime: weatherData[0].dawnTime ?? "6666666666",
-                             lowestTemp: Int(weatherData[0].lowestTemp),
-                             highestTemp: Int(weatherData[0].highestTemp),
+                             lowestTemp: Int((Double(weatherData[0].lowestTemp) * tempMultiplicationCoef) + tempAdditionCoef),
+                             highestTemp: Int((Double(weatherData[0].highestTemp) * tempMultiplicationCoef) + tempAdditionCoef),
                              feelsLike: Int(weatherData[0].feelsLike))
     }
+    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -193,8 +199,8 @@ extension MainScreenViewController: UITableViewDelegate, UITableViewDataSource {
                 date: weatherData[indexPath.row - 3].date ?? "666",
                 humidity: Int(weatherData[indexPath.row - 3].humidity),
                 weatherCondition: weatherData[indexPath.row - 3].weatherCondition ?? "666",
-                lowestTemp: Int(weatherData[indexPath.row - 3].lowestTemp),
-                highestTemp: Int(weatherData[indexPath.row - 3].highestTemp),
+                lowestTemp: Int((Double(weatherData[indexPath.row - 3].lowestTemp) * tempMultiplicationCoef) + tempAdditionCoef),
+                highestTemp: Int((Double(weatherData[indexPath.row - 3].highestTemp) * tempMultiplicationCoef) + tempAdditionCoef),
                 image: weatherData[indexPath.row - 3].image ?? "666")
             
             return cell

@@ -50,3 +50,24 @@ enum BundleColours {
         }
     }
 }
+
+enum Switchers {
+   
+    case notificationOn
+    case notificationOff
+    case temperatureCelcius
+    case temperatureFarenheit
+    case windMeters
+    case windMiles
+    
+    var image: UIImage {
+        switch self {
+        case .notificationOn: return UIImage(named: "notif_stateON")!
+        case .notificationOff: return UIImage(named: "notif_stateOFF")!
+        case .temperatureCelcius: return UIImage(named: "temp_stateOFF")!
+        case .temperatureFarenheit: return UIImage(named: "temp_stateON")!
+        case .windMeters: return UIImage(named: "wind_stateON")!
+        case .windMiles: return UIImage(named: "wind_stateOFF")!
+        }
+    }
+}

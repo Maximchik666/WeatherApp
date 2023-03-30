@@ -179,12 +179,14 @@ class CoreDataManager {
         }
     }
     
-    func addInitialCoordinates(longitude: Double, lattitude: Double, locationName: String, completion: @escaping ()->()) {
+    func addInitialStates(longitude: Double, lattitude: Double, locationName: String, isFahrenheitOn: Bool, isNotificationsOn: Bool, completion: @escaping ()->()) {
         persistentContainer.performBackgroundTask { contextBackground in
-            let coord = InitialCoordinates(context: contextBackground)
-            coord.longitude = longitude
-            coord.lattitude = lattitude
-            coord.locationName = locationName
+            let state = InitialStates(context: contextBackground)
+            state.longitude = longitude
+            state.lattitude = lattitude
+            state.locationName = locationName
+            state.notificationIsOn = isNotificationsOn
+            state.tempInFahreheit = isFahrenheitOn
             try? contextBackground.save()
             completion()
         }
@@ -199,8 +201,8 @@ class CoreDataManager {
         }
     }
     
-    func clearInitialCoordinatesDataBase(){
-        let fetchRequest = InitialCoordinates.fetchRequest()
+    func clearInitialStatesDataBase(){
+        let fetchRequest = InitialStates.fetchRequest()
         for coord in (try? persistentContainer.viewContext.fetch(fetchRequest)) ?? []{
             persistentContainer.viewContext.delete(coord)
             saveContext()

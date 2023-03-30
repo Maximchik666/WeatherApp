@@ -11,6 +11,8 @@ import TinyConstraints
 
 final class SetupViewController: UIViewController {
     
+    weak var delegate: MainScreenViewController!
+    
     private lazy var upperCloud: UIImageView = {
         
         let image = UIImageView()
@@ -46,44 +48,43 @@ final class SetupViewController: UIViewController {
     
     private lazy var settingsLabel = CustomTextLabel(text: "Настройки", textColor: .black, font: "Rubik-Regular", fontSize: 20)
     private lazy var temperatureLabel = CustomTextLabel(text: "Температура", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
-    private lazy var timeFormatLabel = CustomTextLabel(text: "Cкорость ветра", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
     private lazy var notificationLabel = CustomTextLabel(text: "Уведомления", textColor: .systemGray, font: "Rubik-Regular", fontSize: 18)
     
-    private lazy var temperatureSwitch = CVSwithcer()
-    private lazy var timeFormatSwitch = CustomSwitch()
-    private lazy var notificationSwitch = CustomSwitch()
+    lazy var temperatureSwitch = CustomSwitcherButton(imageOn: Switchers.temperatureCelcius.image, imageOff: Switchers.temperatureFarenheit.image)
+    lazy var notificationSwitch = CustomSwitcherButton(imageOn: Switchers.notificationOn.image, imageOff: Switchers.notificationOff.image)
     
-
-    
-    private lazy var setUpButton: UIButton = {
-        
+    private lazy var saveSettingsButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(named: "Orange")!
+        button.backgroundColor = BundleColours.orange.color
         button.tintColor = .white
         button.layer.cornerRadius = 10
-        button.setTitle("Установить", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
+        button.setTitle("СОХРАНИТЬ", for: .normal)
+        button.titleLabel?.font = UIFont(name: RubikFonts.regular.rawValue, size: 13)
+        button.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "DeepBlue")
+        
+        setUpView()
+        addingConatraints()
+        
+    }
+    
+    func setUpView(){
+        view.backgroundColor = BundleColours.deepBlue.color
         view.addSubview(upperCloud)
         view.addSubview(middleCloud)
         view.addSubview(bottomCloud)
         view.addSubview(whiteSquare)
         view.addSubview(settingsLabel)
         view.addSubview(temperatureLabel)
-        view.addSubview(timeFormatLabel)
         view.addSubview(notificationLabel)
-        view.addSubview(setUpButton)
         view.addSubview(temperatureSwitch)
-        view.addSubview(timeFormatSwitch)
         view.addSubview(notificationSwitch)
-        addingConatraints()
-        
+        view.addSubview(saveSettingsButton)
     }
     
     func addingConatraints () {
@@ -122,17 +123,8 @@ final class SetupViewController: UIViewController {
         temperatureSwitch.centerY(to: temperatureLabel)
         temperatureSwitch.right(to:whiteSquare, offset: -20)
         temperatureSwitch.height(30)
-        temperatureSwitch.width(60)
-
-        timeFormatLabel.topToBottom(of: temperatureLabel, offset: 20)
-        timeFormatLabel.leading(to:whiteSquare, offset: 20)
-        timeFormatLabel.height(30)
         
-        timeFormatSwitch.centerY(to: timeFormatLabel)
-        timeFormatSwitch.right(to:whiteSquare, offset: -20)
-        timeFormatSwitch.height(30)
-
-        notificationLabel.topToBottom(of: timeFormatLabel, offset: 20)
+        notificationLabel.topToBottom(of: temperatureLabel, offset: 20)
         notificationLabel.leading(to:whiteSquare, offset: 20)
         notificationLabel.height(30)
         
@@ -140,9 +132,17 @@ final class SetupViewController: UIViewController {
         notificationSwitch.right(to:whiteSquare, offset: -20)
         notificationSwitch.height(30)
         
-        setUpButton.topToBottom(of: notificationSwitch, offset: 40)
-        setUpButton.leading(to: whiteSquare, offset: 30)
-        setUpButton.trailing(to: whiteSquare, offset: -30)
-        setUpButton.height(40)
+        saveSettingsButton.centerX(to: whiteSquare)
+        saveSettingsButton.topToBottom(of: notificationLabel, offset: 40)
+        saveSettingsButton.height(40)
+        saveSettingsButton.width(240)
+    }
+    
+    @objc func didTapSaveButton() {
+     
+        delegate.notificatonState = notificationSwitch.isSelected
+        delegate.temperatureState = temperatureSwitch.isSelected
+        delegate.tableView.reloadData()
+        dismiss(animated: true)
     }
 }

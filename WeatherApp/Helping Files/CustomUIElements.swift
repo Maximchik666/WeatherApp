@@ -68,17 +68,17 @@ class BlueLine: UIView {
     }
 }
 
-class CVSwithcer : UIButton {
 
+class CustomSwitcherButton : UIButton {
     @objc func didTap(){
         self.isSelected.toggle()
     }
 
-    init(){
+    init(imageOn: UIImage, imageOff: UIImage){
         super.init(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
         self.translatesAutoresizingMaskIntoConstraints = false
-        setTitle("sfs", for: .selected)
-        backgroundColor = .cyan
+        self.setImage(imageOff, for: .selected)
+        self.setImage(imageOn, for: .normal)
         addTarget(self, action: #selector(didTap), for: .touchUpInside)
     }
 

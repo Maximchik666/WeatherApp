@@ -18,22 +18,26 @@ func getTimeSortedHourForecasts(from forecasts: [DailyForecastDataModel], forHow
         return hour
     }
     
-    var unsorted1 : [HourlyForecastDataModel] = []
-    var unsorted2 : [HourlyForecastDataModel] = []
+    var unsortedToday : [HourlyForecastDataModel] = []
+    var unsortedTomorrow : [HourlyForecastDataModel] = []
     
+    // Собираем все часовые прогнозы сегодняшнего дня в один массив
     for i in forecasts[0].hourlyForecast!.allObjects {
-        unsorted1.append(i as! HourlyForecastDataModel)
+        unsortedToday.append(i as! HourlyForecastDataModel)
     }
+    // Сортируем этот массив по возрастанию (id это номер часа)
+    var sortedToday = unsortedToday.sorted{$0.id < $1.id }
+    // Удаляем все часовые прогнозы номер часа которых меньше текущего
+    sortedToday.removeAll{$0.id < currentHour}
     
-    var sorted1 = unsorted1.sorted{$0.id < $1.id }
-    sorted1.removeAll{$0.id < currentHour}
-    
+    // Собираем все часовые прогнозы завтрашено дня в один массив
     for i in forecasts[1].hourlyForecast!.allObjects {
-        unsorted2.append(i as! HourlyForecastDataModel)
+        unsortedTomorrow.append(i as! HourlyForecastDataModel)
     }
     
-    var sorted2 = unsorted2.sorted{$0.id < $1.id }
-    sorted2.removeAll{$0.id >= (currentHour - (24 - hours))}
+    // Удаляем ненужные прогнозы завтрашнего дня (чтобы общее число прогнозов было равно параметру метода)
+    var sortedTomorrow = unsortedTomorrow.sorted{$0.id < $1.id }
+    sortedTomorrow.removeAll{$0.id >= (currentHour - (24 - hours))}
     
-    return sorted1 + sorted2
+    return sortedToday + sortedTomorrow
 }

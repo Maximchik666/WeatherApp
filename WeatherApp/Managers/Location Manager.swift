@@ -23,7 +23,7 @@ class LocationManager {
     
     func findUserLocation() -> (Double, Double, String)? {
     
-        var locationName = "Initial Place"
+        let locationName = "Initial Place"
         
         if let location = locationManager.location {
             let latitude = location.coordinate.latitude
