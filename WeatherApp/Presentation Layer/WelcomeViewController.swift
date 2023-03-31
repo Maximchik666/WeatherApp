@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import TinyConstraints
 import CoreData
+import UserNotifications
 
 final class WelcomeViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
@@ -78,11 +79,12 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         LocationManager().getPermissions()
         setUpView()
         addingConstraints()
+        scheduleNotification()
         activityIndicator.color = BundleColours.orange.color
         
     }
     
-    func alert(title: String, message: String, okActionTitle: String) {
+    private func alert(title: String, message: String, okActionTitle: String) {
         
         
         let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -136,7 +138,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     
-    func setUpView() {
+    private func setUpView() {
         view.backgroundColor = UIColor(named: "DeepBlue")
         view.addSubview(welcomeImage)
         view.addSubview(upperTextField)
@@ -147,7 +149,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         view.addSubview(activityIndicator)
     }
     
-    func addingConstraints () {
+    private func addingConstraints () {
         
         welcomeImage.top(to: view, offset: 60)
         welcomeImage.centerX(to: view)
@@ -182,7 +184,32 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         activityIndicator.height(60)
     }
     
-    @objc func didTapAutoGeoButton() {
+    private func scheduleNotification() {
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Температура на сегодня"
+        content.body = "Не забудьте проверить температуру на сегодня!"
+        content.sound = UNNotificationSound.default
+        
+        // Отправляем уведомление каждый день в 9 утра
+        var dateComponents = DateComponents()
+        dateComponents.hour = 13
+        dateComponents.minute = 59
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+        center.add(request)
+    }
+    
+    @objc private func didTapAutoGeoButton() {
         
         self.activityIndicator.startAnimating()
         let locationManager = LocationManager()
@@ -208,7 +235,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     
-    @objc func didTapSelfGeoButton() {
+@objc private func didTapSelfGeoButton() {
         alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором тебе хочется узнать", okActionTitle: "Ок")
     }
     

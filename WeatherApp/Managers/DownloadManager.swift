@@ -14,7 +14,7 @@ class DownloadManager {
     func downloadWeather (coordinates: (Double, Double, String), complition: @escaping (String) -> ()) {
         
         let url = "https://api.weather.yandex.ru/v2/forecast?lat=\(coordinates.0)&lon=\(coordinates.1)&&limit=7&extra=true"
-        let header: HTTPHeaders = ["X-Yandex-API-Key": "22cb5ee0-222b-4aa0-b8db-fffa4def517e"]
+        let header: HTTPHeaders = ["X-Yandex-API-Key": "cdb1cf02-d38f-4913-852e-af24e6951369"]
         
         AF.request(url, headers: header)
             .validate()

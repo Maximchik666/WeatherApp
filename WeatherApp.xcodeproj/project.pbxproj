@@ -52,6 +52,7 @@
 		993FB0FF29BF61470064570B /* 7DaysForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 7DaysForecast.swift; sourceTree = "<group>"; };
 		99512D6229BA057000771106 /* Location Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location Manager.swift"; sourceTree = "<group>"; };
 		996D2F7829D2F91F00475474 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		996D2F8229D6E49E00475474 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		9991874029ACAEE800C5F1F1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9991874229ACAEF400C5F1F1 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		9991874429AD109300C5F1F1 /* DailyForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastTableViewCell.swift; sourceTree = "<group>"; };
@@ -121,6 +122,14 @@
 			path = MainScreen;
 			sourceTree = "<group>";
 		};
+		996D2F8129D6E49E00475474 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				996D2F8229D6E49E00475474 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9991873F29ACAED400C5F1F1 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +145,7 @@
 			children = (
 				99B91EA4293491A900242D64 /* WeatherApp */,
 				99B91EA3293491A900242D64 /* Products */,
+				996D2F8129D6E49E00475474 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
