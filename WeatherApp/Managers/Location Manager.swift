@@ -21,43 +21,49 @@ class LocationManager {
         locationManager.startUpdatingLocation()
     }
     
-    func findUserLocation() -> (Double, Double, String)? {
-    
-        var locationName = "Initial Place"
+    func findUserLocation( completion: @escaping ((Double, Double, String)) -> ()) {
+        
         
         if let location = locationManager.location {
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude            
-            return (latitude, longitude, locationName)
+            CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+                if let placemarks = placemarks {
+                    let latitude = location.coordinate.latitude as Double
+                    let longitude = location.coordinate.longitude as Double
+                    let geolocation = placemarks[0].name ?? "Атлантида"
+                    let coord = (latitude, longitude, geolocation)
+                    completion(coord)
+                } else{
+                    completion((0,0, "Атлантида"))
+                }
+            }
         } else {
-            print("Unable to get current location.")
-            return nil
+            completion ((0,0, "Атлантида"))
+        }
+    }
+        
+        func geocoder (querry: String, completion: @escaping ((Double, Double, String)?, Error?) -> ()) {
+            let geocoder = CLGeocoder()
+            var coord: (Double, Double, String)? = nil
+            
+            geocoder.geocodeAddressString(querry) { (placemarks, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                print("Placemarks: \(placemarks?[0].name ?? "WROOOOOOOONG"), Error: \(error.debugDescription)")
+                
+                if let placemarks = placemarks, let location = placemarks.first?.location {
+                    let latitude = location.coordinate.latitude as Double
+                    let longitude = location.coordinate.longitude as Double
+                    print("Latitude: \(latitude), Longitude: \(longitude)")
+                    coord = (latitude, longitude, placemarks[0].name!)
+                }
+                completion(coord, error)
+            }
         }
     }
     
-    func geocoder (querry: String, completion: @escaping ((Double, Double, String)?, Error?) -> ()) {
-        let geocoder = CLGeocoder()
-        var coord: (Double, Double, String)? = nil
-        
-        geocoder.geocodeAddressString(querry) { (placemarks, error) in
-            if let error = error {
-                print("Error: \(error)")
-            }
-            
-            print("Placemarks: \(placemarks?[0].name ?? "WROOOOOOOONG"), Error: \(error.debugDescription)")
-            
-            if let placemarks = placemarks, let location = placemarks.first?.location {
-                let latitude = location.coordinate.latitude as Double
-                let longitude = location.coordinate.longitude as Double
-                print("Latitude: \(latitude), Longitude: \(longitude)")
-                coord = (latitude, longitude, placemarks[0].name!)
-            }
-            completion(coord, error)
-        }
-    }
-}
-
-
-
-
-
+    
+    
+    
+    

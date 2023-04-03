@@ -124,7 +124,6 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
                         CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: city, isFahrenheitOn: self.temperatureState, isNotificationsOn: self.notificatonState)
                     }
                 }
-                
             }
         }
         

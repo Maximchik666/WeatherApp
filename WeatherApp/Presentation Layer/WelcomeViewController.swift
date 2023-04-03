@@ -216,28 +216,29 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         self.activityIndicator.startAnimating()
         let locationManager = LocationManager()
         
-        let coord = locationManager.findUserLocation() ?? (0,0, "Атлантида")
-        let vc = MainScreenViewController()
-        
-        
-        DownloadManager().downloadWeather(coordinates: coord) { city in
-           
-            self.activityIndicator.startAnimating()
-            self.fetchResultController.delegate = self
-            try? self.fetchResultController.performFetch()
-            self.weatherData = self.fetchResultController.fetchedObjects!
-            self.geolocationName = city
+        locationManager.findUserLocation { coord in
             
-            DispatchQueue.main.async {
-                vc.weatherData = self.weatherData
-                self.activityIndicator.stopAnimating()
-                vc.geolocationName = city
-                self.activityIndicator.stopAnimating()
-                self.navigationController?.pushViewController(vc, animated: false)
+            let vc = MainScreenViewController()
+            
+            DownloadManager().downloadWeather(coordinates: coord) { city in
+                
+                self.fetchResultController.delegate = self
+                try? self.fetchResultController.performFetch()
+                self.weatherData = self.fetchResultController.fetchedObjects!
+                self.geolocationName = city
+                
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating()
+                    vc.weatherData = self.weatherData
+                    self.activityIndicator.stopAnimating()
+                    vc.geolocationName = city
+                    self.activityIndicator.stopAnimating()
+                    self.navigationController?.pushViewController(vc, animated: false)
+                }
             }
+            CoreDataManager.shared.clearInitialStatesDataBase()
+            CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: coord.2, isFahrenheitOn: false, isNotificationsOn: false)
         }
-        CoreDataManager.shared.clearInitialStatesDataBase()
-        CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: self.initialCoordinates.2, isFahrenheitOn: false, isNotificationsOn: false)
     }
     
     
