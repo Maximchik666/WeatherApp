@@ -109,11 +109,10 @@ class WelcomeAgainViewController: UIViewController, NSFetchedResultsControllerDe
                 vc.notificatonState = initialData.notificationIsOn
                 vc.temperatureState = initialData.tempInFahreheit
                 self.activityIndicator.stopAnimating()
+                vc.initialCoordinates = (initialData.lattitude,initialData.longitude, geolocationName)
                 self.navigationController?.pushViewController(vc, animated: false)
             }
         }
-        
     }
-    
 }
 

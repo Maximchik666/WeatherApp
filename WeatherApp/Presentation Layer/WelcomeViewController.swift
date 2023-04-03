@@ -241,7 +241,6 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         }
     }
     
-    
     @objc private func didTapSelfGeoButton() {
         alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором тебе хочется узнать", okActionTitle: "Ок")
     }
