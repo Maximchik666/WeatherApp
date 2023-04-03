@@ -13,6 +13,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     
     var temperatureState = false
     var notificatonState = false
+    var initialCoordinates: (Double,Double,String) = (0,0,"")
     
     var tempMultiplicationCoef: Double {
         return temperatureState ? 1.8 : 1
@@ -55,10 +56,11 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor(named: "DeepBlue")
-        self.view.addSubview(self.tableView)
-        self.navBarCustomization(cityName: geolocationName)
-        self.setConstraints()
+        view.backgroundColor = UIColor(named: "DeepBlue")
+        view.addSubview(self.tableView)
+        navBarCustomization(cityName: geolocationName)
+        setConstraints()
+        scheduleNotification()
     }
     
     private func navBarCustomization (cityName: String) {
@@ -108,18 +110,21 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
                 }
                 
                 CoreDataManager.shared.clearForecastDataBase()
-                CoreDataManager.shared.clearInitialStatesDataBase()
                 DownloadManager().downloadWeather(coordinates: coord ?? (0,0, "Атлантида")) { city in
                     
                     try? self.fetchResultController.performFetch()
                     self.weatherData = self.fetchResultController.fetchedObjects!
                     self.geolocationName = city
+                    self.initialCoordinates = coord ?? (0,0, "Атлантида")
                     
                     DispatchQueue.main.async {
                         self.navigationItem.title = city
                         self.tableView.reloadData()
+                        CoreDataManager.shared.clearInitialStatesDataBase()
+                        CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: city, isFahrenheitOn: self.temperatureState, isNotificationsOn: self.notificatonState)
                     }
                 }
+                
             }
         }
         
@@ -134,6 +139,35 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         errorAlertView.addAction(tryAgainAction)
         present(alertView, animated: true)
     }
+    
+    private func scheduleNotification() {
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        let center = UNUserNotificationCenter.current()
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Температура на сегодня"
+        content.body = "Не забудьте проверить температуру на сегодня!"
+        content.sound = UNNotificationSound.default
+        
+        // Отправляем уведомление каждый день в 9 утра
+        var dateComponents = DateComponents()
+        dateComponents.hour = 10
+        dateComponents.minute = 00
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        if notificatonState {
+            let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+            center.add(request)
+        }
+    }
+    
+    
     
     @objc func getNewLocation() {
         createAlertForNewLocation(title: "Внимание!", message: "Введите название новой локации" , okActionTitle: "Принято")

@@ -179,7 +179,7 @@ class CoreDataManager {
         }
     }
     
-    func addInitialStates(longitude: Double, lattitude: Double, locationName: String, isFahrenheitOn: Bool, isNotificationsOn: Bool, completion: @escaping ()->()) {
+    func addInitialStates(longitude: Double, lattitude: Double, locationName: String, isFahrenheitOn: Bool, isNotificationsOn: Bool) {
         persistentContainer.performBackgroundTask { contextBackground in
             let state = InitialStates(context: contextBackground)
             state.longitude = longitude
@@ -188,7 +188,6 @@ class CoreDataManager {
             state.notificationIsOn = isNotificationsOn
             state.tempInFahreheit = isFahrenheitOn
             try? contextBackground.save()
-            completion()
         }
     }
     

@@ -25,7 +25,6 @@ class DownloadManager {
                     CoreDataManager.shared.addForecasts(dailyForecast: weather) {
                         complition(coordinates.2)
                     }
-                    
                 } else {
                     print(response)
                 }

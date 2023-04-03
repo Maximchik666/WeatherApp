@@ -23,11 +23,11 @@ class LocationManager {
     
     func findUserLocation() -> (Double, Double, String)? {
     
-        let locationName = "Initial Place"
+        var locationName = "Initial Place"
         
         if let location = locationManager.location {
             let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
+            let longitude = location.coordinate.longitude            
             return (latitude, longitude, locationName)
         } else {
             print("Unable to get current location.")

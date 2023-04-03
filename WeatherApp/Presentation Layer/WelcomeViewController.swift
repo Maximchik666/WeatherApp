@@ -25,7 +25,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
     
     var weatherData: [DailyForecastDataModel] = []
     var geolocationName: String = ""
-    
+    var initialCoordinates: (Double,Double,String) = (0,0,"")
     let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private lazy var welcomeImage: UIImageView = {
@@ -79,7 +79,6 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         LocationManager().getPermissions()
         setUpView()
         addingConstraints()
-        scheduleNotification()
         activityIndicator.color = BundleColours.orange.color
         
     }
@@ -111,12 +110,15 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
                         try? self.fetchResultController.performFetch()
                         self.weatherData = self.fetchResultController.fetchedObjects!
                         self.geolocationName = city
+                        self.initialCoordinates = coord
                         
                         DispatchQueue.main.async {
                             vc.weatherData = self.weatherData
                             self.activityIndicator.stopAnimating()
                             vc.geolocationName = self.geolocationName
                             self.navigationController?.pushViewController(vc, animated: false)
+                            CoreDataManager.shared.clearInitialStatesDataBase()
+                            CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: self.initialCoordinates.2, isFahrenheitOn: false, isNotificationsOn: false)
                         }
                     }
                 }
@@ -201,8 +203,8 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         
         // Отправляем уведомление каждый день в 9 утра
         var dateComponents = DateComponents()
-        dateComponents.hour = 13
-        dateComponents.minute = 59
+        dateComponents.hour = 10
+        dateComponents.minute = 00
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
@@ -220,6 +222,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         
         DownloadManager().downloadWeather(coordinates: coord) { city in
            
+            self.activityIndicator.startAnimating()
             self.fetchResultController.delegate = self
             try? self.fetchResultController.performFetch()
             self.weatherData = self.fetchResultController.fetchedObjects!
@@ -228,10 +231,13 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
             DispatchQueue.main.async {
                 vc.weatherData = self.weatherData
                 self.activityIndicator.stopAnimating()
-                vc.geolocationName = self.geolocationName
+                vc.geolocationName = city
+                self.activityIndicator.stopAnimating()
                 self.navigationController?.pushViewController(vc, animated: false)
             }
         }
+        CoreDataManager.shared.clearInitialStatesDataBase()
+        CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: self.initialCoordinates.2, isFahrenheitOn: false, isNotificationsOn: false)
     }
     
     
