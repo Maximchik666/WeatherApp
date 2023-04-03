@@ -38,7 +38,7 @@ final class SetupViewController: UIViewController {
     }()
     
     private lazy var whiteSquare: UIView = {
-       
+        
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "BackGround")
@@ -111,7 +111,7 @@ final class SetupViewController: UIViewController {
         whiteSquare.height(350)
         whiteSquare.left(to: view, offset: 20)
         whiteSquare.right(to: view, offset: -20)
-   
+        
         settingsLabel.top(to: whiteSquare, offset: 27)
         settingsLabel.leading(to: whiteSquare, offset: 20)
         settingsLabel.height(30)
@@ -139,7 +139,7 @@ final class SetupViewController: UIViewController {
     }
     
     @objc func didTapSaveButton() {
-     
+        
         delegate.notificatonState = notificationSwitch.isSelected
         delegate.temperatureState = temperatureSwitch.isSelected
         delegate.tableView.reloadData()

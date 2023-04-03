@@ -16,7 +16,7 @@ final class DailyWeatherViewController: UIViewController {
     weak var delegate: MainScreenViewController!
     
     lazy var tableView: UITableView = {
-       let view = UITableView()
+        let view = UITableView()
         view.delegate = self
         view.dataSource = self
         view.separatorStyle = .none
@@ -34,7 +34,7 @@ final class DailyWeatherViewController: UIViewController {
         tableView.edgesToSuperview()
     }
     
-    func backButtonCustomization() {
+    private func backButtonCustomization() {
         let backButton = UIButton()
         backButton.setTitle(" ← Вернуться назад", for: .normal)
         backButton.titleLabel?.font = UIFont(name: RubikFonts.light.rawValue, size: 15)
@@ -50,13 +50,13 @@ final class DailyWeatherViewController: UIViewController {
 }
 
 extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+        
         if indexPath.row == 0 {
             let cell = GeolocationNameTableViewCell()
             cell.geolocationLabel.text = delegate.geolocationName
@@ -70,13 +70,13 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             let cell = DailyWeatherTableViewCell()
             cell.weatherConditionLabel.text = weatherData[self.selectedCell].weatherCondition
-            cell.tempLabel.text = String(weatherData[self.selectedCell].highestTemp) + "°"
+            cell.tempLabel.text = String(String((Int((Double(weatherData[self.selectedCell].currentTemp) * delegate.tempMultiplicationCoef) + delegate.tempAdditionCoef)))) + "°"
             cell.cloudnessDataLabel.text = String(Int(weatherData[self.selectedCell].cloudiness*100)) + "%"
             cell.humidityDataLabel.text = String(weatherData[self.selectedCell].humidity) + "%"
             cell.conditionImage.image =  UIImage(named: weatherData[self.selectedCell].image ?? BundleImages.sun.rawValue)
             cell.sunriseDataLabel.text = weatherData[self.selectedCell].dawnTime
             cell.sunsetDataLabel.text = weatherData[self.selectedCell].sunsetTime
-            cell.feelsLikeDataLabel.text = String(weatherData[self.selectedCell].feelsLike) + "°"
+            cell.feelsLikeDataLabel.text = String(String((Int((Double(weatherData[self.selectedCell].feelsLike) * delegate.tempMultiplicationCoef) + delegate.tempAdditionCoef)))) + "°"
             cell.windSpeedDataLabel.text = String(weatherData[self.selectedCell].windSpeed) + " м/с"
             return cell
         }

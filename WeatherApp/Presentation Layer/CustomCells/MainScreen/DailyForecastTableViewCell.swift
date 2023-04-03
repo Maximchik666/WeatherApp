@@ -67,7 +67,7 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
     
     init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, date: String, humidity: Int, weatherCondition: String, lowestTemp: Int, highestTemp: Int, image: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
+        
         dataForDailyWeatherCell.date = date
         dataForDailyWeatherCell.humidity = humidity
         dataForDailyWeatherCell.weatherCondition = weatherCondition
@@ -114,7 +114,7 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
         
         seeMoreDetailLabel.centerY(to: lightBlueRectangle)
         seeMoreDetailLabel.rightToSuperview(offset: -20)
-
+        
         temperatureLabel.centerY(to: lightBlueRectangle)
         temperatureLabel.rightToLeft(of: seeMoreDetailLabel, offset: -10)
         

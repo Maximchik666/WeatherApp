@@ -49,10 +49,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         table.separatorStyle = .none
         return table
     }()
-    
-    let menuContainer = UIView()
-    var menuLeadingConstraint = NSLayoutConstraint()
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,7 +92,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
         tableView.edgesToSuperview()
     }
     
-    func createAlertForNewLocation(title: String, message: String, okActionTitle: String) {
+    private func createAlertForNewLocation(title: String, message: String, okActionTitle: String) {
         
         let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let errorAlertView = UIAlertController(title: "Упс...", message: "Такого места я не знаю. Давай попробуем другое!", preferredStyle:.alert)
@@ -168,11 +165,11 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     
     
     
-    @objc func getNewLocation() {
+    @objc private func getNewLocation() {
         createAlertForNewLocation(title: "Внимание!", message: "Введите название новой локации" , okActionTitle: "Принято")
     }
     
-    @objc func showSettings() {
+    @objc private func showSettings() {
         let vc = SetupViewController()
         vc.delegate = self
         vc.temperatureSwitch.isSelected = temperatureState

@@ -56,7 +56,7 @@ class CustomSwitch: UISwitch {
 }
 
 class BlueLine: UIView {
- 
+    
     init(){
         super .init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +73,7 @@ class CustomSwitcherButton : UIButton {
     @objc func didTap(){
         self.isSelected.toggle()
     }
-
+    
     init(imageOn: UIImage, imageOff: UIImage){
         super.init(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ class CustomSwitcherButton : UIButton {
         self.setImage(imageOn, for: .normal)
         addTarget(self, action: #selector(didTap), for: .touchUpInside)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

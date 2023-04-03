@@ -52,7 +52,7 @@ enum BundleColours {
 }
 
 enum Switchers {
-   
+    
     case notificationOn
     case notificationOff
     case temperatureCelcius

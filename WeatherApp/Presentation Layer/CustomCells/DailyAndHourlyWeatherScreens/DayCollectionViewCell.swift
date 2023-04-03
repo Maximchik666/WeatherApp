@@ -14,11 +14,11 @@ final class DayCollectionViewCell: UICollectionViewCell {
     
     
     override var isSelected: Bool {
-           didSet {
-               pickRectangle.backgroundColor = isSelected ? BundleColours.deepBlue.color : BundleColours.backGround.color
-               dayLabel.textColor = isSelected ? .white : .black
-           }
-       }
+        didSet {
+            pickRectangle.backgroundColor = isSelected ? BundleColours.deepBlue.color : BundleColours.backGround.color
+            dayLabel.textColor = isSelected ? .white : .black
+        }
+    }
     
     lazy var dayLabel = CustomTextLabel(text: "", textColor: .black, font: RubikFonts.regular.rawValue, fontSize: 14)
     
@@ -41,12 +41,12 @@ final class DayCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(pickRectangle)
         contentView.addSubview(dayLabel)
-       
+        
         pickRectangle.leftToSuperview()
         pickRectangle.topToSuperview()
         pickRectangle.height(40)
         pickRectangle.width(80)
-       
+        
         dayLabel.centerX(to: pickRectangle)
         dayLabel.centerY(to: pickRectangle)
     }

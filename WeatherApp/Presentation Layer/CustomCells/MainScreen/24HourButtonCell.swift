@@ -45,7 +45,4 @@ final class TwentyFourHourButtonCell: UITableViewCell {
     @objc private func didTapButton () {
         delegate.didTap24HoursButton()
     }
-    
-    
-    
 }

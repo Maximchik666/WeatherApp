@@ -105,7 +105,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
                     let vc = MainScreenViewController()
                     
                     DownloadManager().downloadWeather(coordinates: coord) { city in
-                       
+                        
                         self.fetchResultController.delegate = self
                         try? self.fetchResultController.performFetch()
                         self.weatherData = self.fetchResultController.fetchedObjects!
@@ -242,7 +242,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
     }
     
     
-@objc private func didTapSelfGeoButton() {
+    @objc private func didTapSelfGeoButton() {
         alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором тебе хочется узнать", okActionTitle: "Ок")
     }
     

@@ -66,7 +66,7 @@ class WelcomeAgainViewController: UIViewController, NSFetchedResultsControllerDe
         view.addSubview(welcomeImage)
         view.addSubview(greetingTextField)
         view.addSubview(activityIndicator)
-     
+        
     }
     
     private func addingConstraints () {
@@ -87,7 +87,7 @@ class WelcomeAgainViewController: UIViewController, NSFetchedResultsControllerDe
     }
     
     private func getData() {
-             
+        
         self.fetchResultControllerInitialState.delegate = self
         try? self.fetchResultControllerInitialState.performFetch()
         guard let initialData = self.fetchResultControllerInitialState.fetchedObjects!.first else {
