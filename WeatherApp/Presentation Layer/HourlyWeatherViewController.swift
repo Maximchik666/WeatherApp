@@ -68,7 +68,7 @@ extension HourlyWeatherViewController: UITableViewDelegate, UITableViewDataSourc
             cell.windDataLabel.text = String(hourlyForecastData[indexPath.row - 1].windSpeed) + "м/с"
             cell.conditionLabel.text = "Состояние: " + (hourlyForecastData[indexPath.row - 1].condition ?? "Error")
             cell.conditionImage.image = UIImage(named: hourlyForecastData[indexPath.row - 1].image ?? BundleImages.sun.rawValue)
-            cell.tempLabel.text = String(hourlyForecastData[indexPath.row - 1].temp) + "°"
+            cell.tempLabel.text = String((Int((Double(hourlyForecastData[indexPath.row - 1].temp) * delegate.tempMultiplicationCoef) + delegate.tempAdditionCoef))) + "°"
             cell.hourLabel.text = hourlyForecastData[indexPath.row - 1].hour! + ":00"
             cell.dateLabel.text = hourlyForecastData[indexPath.row - 1].date
             return cell

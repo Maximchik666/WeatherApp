@@ -118,7 +118,7 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
                         self.navigationItem.title = city
                         self.tableView.reloadData()
                         CoreDataManager.shared.clearInitialStatesDataBase()
-                        CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: city, isFahrenheitOn: self.temperatureState, isNotificationsOn: self.notificatonState)
+                        CoreDataManager.shared.addInitialStates(lattitude: self.initialCoordinates.0, longitude: self.initialCoordinates.1, locationName: city, isFahrenheitOn: self.temperatureState, isNotificationsOn: self.notificatonState)
                     }
                 }
             }

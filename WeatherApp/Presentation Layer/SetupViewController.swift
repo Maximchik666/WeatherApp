@@ -144,7 +144,7 @@ final class SetupViewController: UIViewController {
         delegate.temperatureState = temperatureSwitch.isSelected
         delegate.tableView.reloadData()
         CoreDataManager.shared.clearInitialStatesDataBase()
-        CoreDataManager.shared.addInitialStates(longitude: delegate.initialCoordinates.1, lattitude: delegate.initialCoordinates.0, locationName: delegate.initialCoordinates.2, isFahrenheitOn: temperatureSwitch.isSelected, isNotificationsOn: notificationSwitch.isSelected)
+        CoreDataManager.shared.addInitialStates(lattitude: delegate.initialCoordinates.0, longitude: delegate.initialCoordinates.1, locationName: delegate.initialCoordinates.2, isFahrenheitOn: temperatureSwitch.isSelected, isNotificationsOn: notificationSwitch.isSelected)
         dismiss(animated: true)
     }
 }

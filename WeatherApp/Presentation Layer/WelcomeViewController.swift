@@ -118,7 +118,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
                             vc.geolocationName = self.geolocationName
                             self.navigationController?.pushViewController(vc, animated: false)
                             CoreDataManager.shared.clearInitialStatesDataBase()
-                            CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: self.initialCoordinates.2, isFahrenheitOn: false, isNotificationsOn: false)
+                            CoreDataManager.shared.addInitialStates(lattitude: coord.0, longitude: coord.0, locationName: city, isFahrenheitOn: false, isNotificationsOn: false)
                         }
                     }
                 }
@@ -232,12 +232,14 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
                     vc.weatherData = self.weatherData
                     self.activityIndicator.stopAnimating()
                     vc.geolocationName = city
+                    vc.initialCoordinates = (coord.0, coord.1, city)
                     self.activityIndicator.stopAnimating()
                     self.navigationController?.pushViewController(vc, animated: false)
                 }
+                CoreDataManager.shared.clearInitialStatesDataBase()
+                CoreDataManager.shared.addInitialStates(lattitude: coord.0, longitude: coord.1, locationName: city, isFahrenheitOn: false, isNotificationsOn: false)
             }
-            CoreDataManager.shared.clearInitialStatesDataBase()
-            CoreDataManager.shared.addInitialStates(longitude: self.initialCoordinates.1, lattitude: self.initialCoordinates.0, locationName: coord.2, isFahrenheitOn: false, isNotificationsOn: false)
+           
         }
     }
     

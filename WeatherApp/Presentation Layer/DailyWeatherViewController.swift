@@ -70,7 +70,7 @@ extension DailyWeatherViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             let cell = DailyWeatherTableViewCell()
             cell.weatherConditionLabel.text = weatherData[self.selectedCell].weatherCondition
-            cell.tempLabel.text = String(String((Int((Double(weatherData[self.selectedCell].currentTemp) * delegate.tempMultiplicationCoef) + delegate.tempAdditionCoef)))) + "°"
+            cell.tempLabel.text = String((Int((Double(weatherData[self.selectedCell].lowestTemp) * delegate.tempMultiplicationCoef) + delegate.tempAdditionCoef))) + "°" + " / " + String((Int((Double(weatherData[self.selectedCell].highestTemp) * delegate.tempMultiplicationCoef) + delegate.tempAdditionCoef))) + "°"
             cell.cloudnessDataLabel.text = String(Int(weatherData[self.selectedCell].cloudiness*100)) + "%"
             cell.humidityDataLabel.text = String(weatherData[self.selectedCell].humidity) + "%"
             cell.conditionImage.image =  UIImage(named: weatherData[self.selectedCell].image ?? BundleImages.sun.rawValue)
