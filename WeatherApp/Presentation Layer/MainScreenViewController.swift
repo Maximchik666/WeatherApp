@@ -15,6 +15,8 @@ final class MainScreenViewController: UIViewController, NSFetchedResultsControll
     var notificatonState = false
     var initialCoordinates: (Double,Double,String) = (0,0,"")
     
+    
+    // Коэффициенты для перевода из Цельсиев в Фаренгейты. Феормула: currentTemp * tempMultiplicationCoef + tempAdditionCoef
     var tempMultiplicationCoef: Double {
         return temperatureState ? 1.8 : 1
     }

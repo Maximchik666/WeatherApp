@@ -197,7 +197,7 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
         let center = UNUserNotificationCenter.current()
         
         let content = UNMutableNotificationContent()
-        content.title = "Температура на сегодня"
+        content.title = "Доброе утро!"
         content.body = "Не забудьте проверить температуру на сегодня!"
         content.sound = UNNotificationSound.default
         

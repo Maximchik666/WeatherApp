@@ -10,7 +10,7 @@ import UIKit
 import TinyConstraints
 import CoreData
 
-class WelcomeAgainViewController: UIViewController, NSFetchedResultsControllerDelegate {
+final class WelcomeAgainViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     let fetchResultControllerForecasts: NSFetchedResultsController = {
         let fetchRequest = DailyForecastDataModel.fetchRequest()
