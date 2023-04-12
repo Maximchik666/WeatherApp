@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 
-class DownloadManager {
+final class DownloadManager {
     
     func downloadWeather (coordinates: (Double, Double, String), complition: @escaping (String) -> ()) {
         

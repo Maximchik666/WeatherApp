@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
+final class CoreDataManager {
     
     static let shared = CoreDataManager()
     
@@ -24,6 +24,7 @@ class CoreDataManager {
         })
         return container
     }()
+    
     
     // Сохранение контекста
     func saveContext () {

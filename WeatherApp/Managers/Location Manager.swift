@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class LocationManager {
+final class LocationManager {
     
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -22,7 +22,6 @@ class LocationManager {
     }
     
     func findUserLocation( completion: @escaping ((Double, Double, String)) -> ()) {
-        
         
         if let location = locationManager.location {
             CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
