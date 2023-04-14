@@ -124,18 +124,14 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
                 }
             }
         }
-        
         let tryAgainAction = UIAlertAction(title: "Давай попробуем!", style: .default) {_ in
             self.present(alertView,animated: true)
         }
-        
         let cancelAction = UIAlertAction(title: "Отмена", style: .default)
-        
         alertView.addTextField()
         alertView.addAction(okAction)
         alertView.addAction(cancelAction)
         errorAlertView.addAction(tryAgainAction)
-        
         present(alertView,animated: true)
     }
     
@@ -239,12 +235,10 @@ final class WelcomeViewController: UIViewController, NSFetchedResultsControllerD
                 CoreDataManager.shared.clearInitialStatesDataBase()
                 CoreDataManager.shared.addInitialStates(lattitude: coord.0, longitude: coord.1, locationName: city, isFahrenheitOn: false, isNotificationsOn: false)
             }
-           
         }
     }
     
     @objc private func didTapSelfGeoButton() {
         alert(title: "Приветствую!", message: "Введи пожалуйста населенный пункт, погоду в котором тебе хочется узнать", okActionTitle: "Ок")
     }
-    
 }

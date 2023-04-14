@@ -83,7 +83,6 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    
     private func addingSubviews(){
         
         addSubview(lightBlueRectangle)
@@ -95,7 +94,6 @@ final class DailyForecastMainScreenTableViewCell: UITableViewCell {
     }
     
     private func addingConstraints() {
-        
         
         lightBlueRectangle.edgesToSuperview(insets: TinyEdgeInsets(
             top: 5,

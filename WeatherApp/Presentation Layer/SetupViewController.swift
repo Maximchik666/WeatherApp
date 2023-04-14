@@ -14,7 +14,6 @@ final class SetupViewController: UIViewController {
     weak var delegate: MainScreenViewController!
     
     private lazy var upperCloud: UIImageView = {
-        
         let image = UIImageView()
         image.image = UIImage(named: "UpperCloud")
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +21,6 @@ final class SetupViewController: UIViewController {
     }()
     
     private lazy var middleCloud: UIImageView = {
-        
         let image = UIImageView()
         image.image = UIImage(named: "MiddleCloud")
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +28,6 @@ final class SetupViewController: UIViewController {
     }()
     
     private lazy var bottomCloud: UIImageView = {
-        
         let image = UIImageView()
         image.image = UIImage(named: "BottomCloud")
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +35,6 @@ final class SetupViewController: UIViewController {
     }()
     
     private lazy var whiteSquare: UIView = {
-        
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "BackGround")
@@ -70,7 +66,6 @@ final class SetupViewController: UIViewController {
         
         setUpView()
         addingConatraints()
-        
     }
     
     func setUpView(){

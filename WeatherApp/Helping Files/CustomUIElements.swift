@@ -52,7 +52,6 @@ class CustomSwitch: UISwitch {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 class BlueLine: UIView {

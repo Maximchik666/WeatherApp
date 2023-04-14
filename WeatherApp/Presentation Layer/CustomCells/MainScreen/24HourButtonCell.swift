@@ -36,7 +36,6 @@ final class TwentyFourHourButtonCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    
     private func addConstraints() {
         button.trailing(to: contentView, offset: -10)
         button.centerY(to: contentView)

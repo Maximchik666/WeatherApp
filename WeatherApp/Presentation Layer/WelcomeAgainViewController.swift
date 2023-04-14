@@ -60,13 +60,11 @@ final class WelcomeAgainViewController: UIViewController, NSFetchedResultsContro
         getData()
     }
     
-    
     private func setUpView() {
         view.backgroundColor = UIColor(named: "DeepBlue")
         view.addSubview(welcomeImage)
         view.addSubview(greetingTextField)
         view.addSubview(activityIndicator)
-        
     }
     
     private func addingConstraints () {

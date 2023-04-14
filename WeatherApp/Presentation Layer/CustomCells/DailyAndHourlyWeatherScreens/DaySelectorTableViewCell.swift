@@ -67,6 +67,4 @@ extension DaySelectorTableViewCell: UICollectionViewDelegateFlowLayout, UICollec
         delegate.selectedCell = indexPath.item
         delegate.tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .none)
     }
-    
-    
 }

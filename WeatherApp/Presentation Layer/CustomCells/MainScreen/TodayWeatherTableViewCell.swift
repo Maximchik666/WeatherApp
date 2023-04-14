@@ -40,7 +40,6 @@ final class TodayWeatherCell: UITableViewCell {
         
         contentView.addSubview(collectionView)
         setConstraints()
-        
     }
     
     required init?(coder: NSCoder) {

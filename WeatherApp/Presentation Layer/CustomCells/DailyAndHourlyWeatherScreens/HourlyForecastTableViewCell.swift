@@ -107,8 +107,4 @@ final class HourlyForecastTableViewCell: UITableViewCell {
         blueLine.height(1)
         blueLine.topToBottom(of: cloudnessImage, offset: 10)
     }
-    
-    
-    
-    
 }

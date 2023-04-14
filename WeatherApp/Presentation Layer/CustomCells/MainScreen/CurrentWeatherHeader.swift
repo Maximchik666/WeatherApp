@@ -22,7 +22,6 @@ final class CurrentWeatherHeader: UITableViewHeaderFooterView {
         return view
     }()
     
-    
     private lazy var ellipse: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "Ellipse")

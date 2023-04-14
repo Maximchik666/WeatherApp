@@ -38,7 +38,6 @@ final class SevenDaysForecast: UITableViewCell {
         contentView.addSubview(title)
         contentView.addSubview(button)
         addConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -58,5 +57,4 @@ final class SevenDaysForecast: UITableViewCell {
     @objc private func didTapButton () {
         delegate.didTap7DayForecastButton()
     }
-    
 }
